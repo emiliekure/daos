@@ -1,0 +1,60 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	height: 100%;
+	/* background-color: #2e313a; */
+	font-family: "Montserrat", sans-serif;
+}
+
+body {
+	line-height: 1.4;
+	-webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas {
+	display: block;
+	max-width: 100%;
+}
+
+svg {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+html:focus-within {
+	scroll-behavior: smooth;
+}
+
+* a {
+	text-decoration: none;
+}
