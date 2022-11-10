@@ -1,0 +1,22 @@
+h3 {
+	font-size: 1.25rem;
+	font-family: "Oswald", sans-serif;
+	color: #353a5d;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.all-icon {
+	position: absolute;
+    bottom: 0px;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    -moz-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    transform: translate(-50%);
+}
+
+.all-icon img {
+	height: 9rem;
+	width: auto;
+}

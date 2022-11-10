@@ -2,6 +2,7 @@
 *::before,
 *::after {
 	box-sizing: border-box;
+    word-wrap: break-word;
 }
 
 * {
@@ -38,7 +39,11 @@ input,
 button,
 textarea,
 select {
-	font: inherit;
+	font-family: inherit;
+}
+
+ul {
+	list-style: none;
 }
 
 p,

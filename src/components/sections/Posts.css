@@ -1,0 +1,60 @@
+section.posts {
+	background-color: #faf9f9;
+	padding: 32px 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.posts .header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.posts .header h2 {
+	font-size: 36px;
+	font-family: "Oswald", sans-serif;
+	color: #353a5d;
+}
+
+.posts .header a {
+	color: #bf1e2e;
+	font-weight: 700;
+}
+
+.postlist {
+	display: grid;
+	gap: 1.5rem;
+	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+}
+
+.card {
+	background-color: white;
+	cursor: pointer;
+	border-radius: 12px;
+	border: 1px solid #cccccc;
+	display: flex;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+	flex-basis: 20rem;
+	-webkit-box-flex: 1;
+	flex-grow: 1;
+	flex-shrink: 1;
+	flex-direction: column;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	transition: all 0.2s ease-in-out 0s;
+}
+
+.card:hover {
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.card#all-posts-link {
+	align-items: center;
+    justify-content: center;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
