@@ -8,10 +8,13 @@ import TheLogin from "./components/TheLogin";
 
 function App() {
   return (
-    <div>
+    <div className="page-wrapper">
       {/* <TheLogin /> */}
       {/* <TheSignUp /> */}
       <ThePost />
+      {/* <TheHeader />
+			<TheMain />
+			<TheFooter /> */}
     </div>
   );
 }

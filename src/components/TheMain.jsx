@@ -1,9 +1,12 @@
-import styles from "./TheMain.module.css"
+import Hero from "./sections/Hero"
+import Posts from "./sections/Posts"
+import "./TheMain.module.css"
 
 export default function TheMain() {
 	return(
-		<main className={styles.main}>
-
+		<main>
+			<Hero />
+			<Posts />
 		</main>
 	)
 }
