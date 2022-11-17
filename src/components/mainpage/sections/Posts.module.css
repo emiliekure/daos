@@ -1,0 +1,25 @@
+.posts {
+	background-color: #faf9f9;
+	padding: 32px 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header h2 {
+	font-size: 36px;
+	font-family: "Oswald", sans-serif;
+	color: #353a5d;
+}
+
+.header a {
+	color: #bf1e2e;
+	font-weight: 700;
+}
+
