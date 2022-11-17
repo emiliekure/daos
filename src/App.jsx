@@ -1,22 +1,20 @@
-import TheHeader from "./components/TheHeader";
-import TheMain from "./components/TheMain";
-import TheFooter from "./components/TheFooter";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import TheSignUp from "./components/TheSignUp";
-import ThePost from "./components/ThePost";
-import TheLogin from "./components/TheLogin";
+import MainPage from "./pages/MainPage.jsx";
+import PostsPage from "./pages/PostsPage.jsx";
 
 function App() {
-  return (
-    <div className="page-wrapper">
-      {/* <TheLogin /> */}
-      {/* <TheSignUp /> */}
-      <ThePost />
-      {/* <TheHeader />
-			<TheMain />
-			<TheFooter /> */}
-    </div>
-  );
+	return (
+		<>
+			<Routes>
+				<Route path="/" element={<MainPage />} exact />
+				<Route path="/posts" element={<PostsPage />} />
+				<Route path="/signup" element={<SignupPage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/createpost" element={<CreatePostPage />} />
+			</Routes>
+		</>
+	);
 }
 
 export default App;
