@@ -1,0 +1,22 @@
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  width: 200px;
+  padding: 32px;
+  margin: auto;
+}
+
+label,
+input,
+select {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
