@@ -1,4 +1,5 @@
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
+import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -7,11 +8,11 @@ export default function Hero() {
 			<div className={styles.title}>
 				<h1>Where amateur musicians connect to play classical music</h1>
 				<div className="buttons">
-					<select name="quick-search" id="quick-search">
-						<option value="Instrument1">Instrument1</option>
-						<option value="Instrument2">Instrument2</option>
-						<option value="Instrument3">Instrument3</option>
-					</select>
+					<InstrumentSelect
+						name="instrument"
+						value=""
+						onChange=""
+					/>
 					<PrimaryButton text="See posts" />
 				</div>
 			</div>

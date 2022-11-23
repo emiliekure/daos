@@ -1,5 +1,13 @@
+html, body, #root {
+	height: 100%;
+}
+
 .page-wrapper {
-  height: 100%;
+  min-height: 100%;
   display: grid;
-  grid-template-rows: min-content auto min-content;
+  grid-template-rows: auto 1fr auto;
+}
+
+main {
+	background-color: #FAF9F9;
 }

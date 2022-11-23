@@ -22,6 +22,7 @@ export default function InstrumentSelect({ name, value, onChange }) {
 		"Celesta",
 		"Cembalo",
 		"Organ",
+		"Conductor",
 	];
 
 	return (
