@@ -1,0 +1,17 @@
+.hero {
+	background-color: #FAF9F9;
+	padding: 32px 40px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.title h1 {
+	font-size: 3.75rem;
+	font-family: "Oswald", sans-serif;
+	color: #bf1e2e;
+}
+
+.heroimage {
+	padding: 3.5rem;
+	width: 100%;
+}
