@@ -28,6 +28,10 @@ header ul {
 
 header li {
 	font-weight: 700;
+}
+
+header li a {
+	color: #353a5d;
     padding: 16px;
 }
 

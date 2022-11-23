@@ -1,0 +1,7 @@
+.fieldgroup label {
+	display: inline-block;
+}
+
+.fieldgroup label::first-letter {
+	text-transform: capitalize;
+}

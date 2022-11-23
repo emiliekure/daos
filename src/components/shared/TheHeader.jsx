@@ -1,5 +1,5 @@
-import PrimaryButton from "../atoms/PrimaryButton";
-import SecondaryButton from "../atoms/SecondaryButton";
+import PrimaryButton from "../atoms/buttons/PrimaryButton";
+import SecondaryButton from "../atoms/buttons/SecondaryButton";
 import styles from "./TheHeader.module.css";
 import { Link } from "react-router-dom";
 
@@ -22,8 +22,12 @@ export default function TheHeader() {
 					</li>
 				</ul>
 				<div className={styles.buttons}>
-					<PrimaryButton text="Sign up" />
-					<SecondaryButton text="Login" />
+					<Link to={"/signup"}>
+						<PrimaryButton type="button" text="Sign up" />
+					</Link>
+					<Link to={"/login"}>
+						<SecondaryButton type="button" text="Login" />
+					</Link>
 				</div>
 			</nav>
 		</header>

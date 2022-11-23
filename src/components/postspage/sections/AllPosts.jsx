@@ -6,8 +6,9 @@ export default function AllPosts() {
 		<section className={styles.allPosts}>
 			<div className={styles.header}>
 				<h1>Posts</h1>
+				<p id="resultCounter"></p>
 			</div>
-			<PostList />
+			<PostList slice={[]} />
 		</section>
 	)
 }

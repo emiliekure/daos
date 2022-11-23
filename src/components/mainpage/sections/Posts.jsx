@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PostList from "../../shared/PostList";
 import styles from "./Posts.module.css";
 
@@ -6,9 +7,9 @@ export default function Posts() {
 		<section className={styles.posts}>
 			<div className={styles.header}>
 				<h2>Latest posts</h2>
-				<a href="#">See all posts</a>
+				<Link to={"/posts"}>See all posts</Link>
 			</div>
-			<PostList sliceStart={0} sliceEnd={7} />
+			<PostList slice={[0, 7]} />
 		</section>
 	);
 }

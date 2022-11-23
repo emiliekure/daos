@@ -62,4 +62,6 @@ html:focus-within {
 
 * a {
 	text-decoration: none;
+	display: block;
+	font: inherit;
 }

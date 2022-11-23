@@ -2,6 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import MainPage from "./pages/MainPage.jsx";
 import PostsPage from "./pages/PostsPage.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import CreatePostPage from "./pages/CreatePostPage.jsx";
 
 function App() {
 	return (

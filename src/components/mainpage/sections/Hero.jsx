@@ -1,4 +1,4 @@
-import PrimaryButton from "../../atoms/PrimaryButton";
+import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
