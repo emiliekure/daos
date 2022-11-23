@@ -33,7 +33,7 @@ export default function LoginForm() {
 
 	return (
 		<div className={styles.formWrapper}>
-			<h2>Log In</h2>
+			<h1>Log In</h1>
 			<form className={styles.form}>
 				<p>{error}</p>
 

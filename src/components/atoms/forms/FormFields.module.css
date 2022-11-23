@@ -1,7 +1,16 @@
+.fieldgroup {
+	display: flex;
+	flex-direction: column;
+}
+
 .fieldgroup label {
 	display: inline-block;
 }
 
 .fieldgroup label::first-letter {
 	text-transform: capitalize;
+}
+
+textarea {
+	resize: none;
 }
