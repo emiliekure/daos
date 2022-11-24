@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
 import RadioGroup from "../../atoms/forms/RadioGroup";
@@ -7,98 +7,115 @@ import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
 
 export default function PostForm() {
-	const [title, setTitle] = useState("");
-	const [post, setPost] = useState();
-	const [instrument, setInstrument] = useState("");
-	const [description, setDescription] = useState("");
-	const [location, setLocation] = useState("");
-	const [valid, setValid] = useState(undefined);
-	const [error, setError] = useState("");
-	// radio input for Post type (not sure if this is the correct way)
-	const [radio, setRadio] = useState("");
+  const [valid, setValid] = useState(undefined);
+  const [error, setError] = useState("");
 
-	// Function to verify the inputs
-	const verifyInputs = () => {
-		if (
-			title === "" ||
-			radio === "" ||
-			instrument === "" ||
-			description === "" ||
-			location === ""
-		) {
-			setValid(false);
-			setError("");
-		} else {
-			setValid(true);
-		}
-	};
+  const reducer = (state, newValues) => {
+    return { ...state, ...newValues };
+  };
 
-	const verifyRadio = (event) => {
-		setRadio(event.target.value);
-		console.log(radio);
-	};
+  const [formValues, dispatch] = useReducer(reducer, {
+    title: "",
+    /*  radio: "", */
+    instrument: "",
+    description: "",
+    location: "",
+  });
 
-	const updateTitle = (event) => {
-		setTitle(event.target.value);
-	};
+  const updateFormValue = (event) => {
+    const { name, value /* , type, checked  */ } = event.target;
+    /*  const result = type === "radio" || type === "checkbox" ? checked : value; */
+    dispatch({
+      [name]: value,
+    });
+  };
 
-	const updatePost = (event) => {
-		setPost(event.target.value);
-	};
+  // Function to verify the inputs
+  const verifyInputs = () => {
+    if (
+      formValues.title === "" ||
+      /* formValues.radio === "" || */
+      formValues.instrument === "" ||
+      formValues.description === "" ||
+      formValues.location === ""
+    ) {
+      setValid(false);
+      setError("");
+    } else {
+      setValid(true);
+    }
+  };
 
-	const updateInstrument = (event) => {
-		setInstrument(event.target.value);
-	};
+  return (
+    <section className={styles.formWrapper}>
+      <h1>Create post</h1>
+      <form className={styles.form}>
+        <TextField
+          name="title"
+          max="120"
+          placeholder=""
+          value={formValues.title}
+          onChange={updateFormValue}
+        />
 
-	const updateDescription = (event) => {
-		setDescription(event.target.value);
-	};
+        <h2>Post type</h2>
+        <div className={styles.radio1}>
+          <label htmlFor="offered">
+            Offered
+            <input
+              name="post-type"
+              id="offered"
+              type="radio"
+              value="Offered"
+              required
+              onClick={updateFormValue}
+            />
+          </label>
+        </div>
+        <div className={styles.radio2}>
+          <label htmlFor="wanted">
+            Wanted
+            <input
+              name="post-type"
+              id="wanted"
+              type="radio"
+              value="Wanted"
+              required
+              onClick={updateFormValue}
+            />
+          </label>
+        </div>
 
-	const updateLocation = (event) => {
-		setLocation(event.target.value);
-	};
+        {/* <RadioGroup
+		 value
+          options={["offered", "wanted"]}
+          group="post-type"
+          onClick={updateFormValue}
+        /> */}
 
-	return (
-		<section className={styles.formWrapper}>
-			<h1>Create post</h1>
-			<form className={styles.form}>
-				<TextField
-					name="title"
-					max="120"
-					placeholder=""
-					value={title}
-					onChange={updateTitle}
-				/>
+        <InstrumentSelect
+          name="instrument"
+          value={formValues.instrument}
+          onChange={updateFormValue}
+        />
 
-				<RadioGroup options={["offered", "wanted"]} group="post-type" onClick={verifyRadio} />
+        <TextField
+          name="location"
+          max=""
+          value={formValues.location}
+          onChange={updateFormValue}
+        />
 
-				<InstrumentSelect
-					name="instrument"
-					value={instrument}
-					onChange={updateInstrument}
-				/>
+        <TextareaField
+          name="description"
+          value={formValues.description}
+          onChange={updateFormValue}
+        />
 
-				<TextField
-					name="location"
-					max=""
-					value={location}
-					onChange={updateLocation}
-				/>
-
-				<TextareaField
-					name="description"
-					value={description}
-					onChange={updateDescription}
-				/>
-
-				<PrimaryButton
-					type="button"
-					onClick={verifyInputs}
-					text="Submit"
-				/>
-				{valid && <p>Post created successfully!</p>}
-				{valid === false && <p>Post creation failed</p>}
-			</form>
-		</section>
-	);
+        <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
+        {valid && <p>Post created successfully!</p>}
+        {valid === false && <p>Post creation failed</p>}
+      </form>
+    </section>
+  );
 }

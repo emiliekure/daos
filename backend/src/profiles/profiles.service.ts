@@ -22,7 +22,7 @@ export class ProfileService {
   updateProfile(id: string, profile: any) {
     return this.prModel.updateOne({ _id: id }, profile);
   }
-  loginUser(username: string) {
-    return this.prModel.findOne({ email: username });
+  async findUser(email: string) {
+    return this.prModel.findOne({ email: email });
   }
 }

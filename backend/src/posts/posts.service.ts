@@ -3,8 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Posts, PostDocument } from './posts.schema';
 
-const ObjectId = require('mongodb').ObjectId;
-
 @Injectable()
 export class PostService {
   constructor(@InjectModel(Posts.name) private pModel: Model<PostDocument>) {}

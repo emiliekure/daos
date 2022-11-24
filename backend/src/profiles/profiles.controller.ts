@@ -7,10 +7,13 @@ import {
   Post,
   Put,
   Req,
+  UseGuards,
 } from '@nestjs/common';
-import { ProfileService } from './profiles.service';
+
 import { Request } from 'express';
-import { Profile } from './profiles.schema';
+import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { Profile } from './../profiles/profiles.schema';
+import { ProfileService } from './../profiles/profiles.service';
 
 @Controller('profiles')
 export class ProfilesController {
@@ -29,20 +32,14 @@ export class ProfilesController {
   createProfile(@Body() body) {
     return this.prService.createProfile(body);
   }
+  @UseGuards(LocalAuthGuard)
   @Delete('/deletProfile/:id')
   deleteProfile(@Param('id') id: string) {
     return this.prService.deleteProfile(id);
   }
+  @UseGuards(LocalAuthGuard)
   @Put('/updateProfile/:id')
   updateProfile(@Param('id') id: string, @Body() body) {
     return this.prService.updateProfile(id, body);
-  }
-  @Post('auth/login')
-  async loginUser(@Req() request: Request, @Body() body): Promise<Profile> {
-    console.log(request);
-    const result: Profile = await this.prService.loginUser(body.email);
-    console.log(result);
-
-    return result;
   }
 }
