@@ -32,7 +32,7 @@ export default function LoginForm() {
 	};
 
 	return (
-		<div className={styles.formWrapper}>
+		<section className={styles.formWrapper}>
 			<h1>Log In</h1>
 			<form className={styles.form}>
 				<p>{error}</p>
@@ -46,6 +46,6 @@ export default function LoginForm() {
 				{valid && <p>Login successful!</p>}
 				{valid === false && <p>Login failed</p>}
 			</form>
-		</div>
+		</section>
 	);
 }

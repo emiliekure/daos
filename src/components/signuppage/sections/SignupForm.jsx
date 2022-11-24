@@ -58,7 +58,7 @@ export default function SignupForm() {
 	};
 
 	return (
-		<div className={styles.formWrapper}>
+		<section className={styles.formWrapper}>
 			<h1>Sign Up</h1>
 			<form className={styles.form}>
 				<TextField
@@ -105,6 +105,6 @@ export default function SignupForm() {
 				{valid && <p>Sign up successful!</p>}
 				{valid === false && <p>Sign up failed</p>}
 			</form>
-		</div>
+		</section>
 	);
 }
