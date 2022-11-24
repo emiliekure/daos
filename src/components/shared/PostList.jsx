@@ -102,6 +102,7 @@ export default function PostList({slice}) {
 				return (
 					<PostItem
 						style={styles.card}
+						key={post._id}
 						id={post._id}
 						title={post.title}
 						author={post.author}

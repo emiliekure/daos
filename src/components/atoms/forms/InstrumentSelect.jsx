@@ -23,24 +23,30 @@ export default function InstrumentSelect({ name, value, onChange }) {
 		"Cembalo",
 		"Organ",
 		"Conductor",
-		"All instruments",
+		// "All instruments",
 	];
 
 	return (
 		<div className={styles.fieldgroup}>
-			<label for={name}><h2>{name.replace("-", " ")}</h2></label>
+			<label htmlFor={name}>
+				<h2>{name.replace("-", " ")}</h2>
+			</label>
 			<select
 				name={name}
 				id={name}
 				required
-				value={value}
+				defaultValue={value}
 				onChange={onChange}
 			>
-				<option disabled selected value="">
+				<option disabled value={""}>
 					Please choose your instrument
 				</option>
-				{instruments.sort().map((instrument) => {
-					return <option value={instrument}>{instrument}</option>;
+				{instruments.sort().map((instrument, index) => {
+					return (
+						<option value={instrument} key={"instrument-" + index}>
+							{instrument}
+						</option>
+					);
 				})}
 				<option value="Other instrument">Other instrument</option>
 				<option value="Other percussion">Other percussion</option>

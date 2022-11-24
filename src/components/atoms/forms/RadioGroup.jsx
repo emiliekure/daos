@@ -1,12 +1,13 @@
 import styles from "./FormFields.module.css";
 
-export default function RadioGroup({options, group, onClick }) {
+export default function RadioGroup({ options, group, onClick }) {
 	return (
 		<div className={styles.fieldgroup}>
 			<h2>{group.replace("-", " ")}</h2>
-			{options.map((option) => {
+			{options.map((option, index) => {
 				return (
-					<label for={option} className={styles.radiolabel}>
+					<label htmlFor={option} className={styles.radiolabel}
+					key={"radio-" + index}>
 						{option.charAt(0).toUpperCase() + option.slice(1)}
 						<input
 							name={group}

@@ -5,6 +5,7 @@ import PostsPage from "./pages/PostsPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import CreatePostPage from "./pages/CreatePostPage.jsx";
+import CreateEnsemblePage from "./pages/CreateEnsemblePage";
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 				<Route path="/signup" element={<SignupPage />} />
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/createpost" element={<CreatePostPage />} />
+				<Route path="/create-ensemble" element={<CreateEnsemblePage />} />
 			</Routes>
 		</>
 	);

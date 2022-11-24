@@ -8,6 +8,12 @@
 	display: inline-block;
 }
 
+.fieldgroup h2 {
+	color: #353a5d;
+	font-size: 20px;
+	margin-bottom: 8px;
+}
+
 .fieldgroup h2::after {
 	content: " *";
 	color: #bf1e2e;

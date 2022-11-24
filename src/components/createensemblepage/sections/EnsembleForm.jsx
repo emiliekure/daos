@@ -1,28 +1,21 @@
 import { useState } from "react";
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
-import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
-import RadioGroup from "../../atoms/forms/RadioGroup";
 import TextareaField from "../../atoms/forms/TextareaField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
 
-export default function PostForm() {
-	const [title, setTitle] = useState("");
+export default function EnsembleForm() {
+	const [name, setName] = useState("");
 	const [post, setPost] = useState();
-	const [instrument, setInstrument] = useState("");
 	const [description, setDescription] = useState("");
 	const [location, setLocation] = useState("");
 	const [valid, setValid] = useState(undefined);
 	const [error, setError] = useState("");
-	// radio input for Post type (not sure if this is the correct way)
-	const [radio, setRadio] = useState("");
 
 	// Function to verify the inputs
 	const verifyInputs = () => {
 		if (
-			title === "" ||
-			radio === "" ||
-			instrument === "" ||
+			name === "" ||
 			description === "" ||
 			location === ""
 		) {
@@ -33,21 +26,12 @@ export default function PostForm() {
 		}
 	};
 
-	const verifyRadio = (event) => {
-		setRadio(event.target.value);
-		console.log(radio);
-	};
-
-	const updateTitle = (event) => {
-		setTitle(event.target.value);
+	const updateName = (event) => {
+		setName(event.target.value);
 	};
 
 	const updatePost = (event) => {
 		setPost(event.target.value);
-	};
-
-	const updateInstrument = (event) => {
-		setInstrument(event.target.value);
 	};
 
 	const updateDescription = (event) => {
@@ -63,23 +47,11 @@ export default function PostForm() {
 			<h1>Create post</h1>
 			<form className={styles.form}>
 				<TextField
-					name="title"
-					max="120"
+					name="ensemble-name"
+					max=""
 					placeholder=""
-					value={title}
-					onChange={updateTitle}
-				/>
-
-				<RadioGroup
-					options={["offered", "wanted"]}
-					group="post-type"
-					onClick={verifyRadio}
-				/>
-
-				<InstrumentSelect
-					name="instrument"
-					value={instrument}
-					onChange={updateInstrument}
+					value={name}
+					onChange={updateName}
 				/>
 
 				<TextField

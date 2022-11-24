@@ -11,7 +11,6 @@ export default function Hero() {
 					<InstrumentSelect
 						name="instrument"
 						value=""
-						onChange=""
 					/>
 					<PrimaryButton text="See posts" />
 				</div>
