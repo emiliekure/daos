@@ -1,7 +1,6 @@
 import { useReducer, useState } from "react";
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
-import RadioGroup from "../../atoms/forms/RadioGroup";
 import TextareaField from "../../atoms/forms/TextareaField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
@@ -51,8 +50,33 @@ export default function PostForm() {
       const createdPost = { ...formValues };
       createdPost.radio = radioStatus;
       console.log(createdPost);
+      const token = localStorage.getItem("token");
+      createPost(createdPost, token);
+      formValues.title = "";
+      formValues.instrument = "";
+      formValues.description = "";
+      formValues.location = "";
+      setRadioStatus("");
     }
   };
+
+  function createPost(post, token) {
+    if (token !== "") {
+      fetch("http://localhost:3004/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(post),
+      })
+        .then((response) => response.json())
+        .then((response) => console.log(response))
+        .catch((err) => console.error(err));
+    } else {
+      console.log("Error - unauthorized");
+    }
+  }
 
   return (
     <section className={styles.formWrapper}>

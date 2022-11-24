@@ -12,7 +12,7 @@ export class Profile {
   surname: string;
 
   @Prop({ required: true })
-  expertise: string;
+  instrument: string;
 
   @Prop()
   email: string;

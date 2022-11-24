@@ -33,7 +33,7 @@ export class PostsController {
     return this.pService.deletePost(id);
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   createPost(@Body() body) {
     return this.pService.createPost(body);

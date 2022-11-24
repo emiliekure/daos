@@ -44,8 +44,28 @@ export default function SignupForm() {
       setError("");
     } else {
       setValid(true);
+      createProfile();
+      formValues.name = "";
+      formValues.surname = "";
+      formValues.instrument = "";
+      formValues.email = "";
+      formValues.password = "";
+      setConfPassword("");
     }
   };
+
+  function createProfile() {
+    fetch("http://localhost:3004/profiles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formValues),
+    })
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+  }
 
   const updateConfPassword = (event) => {
     setConfPassword(event.target.value);
@@ -64,7 +84,7 @@ export default function SignupForm() {
         />
 
         <TextField
-          name="last-name"
+          name="surname"
           max=""
           placeholder=""
           value={formValues.surname}
