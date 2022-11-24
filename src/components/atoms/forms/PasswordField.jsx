@@ -3,7 +3,7 @@ import styles from "./FormFields.module.css"
 export default function PasswordField({type, value, onChange}) {
 	return (
 		<div className={styles.fieldgroup}>
-			<label for={type}>{type.replace("-", " ")}</label>
+			<label for={type}><h2>{type.replace("-", " ")}</h2></label>
 			<input
 				name={type}
 				id={type}

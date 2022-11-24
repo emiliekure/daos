@@ -7,7 +7,7 @@ export default function Hero() {
 		<section className={styles.hero}>
 			<div className={styles.title}>
 				<h1>Where amateur musicians connect to play classical music</h1>
-				<div className="buttons">
+				<div className={styles.buttons}>
 					<InstrumentSelect
 						name="instrument"
 						value=""

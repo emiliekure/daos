@@ -4,6 +4,9 @@ button {
 	border-radius: 8px;
 	padding: 16px 24px;
 	cursor: pointer;
+	width: min-content;
+	height: min-content;
+	white-space: nowrap;
 }
 
 .primary_button {

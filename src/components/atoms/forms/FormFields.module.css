@@ -1,16 +1,38 @@
 .fieldgroup {
 	display: flex;
 	flex-direction: column;
+	gap: 4px;
 }
 
 .fieldgroup label {
 	display: inline-block;
 }
 
-.fieldgroup label::first-letter {
+.fieldgroup h2::after {
+	content: " *";
+	color: #bf1e2e;
+}
+
+.fieldgroup h2::first-letter {
 	text-transform: capitalize;
+}
+
+.fieldgroup label.radiolabel {
+	display: flex;
+	flex-direction: row-reverse;
+	align-self: flex-start;
+	gap: 12px;
+}
+
+input, select, textarea {
+	font-size: 16px;
+	padding: 16px;
+	border-radius: 8px;
+	border: 1px solid #cccccc;
+
 }
 
 textarea {
 	resize: none;
+	height: 160px;
 }

@@ -23,7 +23,6 @@ header nav {
 
 header ul {
 	display: flex;
-	gap: 16px;
 }
 
 header li {
@@ -33,6 +32,8 @@ header li {
 header li a {
 	color: #353a5d;
     padding: 16px;
+	width: min-content;
+	white-space: nowrap;
 }
 
 .buttons {

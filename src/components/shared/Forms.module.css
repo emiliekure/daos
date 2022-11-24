@@ -1,9 +1,24 @@
 .formWrapper {
 	display: flex;
 	flex-direction: column;
+	width: 520px;
+	gap: 20px;
+	margin: auto;
+}
+
+h1 {
+	font-family: 'Oswald', sans-serif;
+	font-size: 48px;
+	color: #bf1e2e;
 }
 
 .form {
 	display: flex;
 	flex-direction: column;
+	gap: 20px;
+}
+
+.form button {
+	align-self: center;
+	margin-top: 32px;
 }

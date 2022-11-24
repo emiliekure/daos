@@ -23,11 +23,12 @@ export default function InstrumentSelect({ name, value, onChange }) {
 		"Cembalo",
 		"Organ",
 		"Conductor",
+		"All instruments",
 	];
 
 	return (
 		<div className={styles.fieldgroup}>
-			<label for={name}>{name.replace("-", " ")}</label>
+			<label for={name}><h2>{name.replace("-", " ")}</h2></label>
 			<select
 				name={name}
 				id={name}

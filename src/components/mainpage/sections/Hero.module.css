@@ -1,7 +1,12 @@
 .hero {
-	padding: 32px 40px;
 	display: flex;
 	justify-content: space-between;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
 }
 
 .title h1 {
@@ -13,4 +18,10 @@
 .heroimage {
 	padding: 3.5rem;
 	width: 100%;
+}
+
+.buttons {
+	display: flex;
+	gap: 20px;
+	align-items: flex-end;
 }

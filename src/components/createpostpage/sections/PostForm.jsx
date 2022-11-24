@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
-import RadioField from "../../atoms/forms/RadioField";
+import RadioGroup from "../../atoms/forms/RadioGroup";
 import TextareaField from "../../atoms/forms/TextareaField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
@@ -59,7 +59,7 @@ export default function PostForm() {
 	};
 
 	return (
-		<div className={styles.formWrapper}>
+		<section className={styles.formWrapper}>
 			<h1>Create post</h1>
 			<form className={styles.form}>
 				<TextField
@@ -70,11 +70,7 @@ export default function PostForm() {
 					onChange={updateTitle}
 				/>
 
-				<p>Post type</p>
-
-				<RadioField name="offered" group="post-type" onClick={verifyRadio} />
-				
-				<RadioField name="wanted" group="post-type" onClick={verifyRadio} />
+				<RadioGroup options={["offered", "wanted"]} group="post-type" onClick={verifyRadio} />
 
 				<InstrumentSelect
 					name="instrument"
@@ -103,6 +99,6 @@ export default function PostForm() {
 				{valid && <p>Post created successfully!</p>}
 				{valid === false && <p>Post creation failed</p>}
 			</form>
-		</div>
+		</section>
 	);
 }
