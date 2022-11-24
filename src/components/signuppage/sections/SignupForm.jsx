@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import EmailField from "../../atoms/forms/EmailField";
 import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
@@ -7,104 +7,114 @@ import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
 
 export default function SignupForm() {
-	const [fname, setFname] = useState("");
-	const [lname, setLname] = useState("");
-	const [instrument, setInstrument] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [confpassword, setConfPassword] = useState("");
-	const [valid, setValid] = useState(undefined);
-	const [error, setError] = useState("");
+  const [valid, setValid] = useState(undefined);
+  const [error, setError] = useState("");
+  const [confpassword, setConfPassword] = useState("");
 
-	//Function to verify the inputs
-	const verifyInputs = () => {
-		if (
-			fname === "" ||
-			lname === "" ||
-			field === "" ||
-			email === "" ||
-			password === "" ||
-			confpassword === ""
-		) {
-			setValid(false);
-			setError("");
-		} else {
-			setValid(true);
-		}
-	};
+  const reducer = (state, newValues) => {
+    return { ...state, ...newValues };
+  };
 
-	const updateFname = (event) => {
-		setFname(event.target.value);
-	};
+  const [formValues, dispatch] = useReducer(reducer, {
+    name: "",
+    surname: "",
+    instrument: "",
+    email: "",
+    password: "",
+  });
 
-	const updateLname = (event) => {
-		setLname(event.target.value);
-	};
+  const updateFormValue = (event) => {
+    const { name, value } = event.target;
+    dispatch({
+      [name]: value,
+    });
+  };
 
-	const updateInstrument = (event) => {
-		setInstrument(event.target.value);
-	};
+  //Function to verify the inputs
+  const verifyInputs = () => {
+    if (
+      fname === "" ||
+      lname === "" ||
+      field === "" ||
+      email === "" ||
+      password === "" ||
+      confpassword === ""
+    ) {
+      setValid(false);
+      setError("");
+    } else {
+      setValid(true);
+    }
+  };
 
-	const updateEmail = (event) => {
-		setEmail(event.target.value);
-	};
+  const updateFname = (event) => {
+    setFname(event.target.value);
+  };
 
-	const updatePassword = (event) => {
-		setPassword(event.target.value);
-	};
+  const updateLname = (event) => {
+    setLname(event.target.value);
+  };
 
-	const updateConfPassword = (event) => {
-		setConfPassword(event.target.value);
-	};
+  const updateInstrument = (event) => {
+    setInstrument(event.target.value);
+  };
 
-	return (
-		<section className={styles.formWrapper}>
-			<h1>Sign Up</h1>
-			<form className={styles.form}>
-				<TextField
-					name="first-name"
-					max=""
-					placeholder=""
-					value={fname}
-					onChange={updateFname}
-				/>
+  const updateEmail = (event) => {
+    setEmail(event.target.value);
+  };
 
-				<TextField
-					name="last-name"
-					max=""
-					placeholder=""
-					value={lname}
-					onChange={updateLname}
-				/>
+  const updatePassword = (event) => {
+    setPassword(event.target.value);
+  };
 
-				<InstrumentSelect
-					name="instrument"
-					value={instrument}
-					onChange={updateInstrument}
-				/>
+  const updateConfPassword = (event) => {
+    setConfPassword(event.target.value);
+  };
 
-				<EmailField value={email} onChange={updateEmail} />
+  return (
+    <section className={styles.formWrapper}>
+      <h1>Sign Up</h1>
+      <form className={styles.form}>
+        <TextField
+          name="first-name"
+          max=""
+          placeholder=""
+          value={fname}
+          onChange={updateFname}
+        />
 
-				<PasswordField
-					type="password"
-					value={password}
-					onChange={updatePassword}
-				/>
+        <TextField
+          name="last-name"
+          max=""
+          placeholder=""
+          value={lname}
+          onChange={updateLname}
+        />
 
-				<PasswordField
-					type="confirm-password"
-					value={confpassword}
-					onChange={updateConfPassword}
-				/>
+        <InstrumentSelect
+          name="instrument"
+          value={instrument}
+          onChange={updateInstrument}
+        />
 
-				<PrimaryButton
-					type="button"
-					onClick={verifyInputs}
-					text="Submit"
-				/>
-				{valid && <p>Sign up successful!</p>}
-				{valid === false && <p>Sign up failed</p>}
-			</form>
-		</section>
-	);
+        <EmailField value={email} onChange={updateEmail} />
+
+        <PasswordField
+          type="password"
+          value={password}
+          onChange={updatePassword}
+        />
+
+        <PasswordField
+          type="confirm-password"
+          value={confpassword}
+          onChange={updateConfPassword}
+        />
+
+        <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
+        {valid && <p>Sign up successful!</p>}
+        {valid === false && <p>Sign up failed</p>}
+      </form>
+    </section>
+  );
 }

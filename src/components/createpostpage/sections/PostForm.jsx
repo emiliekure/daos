@@ -10,21 +10,26 @@ export default function PostForm() {
   const [valid, setValid] = useState(undefined);
   const [error, setError] = useState("");
 
+  const [radioStatus, setRadioStatus] = useState();
+
+  const switchRadio = (event) => {
+    setRadioStatus(event.target.value);
+  };
+
   const reducer = (state, newValues) => {
     return { ...state, ...newValues };
   };
 
   const [formValues, dispatch] = useReducer(reducer, {
     title: "",
-    /*  radio: "", */
+    radio: radioStatus,
     instrument: "",
     description: "",
     location: "",
   });
 
   const updateFormValue = (event) => {
-    const { name, value /* , type, checked  */ } = event.target;
-    /*  const result = type === "radio" || type === "checkbox" ? checked : value; */
+    const { name, value } = event.target;
     dispatch({
       [name]: value,
     });
@@ -34,7 +39,7 @@ export default function PostForm() {
   const verifyInputs = () => {
     if (
       formValues.title === "" ||
-      /* formValues.radio === "" || */
+      radioStatus === "" ||
       formValues.instrument === "" ||
       formValues.description === "" ||
       formValues.location === ""
@@ -43,6 +48,9 @@ export default function PostForm() {
       setError("");
     } else {
       setValid(true);
+      const createdPost = { ...formValues };
+      createdPost.radio = radioStatus;
+      console.log(createdPost);
     }
   };
 
@@ -60,30 +68,26 @@ export default function PostForm() {
 
         <h2>Post type</h2>
         <div className={styles.radio1}>
-          <label htmlFor="offered">
-            Offered
-            <input
-              name="post-type"
-              id="offered"
-              type="radio"
-              value="Offered"
-              required
-              onClick={updateFormValue}
-            />
-          </label>
+          <input
+            name="post-type"
+            id="offered"
+            type={"radio"}
+            value={"Offered"}
+            required
+            onClick={switchRadio}
+          />
+          <label htmlFor="offered">Offered</label>
         </div>
         <div className={styles.radio2}>
-          <label htmlFor="wanted">
-            Wanted
-            <input
-              name="post-type"
-              id="wanted"
-              type="radio"
-              value="Wanted"
-              required
-              onClick={updateFormValue}
-            />
-          </label>
+          <input
+            name="post-type"
+            id="wanted"
+            type={"radio"}
+            value={"Wanted"}
+            required
+            onClick={switchRadio}
+          />
+          <label htmlFor="wanted">Wanted</label>
         </div>
 
         {/* <RadioGroup
