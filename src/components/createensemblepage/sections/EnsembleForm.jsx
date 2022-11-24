@@ -44,7 +44,7 @@ export default function EnsembleForm() {
 
 	return (
 		<section className={styles.formWrapper}>
-			<h1>Create post</h1>
+			<h1>Create ensemble</h1>
 			<form className={styles.form}>
 				<TextField
 					name="ensemble-name"
