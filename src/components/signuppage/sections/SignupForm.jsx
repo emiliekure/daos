@@ -33,11 +33,11 @@ export default function SignupForm() {
   //Function to verify the inputs
   const verifyInputs = () => {
     if (
-      fname === "" ||
-      lname === "" ||
-      field === "" ||
-      email === "" ||
-      password === "" ||
+      formValues.name === "" ||
+      formValues.surname === "" ||
+      formValues.instrument === "" ||
+      formValues.email === "" ||
+      formValues.password === "" ||
       confpassword === ""
     ) {
       setValid(false);
@@ -45,26 +45,6 @@ export default function SignupForm() {
     } else {
       setValid(true);
     }
-  };
-
-  const updateFname = (event) => {
-    setFname(event.target.value);
-  };
-
-  const updateLname = (event) => {
-    setLname(event.target.value);
-  };
-
-  const updateInstrument = (event) => {
-    setInstrument(event.target.value);
-  };
-
-  const updateEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const updatePassword = (event) => {
-    setPassword(event.target.value);
   };
 
   const updateConfPassword = (event) => {
@@ -76,33 +56,33 @@ export default function SignupForm() {
       <h1>Sign Up</h1>
       <form className={styles.form}>
         <TextField
-          name="first-name"
+          name="name"
           max=""
           placeholder=""
-          value={fname}
-          onChange={updateFname}
+          value={formValues.name}
+          onChange={updateFormValue}
         />
 
         <TextField
           name="last-name"
           max=""
           placeholder=""
-          value={lname}
-          onChange={updateLname}
+          value={formValues.surname}
+          onChange={updateFormValue}
         />
 
         <InstrumentSelect
           name="instrument"
-          value={instrument}
-          onChange={updateInstrument}
+          value={formValues.instrument}
+          onChange={updateFormValue}
         />
 
-        <EmailField value={email} onChange={updateEmail} />
+        <EmailField value={formValues.email} onChange={updateFormValue} />
 
         <PasswordField
           type="password"
-          value={password}
-          onChange={updatePassword}
+          value={formValues.password}
+          onChange={updateFormValue}
         />
 
         <PasswordField

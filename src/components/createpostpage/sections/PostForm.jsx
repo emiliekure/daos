@@ -22,7 +22,7 @@ export default function PostForm() {
 
   const [formValues, dispatch] = useReducer(reducer, {
     title: "",
-    radio: radioStatus,
+    radio: "",
     instrument: "",
     description: "",
     location: "",
@@ -66,7 +66,7 @@ export default function PostForm() {
           onChange={updateFormValue}
         />
 
-        <h2>Post type</h2>
+        <p>Post type</p>
         <div className={styles.radio1}>
           <input
             name="post-type"

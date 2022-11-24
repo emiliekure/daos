@@ -13,6 +13,7 @@ import { PostService } from './posts.service';
 import { Request } from 'express';
 import { Posts } from './posts.schema';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('posts')
 export class PostsController {
@@ -26,8 +27,8 @@ export class PostsController {
 
     return result;
   }
-  @UseGuards(LocalAuthGuard)
-  @Delete('/deltePost/:id')
+  @UseGuards(JwtAuthGuard)
+  @Delete('/:id')
   deletePost(@Param('id') id: string) {
     return this.pService.deletePost(id);
   }
@@ -37,8 +38,8 @@ export class PostsController {
   createPost(@Body() body) {
     return this.pService.createPost(body);
   }
-  @UseGuards(LocalAuthGuard)
-  @Put('/updatePost/:id')
+  @UseGuards(JwtAuthGuard)
+  @Put('/:id')
   updatePost(@Param('id') id: string, @Body() body) {
     return this.pService.updatePost(id, body);
   }

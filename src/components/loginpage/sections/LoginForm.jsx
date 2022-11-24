@@ -34,8 +34,30 @@ export default function LoginForm() {
       /* // Then we call the backend and verify the user.
       		const resultFromServer = "Invalid Login";
       		setError(resultFromServer); */
+      loginUser();
     }
+    formValues.email = "";
+    formValues.password = "";
   };
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formValues),
+  };
+
+  function loginUser() {
+    fetch("http://localhost:3004/auth/login", options)
+      .then((response) => response.json())
+      .then((response) => {
+        localStorage.setItem("token", response.access_token);
+        localStorage.setItem("user", response.user);
+        console.log(response);
+      })
+      .catch((err) => console.error(err));
+  }
 
   return (
     <section className={styles.formWrapper}>
