@@ -21,7 +21,7 @@ export default function SignupForm() {
 		if (
 			fname === "" ||
 			lname === "" ||
-			field === "" ||
+			instrument === "" ||
 			email === "" ||
 			password === "" ||
 			confpassword === ""
