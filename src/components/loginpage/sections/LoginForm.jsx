@@ -53,7 +53,7 @@ export default function LoginForm() {
       .then((response) => response.json())
       .then((response) => {
         localStorage.setItem("token", response.access_token);
-        localStorage.setItem("user", response.user);
+        localStorage.setItem("user", JSON.stringify(response.user));
         console.log(response);
       })
       .catch((err) => console.error(err));

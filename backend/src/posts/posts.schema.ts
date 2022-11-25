@@ -12,10 +12,10 @@ export class Posts {
   author: string;
 
   @Prop({ required: true })
-  instruments: Array<string>;
+  instrument: string;
 
   @Prop()
-  offered: boolean;
+  searchType: string;
 
   @Prop()
   location: string;

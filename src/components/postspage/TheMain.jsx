@@ -1,11 +1,10 @@
 import Feedback from "../shared/Feedback";
 import AllPosts from "./sections/AllPosts";
 
-export default function TheMain(props) {
-  const { posts } = props;
+export default function TheMain({ posts, fetchPosts }) {
   return (
     <main>
-      <AllPosts posts={posts} />
+      <AllPosts posts={posts} fetchPosts={fetchPosts} />
       <Feedback />
     </main>
   );

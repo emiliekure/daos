@@ -21,7 +21,6 @@ export default function PostForm() {
 
   const [formValues, dispatch] = useReducer(reducer, {
     title: "",
-    radio: "",
     instrument: "",
     description: "",
     location: "",
@@ -47,8 +46,11 @@ export default function PostForm() {
       setError("");
     } else {
       setValid(true);
+      const author = JSON.parse(localStorage.getItem("user"));
       const createdPost = { ...formValues };
-      createdPost.radio = radioStatus;
+      createdPost.searchType = radioStatus;
+      createdPost.dateOfCreation = new Date();
+      createdPost.author = author.name + " " + author.surname;
       console.log(createdPost);
       const token = localStorage.getItem("token");
       createPost(createdPost, token);
@@ -96,7 +98,7 @@ export default function PostForm() {
             name="post-type"
             id="offered"
             type={"radio"}
-            value={"Offered"}
+            value={"offered"}
             required
             onClick={switchRadio}
           />
@@ -107,19 +109,12 @@ export default function PostForm() {
             name="post-type"
             id="wanted"
             type={"radio"}
-            value={"Wanted"}
+            value={"wanted"}
             required
             onClick={switchRadio}
           />
           <label htmlFor="wanted">Wanted</label>
         </div>
-
-        {/* <RadioGroup
-		 value
-          options={["offered", "wanted"]}
-          group="post-type"
-          onClick={updateFormValue}
-        /> */}
 
         <InstrumentSelect
           name="instrument"
