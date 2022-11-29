@@ -17,9 +17,8 @@
 	text-transform: capitalize;
 }
 
-.fieldgroup label.radiolabel {
+.fieldgroup div.radiolabel {
 	display: flex;
-	flex-direction: row-reverse;
 	align-self: flex-start;
 	gap: 12px;
 }
