@@ -5,7 +5,7 @@ import styles from "./PostList.module.css";
 
 export default function PostList({ slice, posts, fetchPosts }) {
   useEffect(() => {
-    fetchPosts;
+    fetchPosts();
   }, []);
 
   return (

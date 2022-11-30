@@ -36,8 +36,6 @@ export default function LoginForm() {
       		setError(resultFromServer); */
       loginUser();
     }
-    formValues.email = "";
-    formValues.password = "";
   };
 
   const options = {
@@ -52,8 +50,14 @@ export default function LoginForm() {
     fetch("http://localhost:3004/auth/login", options)
       .then((response) => response.json())
       .then((response) => {
+        dispatch({
+          ["email"]: "",
+          ["password"]: "",
+        });
+        localStorage.clear();
         localStorage.setItem("token", response.access_token);
         localStorage.setItem("user", JSON.stringify(response.user));
+        setTimeout(() => localStorage.clear(), 3600000);
         console.log(response);
       })
       .catch((err) => console.error(err));
