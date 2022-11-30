@@ -45,11 +45,13 @@ export default function SignupForm() {
     } else {
       setValid(true);
       createProfile();
-      formValues.name = "";
-      formValues.surname = "";
-      formValues.instrument = "";
-      formValues.email = "";
-      formValues.password = "";
+      dispatch({
+        ["name"]: "",
+        ["surname"]: "",
+        ["instrument"]: "",
+        ["email"]: "",
+        ["password"]: "",
+      });
       setConfPassword("");
     }
   };
