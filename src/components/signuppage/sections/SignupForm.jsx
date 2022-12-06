@@ -57,7 +57,7 @@ export default function SignupForm() {
   };
 
   function createProfile() {
-    fetch("http://localhost:3004/profiles", {
+    fetch("http://localhost:3004/profiles/validate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -72,6 +72,20 @@ export default function SignupForm() {
   const updateConfPassword = (event) => {
     setConfPassword(event.target.value);
   };
+
+  function checkEmail() {
+    console.log(JSON.stringify(formValues.email));
+    fetch("http://localhost:3004/profiles/validate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: `{"email": ${JSON.stringify(formValues.email)} }`,
+    })
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+  }
 
   return (
     <section className={styles.formWrapper}>
@@ -99,7 +113,11 @@ export default function SignupForm() {
           onChange={updateFormValue}
         />
 
-        <EmailField value={formValues.email} onChange={updateFormValue} />
+        <EmailField
+          value={formValues.email}
+          onChange={updateFormValue}
+          onBlur={checkEmail()}
+        />
 
         <PasswordField
           type="password"

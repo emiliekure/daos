@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Profile, ProfileDocument } from './profiles.schema';
@@ -12,6 +12,15 @@ export class ProfileService {
   getProfiles(): Promise<Profile[]> {
     return this.prModel.find().exec();
   }
+  async validateProfile(body: any) {
+    const profile: Profile = await this.prModel.findOne({ email: body.email });
+
+    if (profile) {
+      console.log('validate email signup', profile);
+      throw new HttpException('This email is already used!', 403);
+    }
+    return this.createProfile(body);
+  }
   createProfile(profile: any) {
     const savedPost = new this.prModel(profile);
     return savedPost.save();
@@ -24,5 +33,12 @@ export class ProfileService {
   }
   async findUser(email: string) {
     return this.prModel.findOne({ email: email });
+  }
+
+  async findEmail(user: any) {
+    const searchedEmail = await this.prModel.findOne({ email: user.email });
+
+    if (searchedEmail) return searchedEmail;
+    return null;
   }
 }

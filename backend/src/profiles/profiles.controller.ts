@@ -30,7 +30,11 @@ export class ProfilesController {
 
   @Post()
   createProfile(@Body() body) {
-    return this.prService.createProfile(body);
+    return this.prService.validateProfile(body);
+  }
+  @Post('/validate')
+  checkEmailExist(@Body() email: string): Promise<any> {
+    return this.prService.findEmail(email);
   }
   @UseGuards(LocalAuthGuard)
   @Delete('/deletProfile/:id')
