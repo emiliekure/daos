@@ -1,5 +1,6 @@
 import { useReducer, useState } from "react";
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
+import ConfirmPasswordField from "../../atoms/forms/ConfirmPasswordField";
 import EmailField from "../../atoms/forms/EmailField";
 import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
 import PasswordField from "../../atoms/forms/PasswordField";
@@ -11,6 +12,7 @@ export default function SignupForm() {
   const [error, setError] = useState("");
   const [confpassword, setConfPassword] = useState("");
   const [availableMsg, setAvailableMsg] = useState("");
+  const [isMatching, setIsmatching] = useState(true);
 
   const reducer = (state, newValues) => {
     return { ...state, ...newValues };
@@ -74,6 +76,14 @@ export default function SignupForm() {
     setConfPassword(event.target.value);
   };
 
+  const checkPasswords = () => {
+    if (formValues.password === confpassword) {
+      setIsmatching(true);
+    } else {
+      setIsmatching(false);
+    }
+  };
+
   function checkEmail() {
     fetch("http://localhost:3004/profiles/validate", {
       method: "POST",
@@ -125,10 +135,12 @@ export default function SignupForm() {
           onChange={updateFormValue}
         />
 
-        <PasswordField
+        <ConfirmPasswordField
           type="confirm-password"
           value={confpassword}
           onChange={updateConfPassword}
+          onBlur={checkPasswords}
+          isMatching={isMatching}
         />
 
         <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
