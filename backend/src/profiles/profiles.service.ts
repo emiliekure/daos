@@ -39,6 +39,6 @@ export class ProfileService {
     const searchedEmail = await this.prModel.findOne({ email: user.email });
 
     if (searchedEmail) return searchedEmail;
-    return null;
+    throw new HttpException('Email available', 200);
   }
 }

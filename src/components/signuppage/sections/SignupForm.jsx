@@ -10,6 +10,7 @@ export default function SignupForm() {
   const [valid, setValid] = useState(undefined);
   const [error, setError] = useState("");
   const [confpassword, setConfPassword] = useState("");
+  const [availableMsg, setAvailableMsg] = useState("");
 
   const reducer = (state, newValues) => {
     return { ...state, ...newValues };
@@ -74,7 +75,6 @@ export default function SignupForm() {
   };
 
   function checkEmail() {
-    console.log(JSON.stringify(formValues.email));
     fetch("http://localhost:3004/profiles/validate", {
       method: "POST",
       headers: {
@@ -83,7 +83,7 @@ export default function SignupForm() {
       body: `{"email": ${JSON.stringify(formValues.email)} }`,
     })
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => setAvailableMsg(JSON.stringify(response.message)))
       .catch((err) => console.error(err));
   }
 
@@ -116,7 +116,7 @@ export default function SignupForm() {
         <EmailField
           value={formValues.email}
           onChange={updateFormValue}
-          onBlur={checkEmail()}
+          onBlur={checkEmail}
         />
 
         <PasswordField
