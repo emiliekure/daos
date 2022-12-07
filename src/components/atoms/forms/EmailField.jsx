@@ -1,6 +1,7 @@
 import styles from "./FormFields.module.css";
 
-export default function EmailField({ value, onChange, onBlur }) {
+export default function EmailField({ value, onChange, onBlur, availableMsg }) {
+  console.log(availableMsg);
   return (
     <div className={styles.fieldgroup}>
       <label for="email">
@@ -15,6 +16,9 @@ export default function EmailField({ value, onChange, onBlur }) {
         onChange={onChange}
         onBlur={onBlur}
       />
+      {availableMsg && availableMsg === "Email unavailable" && (
+        <p>The email is already in use!</p>
+      )}
     </div>
   );
 }
