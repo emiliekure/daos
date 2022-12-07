@@ -93,7 +93,7 @@ export default function SignupForm() {
       body: `{"email": ${JSON.stringify(formValues.email)} }`,
     })
       .then((response) => response.json())
-      .then((response) => setAvailableMsg(JSON.stringify(response.message)))
+      .then((response) => setAvailableMsg(response.message))
       .catch((err) => console.error(err));
   }
 
@@ -127,6 +127,7 @@ export default function SignupForm() {
           value={formValues.email}
           onChange={updateFormValue}
           onBlur={checkEmail}
+          availableMsg={availableMsg}
         />
 
         <PasswordField
