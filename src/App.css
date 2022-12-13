@@ -1,9 +1,46 @@
-html, body, #root {
+html,
+body,
+#root {
 	height: 100%;
 }
 
 .page-wrapper {
-  min-height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+	min-height: 100%;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+}
+
+.ReactModal__Overlay {
+	background: rgba(255, 255, 255, 0.4) !important;
+	backdrop-filter: blur(8px) !important;
+	-webkit-backdrop-filter: blur(8px) !important;
+}
+
+.ReactModal__Content {
+	background: none !important;
+	padding: 0 !important;
+	border-radius: none;
+	max-width: 640px;
+}
+
+h1 {
+	font-size: 3.75rem;
+	font-family: "Oswald", sans-serif;
+}
+
+h2 {
+	font-size: 36px;
+	font-family: "Oswald", sans-serif;
+	color: #353a5d;
+}
+
+h3 {
+	font-size: 1.25rem;
+	font-family: "Oswald", sans-serif;
+	color: #353a5d;
+}
+
+h4 {
+	font-size: 1rem;
+	color: #353a5d;
 }
