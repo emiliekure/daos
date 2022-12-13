@@ -11,6 +11,9 @@ export class Posts {
   @Prop()
   author: string;
 
+  @Prop()
+  authorId: string;
+
   @Prop({ required: true })
   instrument: string;
 

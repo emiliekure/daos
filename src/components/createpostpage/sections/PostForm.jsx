@@ -52,6 +52,7 @@ export default function PostForm() {
       createdPost.searchType = radioStatus;
       createdPost.dateOfCreation = new Date();
       createdPost.author = author.name + " " + author.surname;
+      createdPost.authorId = author._id;
       console.log(createdPost);
       const token = localStorage.getItem("token");
       createPost(createdPost, token);
@@ -66,7 +67,7 @@ export default function PostForm() {
   };
 
   function createPost(post, token) {
-    if (token !== "") {
+    if (token && token !== "") {
       fetch("http://localhost:3004/posts", {
         method: "POST",
         headers: {
