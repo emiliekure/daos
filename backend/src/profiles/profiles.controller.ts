@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 
 import { Request } from 'express';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { Profile } from './../profiles/profiles.schema';
 import { ProfileService } from './../profiles/profiles.service';
@@ -36,12 +37,12 @@ export class ProfilesController {
   checkEmailExist(@Body() email: string): Promise<any> {
     return this.prService.findEmail(email);
   }
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete('/deletProfile/:id')
   deleteProfile(@Param('id') id: string) {
     return this.prService.deleteProfile(id);
   }
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Put('/updateProfile/:id')
   updateProfile(@Param('id') id: string, @Body() body) {
     return this.prService.updateProfile(id, body);

@@ -22,8 +22,8 @@ export class ProfileService {
     return this.createProfile(body);
   }
   createProfile(profile: any) {
-    const savedPost = new this.prModel(profile);
-    return savedPost.save();
+    const savedProfile = new this.prModel(profile);
+    return savedProfile.save();
   }
   deleteProfile(id: string) {
     return this.prModel.deleteOne({ _id: id });
