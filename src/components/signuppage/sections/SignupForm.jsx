@@ -9,9 +9,12 @@ import styles from "../../shared/Forms.module.css";
 
 export default function SignupForm() {
   const [valid, setValid] = useState(undefined);
-  const [error, setError] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [errorSurname, setErrorSurname] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
   const [confpassword, setConfPassword] = useState("");
-  const [availableMsg, setAvailableMsg] = useState("");
+  const [emailAvailable, setEmailAvailable] = useState("");
   const [isMatching, setIsmatching] = useState(true);
 
   const reducer = (state, newValues) => {
@@ -84,17 +87,64 @@ export default function SignupForm() {
     }
   };
 
+  function checkName() {
+    if (formValues.name.length === 0) {
+      setErrorName("Name cannot be empty");
+      console.log(errorName);
+    } else if (formValues.name.length === 1) {
+      setErrorName("Name cannot be only 1 character!");
+      console.log(errorName);
+    } else {
+      setErrorName("");
+    }
+  }
+
+  function checkSurname() {
+    if (formValues.surname.length === 0) {
+      setErrorSurname("Surname cannot be empty");
+      console.log(errorSurname);
+    } else if (formValues.surname.length === 1) {
+      setErrorSurname("Surname cannot be only 1 character!");
+      console.log(errorSurname);
+    } else {
+      setErrorSurname("");
+    }
+  }
+
   function checkEmail() {
-    fetch("http://localhost:3004/profiles/validate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: `{"email": ${JSON.stringify(formValues.email)} }`,
-    })
-      .then((response) => response.json())
-      .then((response) => setAvailableMsg(response.message))
-      .catch((err) => console.error(err));
+    if (formValues.email.length === 0) {
+      setErrorEmail("Email cannot be empty");
+      console.log(errorEmail);
+    } else {
+      if (formValues.email.includes("@")) {
+        setErrorEmail("");
+        fetch("http://localhost:3004/profiles/validate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: `{"email": ${JSON.stringify(formValues.email)} }`,
+        })
+          .then((response) => response.json())
+          .then((response) => setEmailAvailable(response.message))
+          .catch((err) => console.error(err));
+      } else {
+        setError("The email must include an '@' sign");
+        console.log(error);
+      }
+    }
+  }
+
+  function validatePassword() {
+    if (formValues.password.length === 0) {
+      setErrorPassword("Password cannot be empty!");
+      console.log(errorPassword);
+    } else if (formValues.password.length < 8) {
+      setErrorPassword("Password must be at least 8 characters!");
+      console.log(errorPassword);
+    } else {
+      setErrorPassword("");
+    }
   }
 
   return (
@@ -103,18 +153,20 @@ export default function SignupForm() {
       <form className={styles.form}>
         <TextField
           name="name"
-          max=""
           placeholder=""
           value={formValues.name}
           onChange={updateFormValue}
+          onBlur={checkName}
+          errorName={errorName}
         />
 
         <TextField
           name="surname"
-          max=""
           placeholder=""
           value={formValues.surname}
           onChange={updateFormValue}
+          onBlur={checkSurname}
+          errorSurname={errorSurname}
         />
 
         <InstrumentSelect
@@ -127,13 +179,16 @@ export default function SignupForm() {
           value={formValues.email}
           onChange={updateFormValue}
           onBlur={checkEmail}
-          availableMsg={availableMsg}
+          emailAvailable={emailAvailable}
+          errorEmail={errorEmail}
         />
 
         <PasswordField
           type="password"
           value={formValues.password}
           onChange={updateFormValue}
+          onBlur={validatePassword}
+          errorPassword={errorPassword}
         />
 
         <ConfirmPasswordField

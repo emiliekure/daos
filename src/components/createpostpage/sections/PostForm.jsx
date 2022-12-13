@@ -9,6 +9,9 @@ import style from "../../atoms/forms/FormFields.module.css";
 export default function PostForm() {
   const [valid, setValid] = useState(undefined);
   const [error, setError] = useState("");
+  const [errorTitle, setErrorTitle] = useState("");
+  const [errorLocation, setErrorLocation] = useState("");
+  const [errorDescription, setErrorDescription] = useState("");
 
   const [radioStatus, setRadioStatus] = useState();
 
@@ -84,6 +87,33 @@ export default function PostForm() {
     }
   }
 
+  function checkTitle() {
+    if (formValues.title.length === 0) {
+      setErrorTitle("Title cannot be empty");
+      console.log(errorTitle);
+    } else if (formValues.title.length < 5 || formValues.title.length > 21) {
+      setErrorTitle("Title has to be min 5 characters and max 20 characters!");
+    } else {
+      setErrorTitle("");
+    }
+  }
+
+  function checkDescription() {
+    if (formValues.description.length === 0) {
+      setErrorDescription("Description cannot be empty");
+      console.log(errorDescription);
+    } else if (
+      formValues.description.length < 5 ||
+      formValues.description.length > 21
+    ) {
+      setErrorDescription(
+        "Description has to be min 5 characters and max 30 characters!"
+      );
+    } else {
+      setErrorDescription("");
+    }
+  }
+
   return (
     <section className={styles.formWrapper}>
       <h1>Create post</h1>
@@ -94,6 +124,8 @@ export default function PostForm() {
           placeholder=""
           value={formValues.title}
           onChange={updateFormValue}
+          onBlur={checkTitle}
+          errorTitle={errorTitle}
         />
 
         <div className={style.fieldgroup}>
@@ -139,6 +171,8 @@ export default function PostForm() {
           name="description"
           value={formValues.description}
           onChange={updateFormValue}
+          onBlur={checkDescription}
+          errorDescription={errorDescription}
         />
 
         <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
