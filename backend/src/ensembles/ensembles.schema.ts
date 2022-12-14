@@ -10,6 +10,18 @@ export class Ensemble {
   @Prop({ required: true })
   name: string;
 
+  @Prop({ required: true })
+  capacity: number;
+
+  @Prop({ required: true })
+  description: string;
+
+  @Prop()
+  email: string;
+
+  @Prop()
+  location: string;
+
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: Profile.name }],
   })
