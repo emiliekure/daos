@@ -11,7 +11,7 @@ export class Ensemble {
   name: string;
 
   @Prop({ required: true })
-  capacity: number;
+  capacity: string;
 
   @Prop({ required: true })
   description: string;

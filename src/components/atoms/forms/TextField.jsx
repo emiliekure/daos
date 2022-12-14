@@ -3,12 +3,17 @@ import styles from "./FormFields.module.css";
 export default function TextField({
   name,
   placeholder,
+  id,
   value,
   onChange,
   onBlur,
   errorName,
   errorSurname,
   errorTitle,
+  nameAvailable,
+  ensambleNameError,
+  ensambleEmailError,
+  ensambleCapacityError,
 }) {
   return (
     <div
@@ -44,6 +49,12 @@ export default function TextField({
       {errorName && <p>{errorName}</p>}
       {errorSurname && <p>{errorSurname}</p>}
       {errorTitle && <p>{errorTitle}</p>}
+      {ensambleNameError && <p>{ensambleNameError}</p>}
+      {nameAvailable && nameAvailable === "Name unavailable" && (
+        <p>This ensamble already exists!</p>
+      )}
+      {ensambleEmailError && <p>{ensambleEmailError}</p>}
+      {ensambleCapacityError && <p>{ensambleCapacityError}</p>}
     </div>
   );
 }

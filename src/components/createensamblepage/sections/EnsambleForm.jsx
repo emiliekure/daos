@@ -7,6 +7,11 @@ import styles from "../../shared/Forms.module.css";
 export default function EnsambleForm() {
   const [valid, setValid] = useState(undefined);
   const [error, setError] = useState("");
+  const [ensambleNameError, setEnsambleNameError] = useState("");
+  const [ensambleEmailError, setEnsambleEmailError] = useState("");
+  const [ensambleCapacityError, setEnsambleCapacityError] = useState("");
+  const [ensambleDescriptionError, setEnsambleDescriptionError] = useState("");
+  const [nameAvailable, setNameAvailable] = useState("");
 
   const reducer = (state, newValues) => {
     return { ...state, ...newValues };
@@ -14,7 +19,7 @@ export default function EnsambleForm() {
 
   const [formValues, dispatch] = useReducer(reducer, {
     name: "",
-    capacity: Number,
+    capacity: "",
     description: "",
     location: "",
     email: "",
@@ -76,6 +81,70 @@ export default function EnsambleForm() {
     }
   }
 
+  function checkEnsambleName() {
+    if (formValues.name.length === 0) {
+      setEnsambleNameError("The ensamble name cannot be empty");
+    } else {
+      fetch("http://localhost:3004/ensambles/validate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: `{"name": ${JSON.stringify(formValues.name)} }`,
+      })
+        .then((response) => response.json())
+        .then((response) => setNameAvailable(response.message))
+        .catch((err) => console.error(err));
+    }
+  }
+
+  function checkEnsambleEmail() {
+    /* if (formValues.email.length === 0) {
+      setEnsambleEmailError("Email cannot be empty");
+      console.log(ensambleEmailError);
+    } else { */
+    if (formValues.email.length !== 0) {
+      if (formValues.email.includes("@")) {
+        setEnsambleEmailError("");
+      } else {
+        setEnsambleEmailError("The email must include an '@' sign");
+        console.log(error);
+      }
+    }
+  }
+
+  function checkEnsambleCapacity() {
+    console.log(Number(formValues.capacity));
+    if (formValues.capacity.length === 0) {
+      setEnsambleCapacityError("Capacity cannot be empty");
+    } else if (formValues.capacity === "0") {
+      setEnsambleCapacityError("Capacity cannot be 0");
+    } else {
+      if (formValues.capacity.length < 3 && Number(formValues.capacity)) {
+        setEnsambleCapacityError("");
+      } else {
+        setEnsambleCapacityError(
+          "Capacity has to be expressed in max of 2 numbers (max capacity is 100 members)"
+        );
+      }
+    }
+  }
+
+  function checkEnsambleDescription() {
+    if (formValues.description.length === 0) {
+      setEnsambleDescriptionError("Description cannot be empty");
+    } else if (
+      formValues.description.length < 5 ||
+      formValues.description.length > 20
+    ) {
+      setEnsambleDescriptionError(
+        "Description has to be min 5 characters and max 120 characters!"
+      );
+    } else {
+      setEnsambleDescriptionError("");
+    }
+  }
+
   return (
     <section className={styles.formWrapper}>
       <h1>Create an ensamble</h1>
@@ -87,18 +156,19 @@ export default function EnsambleForm() {
           placeholder=""
           value={formValues.name}
           onChange={updateFormValue}
+          nameAvailable={nameAvailable}
+          ensambleNameError={ensambleNameError}
+          onBlur={checkEnsambleName}
         />
 
-        <p>
-          Type in the email address of your ensamble OR leave the field empty if
-          you wish to be contacted via your profile email.
-        </p>
         <TextField
           name="email"
           max=""
-          id="email"
+          id="ensamble-email"
           value={formValues.email}
           onChange={updateFormValue}
+          onBlur={checkEnsambleEmail}
+          ensambleEmailError={ensambleEmailError}
         />
 
         <TextField
@@ -106,6 +176,8 @@ export default function EnsambleForm() {
           max=""
           value={formValues.capacity}
           onChange={updateFormValue}
+          onBlur={checkEnsambleCapacity}
+          ensambleCapacityError={ensambleCapacityError}
         />
 
         <TextField
@@ -119,6 +191,8 @@ export default function EnsambleForm() {
           id="description"
           value={formValues.description}
           onChange={updateFormValue}
+          onBlur={checkEnsambleDescription}
+          ensambleDescriptionError={ensambleDescriptionError}
         />
 
         <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />

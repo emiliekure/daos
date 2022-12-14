@@ -6,6 +6,7 @@ export default function TextareaField({
   onChange,
   onBlur,
   errorDescription,
+  ensambleDescriptionError,
 }) {
   return (
     <div className={styles.fieldgroup}>
@@ -22,6 +23,7 @@ export default function TextareaField({
       ></textarea>
 
       {errorDescription && <p>{errorDescription}</p>}
+      {ensambleDescriptionError && <p>{ensambleDescriptionError}</p>}
     </div>
   );
 }
