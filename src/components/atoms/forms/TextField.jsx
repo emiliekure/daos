@@ -24,6 +24,12 @@ export default function TextField({
           <h2>{name.replace("-", " ")}</h2>
         </label>
       )}
+      {id === "ensamble-email" && (
+        <p>
+          Type in the email address of your ensamble OR leave the field empty if
+          you wish to be contacted via your profile email.
+        </p>
+      )}
       <input
         name={name}
         id={name}
