@@ -60,7 +60,9 @@ export class EnsembleService {
       name: ensemble.name,
     });
 
-    if (!searchedEnsemble) return null;
-    return searchedEnsemble;
+    if (searchedEnsemble) {
+      throw new HttpException('This ensemble already exists!', 200);
+    }
+    throw new HttpException('This ensemble is available!', 200);
   }
 }

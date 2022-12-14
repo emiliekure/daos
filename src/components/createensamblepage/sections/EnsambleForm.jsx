@@ -89,14 +89,10 @@ export default function EnsambleForm() {
           onChange={updateFormValue}
         />
 
-        <p>
-          Type in the email address of your ensamble OR leave the field empty if
-          you wish to be contacted via your profile email.
-        </p>
         <TextField
           name="email"
           max=""
-          id="email"
+          id="ensamble-email"
           value={formValues.email}
           onChange={updateFormValue}
         />
