@@ -5,6 +5,7 @@ import btnstyles from "../../shared/TheHeader.module.css";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
+import UnauthorisedModal from "./UnauthorisedModal";
 
 const customStyles = {
   content: {
@@ -134,25 +135,12 @@ export default function EnsambleItem({
         style={customStyles}
         shouldCloseOnOverlayClick
       >
-        {/*  <button
-          type="button"
-          name="closeBtn"
-          id="closeBtn"
-          onClick={handleOpenModal(false)}
-        >
-          X
-        </button> */}
-        <p>{errorMsg}</p>
-        {!isLoggedIn && (
-          <div className={btnstyles.buttons}>
-            <Link to={"/signup"}>
-              <PrimaryButton type="button" text="Sign up" />
-            </Link>
-            <Link to={"/login"}>
-              <SecondaryButton type="button" text="Login" />
-            </Link>
-          </div>
-        )}
+        <UnauthorisedModal
+          style={styles}
+          onClick={() => setIsOpen(false)}
+          errorMsg={errorMsg}
+          isLoggedIn={isLoggedIn}
+        ></UnauthorisedModal>
       </Modal>
     </>
   );
