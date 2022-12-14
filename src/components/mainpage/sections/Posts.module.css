@@ -10,12 +10,6 @@
 	align-items: center;
 }
 
-.header h2 {
-	font-size: 36px;
-	font-family: "Oswald", sans-serif;
-	color: #353a5d;
-}
-
 .header a {
 	color: #bf1e2e;
 	font-weight: 700;

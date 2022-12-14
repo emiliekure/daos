@@ -90,16 +90,6 @@ export default function PostItem({
       <div className={style} id={id + "div"}>
         <div className={styles.contentWrapper}>
           <div className={styles.postContent}>
-            {slice.length === 0 && (
-              <button
-                type="button"
-                name="deleteBtn"
-                id={id}
-                onClick={(evt) => handleDelete(evt.target.id)}
-              >
-                DELETE
-              </button>
-            )}
             <h4
               className={styles.postTitle}
               onClick={() => handleOpenModal(true)}
@@ -110,12 +100,16 @@ export default function PostItem({
               className={styles.postInfo}
               onClick={() => handleOpenModal(true)}
             >
-              <img src="../img/user-solid.svg" alt="user icon" />
-              <p className="post-author">{author}</p>
-              <img src="../img/music-solid.svg" alt="music note" />
-              <p className="post-instrument">
-                {instrument} ({searchType})
-              </p>
+              <div className={styles.info}>
+                <img src="../img/user-solid.svg" alt="user icon" />
+                <p className="post-author">{author}</p>
+              </div>
+              <div className={styles.info}>
+                <img src="../img/music-solid.svg" alt="music note" />
+                <p className="post-instrument">
+                  {instrument} ({searchType})
+                </p>
+              </div>
             </div>
           </div>
           <div className={styles.postIcon}>
@@ -126,6 +120,17 @@ export default function PostItem({
           <p className={styles.postMeta}>
             {date} &sdot; {location}
           </p>
+          {slice.length === 0 && (
+            <button
+              type="button"
+              name="deleteBtn"
+              id={id}
+              className={styles.deleteBtn}
+              onClick={(evt) => handleDelete(evt.target.id)}
+            >
+              <img src="../img/trash-can.svg" alt="trash can" />
+            </button>
+          )}
         </div>
       </div>
 
