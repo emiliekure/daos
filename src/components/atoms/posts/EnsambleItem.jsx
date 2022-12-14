@@ -1,6 +1,10 @@
 import styles from "./PostItem.module.css";
 import Modal from "react-modal";
 import { useState } from "react";
+import btnstyles from "../../shared/TheHeader.module.css";
+import { Link } from "react-router-dom";
+import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
 
 const customStyles = {
   content: {
@@ -29,23 +33,12 @@ export default function EnsambleItem({
   const [errorMsg, setErrorMsg] = useState("");
   console.log(members);
 
-  function handleOpenModal(bool) {
-    setIsOpen(bool);
-    console.log(token);
-
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-      console.log(isLoggedIn);
-    }
-  }
-
   function handleAddMember(ensambleId) {
     setErrorMsg("");
     setIsOpen(false);
     const loggedUser = JSON.parse(localStorage.getItem("user"));
     if (token) {
+      setIsLoggedIn(true);
       if (creator[0]._id === loggedUser._id) {
         setIsOpen(true);
         setErrorMsg("You cannot become a member of an ensamble you created!");
@@ -71,6 +64,7 @@ export default function EnsambleItem({
           });
       }
     } else {
+      setIsLoggedIn(false);
       setErrorMsg(
         "You have to be logged into your DAOS account to join our ensambles."
       );
@@ -84,16 +78,8 @@ export default function EnsambleItem({
       <div className={style} id={id + "div"}>
         <div className={styles.contentWrapper}>
           <div className={styles.postContent}>
-            <h4
-              className={styles.postTitle}
-              onClick={() => handleOpenModal(true)}
-            >
-              {name}
-            </h4>
-            <div
-              className={styles.postInfo}
-              onClick={() => handleOpenModal(true)}
-            >
+            <h4 className={styles.postTitle}>{name}</h4>
+            <div className={styles.postInfo}>
               <img src="../img/user-solid.svg" alt="user icon" />
               <p className="post-creator">
                 {creator[0].name + " " + creator[0].surname}
@@ -148,7 +134,25 @@ export default function EnsambleItem({
         style={customStyles}
         shouldCloseOnOverlayClick
       >
+        {/*  <button
+          type="button"
+          name="closeBtn"
+          id="closeBtn"
+          onClick={handleOpenModal(false)}
+        >
+          X
+        </button> */}
         <p>{errorMsg}</p>
+        {!isLoggedIn && (
+          <div className={btnstyles.buttons}>
+            <Link to={"/signup"}>
+              <PrimaryButton type="button" text="Sign up" />
+            </Link>
+            <Link to={"/login"}>
+              <SecondaryButton type="button" text="Login" />
+            </Link>
+          </div>
+        )}
       </Modal>
     </>
   );

@@ -31,6 +31,7 @@ export default function PostItem({
   fetchPosts,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = localStorage.getItem("token");
 
@@ -40,8 +41,12 @@ export default function PostItem({
 
     if (token) {
       setIsLoggedIn(true);
+      setErrorMsg("");
     } else {
       setIsLoggedIn(false);
+      setErrorMsg(
+        "To be able to see full description of the post, please login to your DAOS account or create a profile on our signup page."
+      );
       console.log(isLoggedIn);
     }
   }
@@ -49,7 +54,9 @@ export default function PostItem({
   function handleDelete(postId) {
     const loggedUser = JSON.parse(localStorage.getItem("user"));
     if (token) {
+      setIsLoggedIn(true);
       if (authorId === loggedUser._id) {
+        setErrorMsg("");
         fetch(`http://localhost:3004/posts/${postId}`, {
           method: "DELETE",
           headers: {
@@ -64,10 +71,15 @@ export default function PostItem({
           })
           .catch((err) => console.error(err));
       } else {
-        console.log("You are not the creator of this post!");
+        setIsOpen(true);
+        setErrorMsg(
+          "You are not the creator of this post, thus you are not authorised to delete this post."
+        );
       }
     } else {
-      console.log(
+      setIsOpen(true);
+      setIsLoggedIn(false);
+      setErrorMsg(
         "You have to be logged into your DAOS account for further editing actions."
       );
     }
@@ -125,7 +137,7 @@ export default function PostItem({
           style={customStyles}
           shouldCloseOnOverlayClick
         >
-          {isLoggedIn ? (
+          {!errorMsg ? (
             <PostItemModal
               style={style}
               id={id}
@@ -142,6 +154,8 @@ export default function PostItem({
             <UnauthorisedModal
               style={styles}
               onClick={() => setIsOpen(false)}
+              errorMsg={errorMsg}
+              isLoggedIn={isLoggedIn}
             ></UnauthorisedModal>
           )}
         </Modal>
