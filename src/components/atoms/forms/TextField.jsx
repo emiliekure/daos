@@ -11,10 +11,19 @@ export default function TextField({
   errorTitle,
 }) {
   return (
-    <div className={styles.fieldgroup}>
-      <label for={name}>
-        <h2>{name.replace("-", " ")}</h2>
-      </label>
+    <div
+      className={name === "city" ? styles.cityfieldgroup : styles.fieldgroup}
+    >
+      {name === "city" && (
+        <label for={name}>
+          <h2></h2>
+        </label>
+      )}
+      {name !== "city" && (
+        <label for={name}>
+          <h2>{name.replace("-", " ")}</h2>
+        </label>
+      )}
       <input
         name={name}
         id={name}

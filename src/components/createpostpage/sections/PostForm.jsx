@@ -12,6 +12,7 @@ export default function PostForm() {
   const [errorTitle, setErrorTitle] = useState("");
   const [errorLocation, setErrorLocation] = useState("");
   const [errorDescription, setErrorDescription] = useState("");
+  const [errorRadio, setErrorRadio] = useState("");
 
   const [radioStatus, setRadioStatus] = useState();
 
@@ -87,6 +88,14 @@ export default function PostForm() {
     }
   }
 
+  function checkRadio() {
+    if (radioStatus === undefined) {
+      setErrorRadio(
+        "You have to choose if you are seeking a musician or offering to play"
+      );
+    }
+  }
+
   function checkTitle() {
     if (formValues.title.length === 0) {
       setErrorTitle("Title cannot be empty");
@@ -98,16 +107,24 @@ export default function PostForm() {
     }
   }
 
+  function checkLocation() {
+    if (formValues.location.includes("1234567890")) {
+      setErrorLocation("");
+    } else {
+      setErrorLocation("Please provide a zip code and the city");
+    }
+  }
+
   function checkDescription() {
     if (formValues.description.length === 0) {
       setErrorDescription("Description cannot be empty");
       console.log(errorDescription);
     } else if (
       formValues.description.length < 5 ||
-      formValues.description.length > 21
+      formValues.description.length > 120
     ) {
       setErrorDescription(
-        "Description has to be min 5 characters and max 30 characters!"
+        "Description has to be min 5 characters and max 120 characters!"
       );
     } else {
       setErrorDescription("");
@@ -138,6 +155,7 @@ export default function PostForm() {
               value={"offered"}
               required
               onClick={switchRadio}
+              onBlur={checkRadio}
             />
             <label htmlFor="offered">Offered</label>
           </div>
@@ -149,9 +167,11 @@ export default function PostForm() {
               value={"wanted"}
               required
               onClick={switchRadio}
+              onBlur={checkRadio}
             />
             <label htmlFor="wanted">Wanted</label>
           </div>
+          {errorRadio && <p>{errorRadio}</p>}
         </div>
 
         <InstrumentSelect
@@ -160,12 +180,22 @@ export default function PostForm() {
           onChange={updateFormValue}
         />
 
-        <TextField
-          name="location"
-          max=""
-          value={formValues.location}
-          onChange={updateFormValue}
-        />
+        <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+          <TextField
+            name="location"
+            value={formValues.location}
+            onChange={updateFormValue}
+            onBlur={checkLocation}
+            errorLocation={errorLocation}
+          />
+          <TextField
+            name="city"
+            value={formValues.location}
+            onChange={updateFormValue}
+            onBlur={checkLocation}
+            errorLocation={errorLocation}
+          />
+        </div>
 
         <TextareaField
           name="description"
