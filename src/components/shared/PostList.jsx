@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PostAll from "../atoms/posts/PostAll";
+import SeeAll from "../atoms/posts/SeeAll";
 import PostItem from "../atoms/posts/PostItem";
 import styles from "./PostList.module.css";
 
@@ -31,7 +31,11 @@ export default function PostList({ slice, posts, fetchPosts }) {
         );
       })}
       {!slice.length == 0 && (
-        <PostAll cardStyle={styles.card} idStyle={styles.allPostsLink} />
+        <SeeAll
+          postSection={true}
+          cardStyle={styles.card}
+          idStyle={styles.allPostsLink}
+        />
       )}
     </div>
   );

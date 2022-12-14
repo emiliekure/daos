@@ -11,11 +11,11 @@ import {
 } from '@nestjs/common';
 
 import { Request } from 'express';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Ensemble } from './ensembles.schema';
 import { EnsembleService } from './ensembles.service';
 
-@Controller('ensembles')
+@Controller('ensambles')
 export class EnsembleController {
   constructor(private enService: EnsembleService) {}
 
@@ -24,6 +24,7 @@ export class EnsembleController {
     return this.enService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   createEnsemble(@Body() body): Promise<Ensemble> {
     return this.enService.validateEnsemble(body);
@@ -33,6 +34,7 @@ export class EnsembleController {
     return this.enService.findEnsemble(name);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/:id/members')
   addEnsembleMember(
     @Param('id') id: string,
@@ -40,6 +42,8 @@ export class EnsembleController {
   ): Promise<Ensemble> {
     return this.enService.addEnsembleMember(id, profile);
   }
+
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id/members/:memberId')
   deleteEnsembleMember(
     @Param('id') id: string,
