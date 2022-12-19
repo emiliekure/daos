@@ -55,12 +55,7 @@ export default function PostItemModal({
         </div>
         <div className={styles.buttons}>
           <PrimaryButton type="button" text="Contact" />
-          <SecondaryButton
-            type="button"
-            value={"close"}
-            onClick={onClick}
-            text="Close"
-          />
+          <SecondaryButton type="button" onClick={onClick} text="Close" />
         </div>
       </div>
     </div>

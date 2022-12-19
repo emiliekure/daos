@@ -28,7 +28,7 @@ export default function UnauthorisedModal({
                 <PrimaryButton type="button" text="Sign up" />
               </Link>
               <Link to={"/login"}>
-                <SecondaryButton type="button" value={"login"} text="Login" />
+                <SecondaryButton type="button" text="Login" />
               </Link>
             </div>
           )}
