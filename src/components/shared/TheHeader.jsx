@@ -32,7 +32,7 @@ export default function TheHeader() {
             <PrimaryButton type="button" text="Sign up" />
           </Link>
           <Link to={"/login"}>
-            <SecondaryButton type="button" text="Login" />
+            <SecondaryButton type="button" value={"login"} text="Login" />
           </Link>
         </div>
       </nav>

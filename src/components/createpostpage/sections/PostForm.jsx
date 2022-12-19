@@ -5,11 +5,25 @@ import TextareaField from "../../atoms/forms/TextareaField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
 import style from "../../atoms/forms/FormFields.module.css";
+import UnauthorisedModal from "../../atoms/posts/UnauthorisedModal";
+import Modal from "react-modal";
 
-export default function PostForm() {
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: 0,
+  },
+};
+
+export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
+  const [isOpen, setIsOpen] = useState(false);
   const [valid, setValid] = useState(undefined);
-  const [error, setError] = useState("");
-
+  const [errorMsg, setErrorMsg] = useState("");
   const [radioStatus, setRadioStatus] = useState();
 
   const switchRadio = (event) => {
@@ -44,44 +58,58 @@ export default function PostForm() {
       formValues.location === ""
     ) {
       setValid(false);
-      setError("");
+      setErrorMsg(
+        `All inputs marked with '*' have to be filled out before submitting.`
+      );
     } else {
       setValid(true);
-      const author = JSON.parse(localStorage.getItem("user"));
-      const createdPost = { ...formValues };
-      createdPost.searchType = radioStatus;
-      createdPost.dateOfCreation = new Date();
-      createdPost.author = author.name + " " + author.surname;
-      createdPost.authorId = author._id;
-      console.log(createdPost);
       const token = localStorage.getItem("token");
-      createPost(createdPost, token);
-      dispatch({
-        ["title"]: "",
-        ["instrument"]: "",
-        ["description"]: "",
-        ["location"]: "",
-      });
-      setRadioStatus("");
+      if (token && token !== "") {
+        setIsLoggedIn(true);
+        const author = JSON.parse(localStorage.getItem("user"));
+        const createdPost = { ...formValues };
+        createdPost.searchType = radioStatus;
+        createdPost.dateOfCreation = new Date();
+        createdPost.author = author.name + " " + author.surname;
+        createdPost.authorId = author._id;
+        createPost(createdPost, token);
+        dispatch({
+          ["title"]: "",
+          ["instrument"]: "",
+          ["description"]: "",
+          ["location"]: "",
+        });
+        setRadioStatus("");
+      } else {
+        setIsLoggedIn(false);
+        setIsOpen(true);
+        setErrorMsg(`Please log in or sign up to post on DAOS platform.`);
+      }
     }
   };
 
   function createPost(post, token) {
-    if (token && token !== "") {
-      fetch("http://localhost:3004/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(post),
+    fetch("http://localhost:3004/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(post),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setIsOpen(true);
+        setErrorMsg(`Your post has been created successfully!`);
       })
-        .then((response) => response.json())
-        .then((response) => console.log(response))
-        .catch((err) => console.error(err));
-    } else {
-      console.log("Error - unauthorized");
-    }
+      .catch((err) => {
+        console.error(err);
+        setErrorMsg(
+          `Ups! Loooks like something went wrong when creating your post!`
+        );
+        setIsOpen(true);
+      });
   }
 
   return (
@@ -142,9 +170,23 @@ export default function PostForm() {
         />
 
         <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
-        {valid && <p>Post created successfully!</p>}
-        {valid === false && <p>Post creation failed</p>}
+        {!valid && <p>{errorMsg}</p>}
       </form>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+        shouldCloseOnOverlayClick
+      >
+        <UnauthorisedModal
+          style={styles}
+          onClick={() => setIsOpen(false)}
+          errorMsg={errorMsg}
+          isLoggedIn={isLoggedIn}
+          title="Post created!"
+        ></UnauthorisedModal>
+      </Modal>
     </section>
   );
 }

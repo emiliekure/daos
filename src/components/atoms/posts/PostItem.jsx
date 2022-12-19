@@ -29,15 +29,15 @@ export default function PostItem({
   slice,
   description,
   fetchPosts,
+  isLoggedIn,
+  setIsLoggedIn,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = localStorage.getItem("token");
 
   function handleOpenModal(bool) {
     setIsOpen(bool);
-    console.log(token);
 
     if (token) {
       setIsLoggedIn(true);
@@ -47,7 +47,6 @@ export default function PostItem({
       setErrorMsg(
         "To be able to see full description of the post, please login to your DAOS account or create a profile on our signup page."
       );
-      console.log(isLoggedIn);
     }
   }
 
@@ -107,7 +106,10 @@ export default function PostItem({
               <div className={styles.info}>
                 <img src="../img/music-solid.svg" alt="music note" />
                 <p className="post-instrument">
-                  {instrument} ({searchType})
+                  <span style={{ textTransform: "capitalize" }}>
+                    {instrument}
+                  </span>{" "}
+                  ({searchType})
                 </p>
               </div>
             </div>
@@ -121,14 +123,13 @@ export default function PostItem({
             {date} &sdot; {location}
           </p>
           {slice.length === 0 && (
-            <button
-              type="button"
-              name="deleteBtn"
-              id={id}
-              className={styles.deleteBtn}
-              onClick={(evt) => handleDelete(evt.target.id)}
-            >
-              <img src="../img/trash-can.svg" alt="trash can" />
+            <button type="button" name="deleteBtn" className={styles.deleteBtn}>
+              <img
+                id={id}
+                src="../img/trash-can.svg"
+                alt="trash can"
+                onClick={(evt) => handleDelete(evt.target.id)}
+              />
             </button>
           )}
         </div>
@@ -161,6 +162,7 @@ export default function PostItem({
               onClick={() => setIsOpen(false)}
               errorMsg={errorMsg}
               isLoggedIn={isLoggedIn}
+              title="Unauthorised action"
             ></UnauthorisedModal>
           )}
         </Modal>

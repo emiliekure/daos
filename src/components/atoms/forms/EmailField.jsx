@@ -1,7 +1,6 @@
 import styles from "./FormFields.module.css";
 
 export default function EmailField({ value, onChange, onBlur, availableMsg }) {
-  console.log(availableMsg);
   return (
     <div className={styles.fieldgroup}>
       <label for="email">
