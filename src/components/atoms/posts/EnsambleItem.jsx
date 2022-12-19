@@ -1,10 +1,6 @@
 import styles from "./PostItem.module.css";
 import Modal from "react-modal";
 import { useState } from "react";
-import btnstyles from "../../shared/TheHeader.module.css";
-import { Link } from "react-router-dom";
-import PrimaryButton from "../buttons/PrimaryButton";
-import SecondaryButton from "../buttons/SecondaryButton";
 import UnauthorisedModal from "./UnauthorisedModal";
 
 const customStyles = {
@@ -25,14 +21,13 @@ export default function EnsambleItem({
   name,
   creator,
   members,
-  slice,
   fetchEnsambles,
+  isLoggedIn,
+  setIsLoggedIn,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = localStorage.getItem("token");
   const [errorMsg, setErrorMsg] = useState("");
-  console.log(members);
 
   function handleAddMember(ensambleId) {
     setErrorMsg("");
@@ -61,7 +56,6 @@ export default function EnsambleItem({
             console.error(err);
             setErrorMsg("You are already a member of this ensamble!");
             setIsOpen(true);
-            console.log(errorMsg);
           });
       }
     } else {
@@ -70,7 +64,6 @@ export default function EnsambleItem({
         "You have to be logged into your DAOS account to join our ensambles."
       );
       setIsOpen(true);
-      console.log(errorMsg);
     }
   }
   Modal.setAppElement("main");

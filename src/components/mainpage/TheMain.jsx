@@ -8,13 +8,24 @@ export default function TheMain({
   ensambles,
   fetchPosts,
   fetchEnsambles,
+  isLoggedIn,
+  setIsLoggedIn,
 }) {
-  console.log(ensambles);
   return (
     <main>
       <Hero />
-      <Posts posts={posts} fetchPosts={fetchPosts} />
-      <Ensambles ensambles={ensambles} fetchEnsambles={fetchEnsambles} />
+      <Posts
+        posts={posts}
+        fetchPosts={fetchPosts}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
+      <Ensambles
+        ensambles={ensambles}
+        fetchEnsambles={fetchEnsambles}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
       <Feedback />
     </main>
   );

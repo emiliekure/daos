@@ -3,7 +3,13 @@ import EnsambleItem from "../atoms/posts/EnsambleItem";
 import SeeAll from "../atoms/posts/SeeAll";
 import styles from "./PostList.module.css";
 
-export default function EnsambleList({ slice, ensambles, fetchEnsambles }) {
+export default function EnsambleList({
+  slice,
+  ensambles,
+  fetchEnsambles,
+  isLoggedIn,
+  setIsLoggedIn,
+}) {
   useEffect(() => {
     fetchEnsambles();
   }, []);
@@ -21,6 +27,8 @@ export default function EnsambleList({ slice, ensambles, fetchEnsambles }) {
               members={ensamble.members.map((member) => member)}
               slice={slice}
               fetchEnsambles={fetchEnsambles}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
             />
           </>
         );
