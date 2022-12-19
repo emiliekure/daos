@@ -36,7 +36,9 @@ export default function PostItemModal({
           </div>
           <div className={styles.info}>
             <img src="../img/user-solid.svg" alt="user icon" />
-            <p className="post-author">{author}</p>
+            <p className="post-author">
+              {author[0].name + " " + author[0].surname}
+            </p>
           </div>
           <div className={styles.info}>
             <img src="../img/location.svg" alt="music note" />

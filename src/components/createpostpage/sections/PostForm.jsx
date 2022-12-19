@@ -66,12 +66,11 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
       const token = localStorage.getItem("token");
       if (token && token !== "") {
         setIsLoggedIn(true);
-        const author = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem("user"));
         const createdPost = { ...formValues };
         createdPost.searchType = radioStatus;
         createdPost.dateOfCreation = new Date();
-        createdPost.author = author.name + " " + author.surname;
-        createdPost.authorId = author._id;
+        createdPost.author = user._id;
         createPost(createdPost, token);
         dispatch({
           ["title"]: "",

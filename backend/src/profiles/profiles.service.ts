@@ -12,6 +12,9 @@ export class ProfileService {
   getProfiles(): Promise<Profile[]> {
     return this.prModel.find().exec();
   }
+  getSpecificProfile(id: string): Promise<Profile> {
+    return this.prModel.findOne({ _id: id }).exec();
+  }
   async validateProfile(body: any) {
     const profile: Profile = await this.prModel.findOne({ email: body.email });
 

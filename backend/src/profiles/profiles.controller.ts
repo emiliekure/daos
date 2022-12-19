@@ -28,6 +28,18 @@ export class ProfilesController {
 
     return result;
   }
+  @UseGuards(JwtAuthGuard)
+  @Get('/:id')
+  async getProfile(
+    @Param('id') id: string,
+    @Req() request: Request,
+  ): Promise<Profile> {
+    console.log(request);
+    const result: Profile = await this.prService.getSpecificProfile(id);
+    console.log(result);
+
+    return result;
+  }
 
   @Post()
   createProfile(@Body() body) {
