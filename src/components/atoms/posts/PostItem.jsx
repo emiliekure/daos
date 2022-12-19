@@ -21,7 +21,6 @@ export default function PostItem({
   id,
   title,
   author,
-  authorId,
   instrument,
   searchType,
   date,
@@ -55,7 +54,7 @@ export default function PostItem({
     const loggedUser = JSON.parse(localStorage.getItem("user"));
     if (token) {
       setIsLoggedIn(true);
-      if (authorId === loggedUser._id) {
+      if (author[0]._id === loggedUser._id) {
         setErrorMsg("");
         fetch(`http://localhost:3004/posts/${postId}`, {
           method: "DELETE",
@@ -102,7 +101,9 @@ export default function PostItem({
             >
               <div className={styles.info}>
                 <img src="../img/user-solid.svg" alt="user icon" />
-                <p className="post-author">{author}</p>
+                <p className="post-author">
+                  {author[0].name + " " + author[0].surname}
+                </p>
               </div>
               <div className={styles.info}>
                 <img src="../img/music-solid.svg" alt="music note" />

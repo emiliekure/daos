@@ -47,12 +47,11 @@ export default function PostForm() {
       setError("");
     } else {
       setValid(true);
-      const author = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(localStorage.getItem("user"));
       const createdPost = { ...formValues };
       createdPost.searchType = radioStatus;
       createdPost.dateOfCreation = new Date();
-      createdPost.author = author.name + " " + author.surname;
-      createdPost.authorId = author._id;
+      createdPost.author = user._id;
       console.log(createdPost);
       const token = localStorage.getItem("token");
       createPost(createdPost, token);

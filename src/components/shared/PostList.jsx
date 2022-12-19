@@ -18,7 +18,6 @@ export default function PostList({ slice, posts, fetchPosts }) {
               id={post._id}
               title={post.title}
               author={post.author}
-              authorId={post.authorId}
               instrument={post.instrument}
               searchType={post.searchType}
               date={post.dateOfCreation}

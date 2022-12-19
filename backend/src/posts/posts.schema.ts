@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { Profile } from 'src/profiles/profiles.schema';
 
 export type PostDocument = Posts & Document;
 
@@ -8,11 +10,10 @@ export class Posts {
   @Prop({ required: true })
   title: string;
 
-  @Prop()
-  author: string;
-
-  @Prop()
-  authorId: string;
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: Profile.name }],
+  })
+  author: Profile;
 
   @Prop({ required: true })
   instrument: string;

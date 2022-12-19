@@ -8,7 +8,7 @@ export class PostService {
   constructor(@InjectModel(Posts.name) private pModel: Model<PostDocument>) {}
 
   getPosts(): Promise<Posts[]> {
-    return this.pModel.find().exec();
+    return this.pModel.find().populate('author').exec();
   }
   createPost(post: any) {
     const savedPost = new this.pModel(post);
