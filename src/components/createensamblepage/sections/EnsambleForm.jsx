@@ -3,15 +3,30 @@ import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import TextareaField from "../../atoms/forms/TextareaField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
+import UnauthorisedModal from "../../atoms/posts/UnauthorisedModal";
+import Modal from "react-modal";
 
-export default function EnsambleForm() {
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: 0,
+  },
+};
+
+export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
   const [valid, setValid] = useState(undefined);
-  const [error, setError] = useState("");
   const [ensambleNameError, setEnsambleNameError] = useState("");
   const [ensambleEmailError, setEnsambleEmailError] = useState("");
   const [ensambleCapacityError, setEnsambleCapacityError] = useState("");
   const [ensambleDescriptionError, setEnsambleDescriptionError] = useState("");
   const [nameAvailable, setNameAvailable] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const reducer = (state, newValues) => {
     return { ...state, ...newValues };
@@ -41,44 +56,60 @@ export default function EnsambleForm() {
       formValues.location === ""
     ) {
       setValid(false);
-      setError("");
+      setErrorMsg(
+        `All inputs marked with '*' have to be filled out before submitting.`
+      );
     } else {
       setValid(true);
-      const author = JSON.parse(localStorage.getItem("user"));
-      const createdEnsamble = { ...formValues };
-      createdEnsamble.creator = author._id;
-      if (createdEnsamble.email.length === 0) {
-        createdEnsamble.email = author.email;
-      }
-      console.log(createdEnsamble);
       const token = localStorage.getItem("token");
-      createEnsamble(createdEnsamble, token);
-      dispatch({
-        ["name"]: "",
-        ["capacity"]: "",
-        ["description"]: "",
-        ["location"]: "",
-        ["email"]: "",
-      });
+      if (token && token !== "") {
+        setIsLoggedIn(true);
+        const author = JSON.parse(localStorage.getItem("user"));
+        const createdEnsamble = { ...formValues };
+        createdEnsamble.creator = author._id;
+        if (formValues.email.length === 0) {
+          createdEnsamble.email = author.email;
+        }
+        createEnsamble(createdEnsamble, token);
+        dispatch({
+          ["name"]: "",
+          ["capacity"]: "",
+          ["description"]: "",
+          ["location"]: "",
+          ["email"]: "",
+        });
+      } else {
+        setIsLoggedIn(false);
+        setIsOpen(true);
+        setErrorMsg(
+          `Please log in or sign up to create an ensamble on DAOS platform.`
+        );
+      }
     }
   };
 
   function createEnsamble(ensamble, token) {
-    if (token && token !== "") {
-      fetch("http://localhost:3004/ensambles", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(ensamble),
+    fetch("http://localhost:3004/ensambles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(ensamble),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setIsOpen(true);
+        setErrorMsg(`Your ensamble has been created successfully!`);
       })
-        .then((response) => response.json())
-        .then((response) => console.log(response))
-        .catch((err) => console.error(err));
-    } else {
-      console.log("Error - unauthorized");
-    }
+      .catch((err) => {
+        console.error(err);
+        setErrorMsg(
+          `Ups! Loooks like something went wrong when creating your ensamble!`
+        );
+        setIsOpen(true);
+      });
   }
 
   function checkEnsambleName() {
@@ -196,9 +227,23 @@ export default function EnsambleForm() {
         />
 
         <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
-        {valid && <p>Ensamble created successfully!</p>}
-        {valid === false && <p>Ensamble creation failed</p>}
+        {!valid && <p>{errorMsg}</p>}
       </form>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+        shouldCloseOnOverlayClick
+      >
+        <UnauthorisedModal
+          style={styles}
+          onClick={() => setIsOpen(false)}
+          errorMsg={errorMsg}
+          isLoggedIn={isLoggedIn}
+          title="Ensamble created!"
+        ></UnauthorisedModal>
+      </Modal>
     </section>
   );
 }

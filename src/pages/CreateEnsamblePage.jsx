@@ -3,11 +3,11 @@ import TheMain from "../components/createensamblepage/TheMain";
 import TheFooter from "../components/shared/TheFooter";
 import "./TheMain.css";
 
-export default function CreateEnsamblePage() {
+export default function CreateEnsamblePage({ isLoggedIn, setIsLoggedIn }) {
   return (
     <div className="page-wrapper">
       <TheHeader />
-      <TheMain />
+      <TheMain isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <TheFooter />
     </div>
   );

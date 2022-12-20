@@ -11,6 +11,7 @@ import CreateEnsamblePage from "./pages/CreateEnsamblePage";
 function App() {
   const [posts, setPosts] = useState([]);
   const [ensambles, setEnsambles] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   function formatDate(dbDate) {
     const nth = function (d) {
@@ -92,6 +93,8 @@ function App() {
               ensambles={ensambles}
               fetchPosts={fetchPosts}
               fetchEnsambles={fetchEnsambles}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
             />
           }
           exact
@@ -104,13 +107,31 @@ function App() {
               ensambles={ensambles}
               fetchPosts={fetchPosts}
               fetchEnsambles={fetchEnsambles}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
             />
           }
         />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/createpost" element={<CreatePostPage />} />
-        <Route path="/createensamble" element={<CreateEnsamblePage />} />
+        <Route
+          path="/createpost"
+          element={
+            <CreatePostPage
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
+        />
+        <Route
+          path="/createensamble"
+          element={
+            <CreateEnsamblePage
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
+        />
       </Routes>
     </>
   );

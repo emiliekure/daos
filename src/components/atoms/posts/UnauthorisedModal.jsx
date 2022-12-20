@@ -9,6 +9,7 @@ export default function UnauthorisedModal({
   onClick,
   errorMsg,
   isLoggedIn,
+  title,
 }) {
   return (
     <div className={style} id="unauthorisedModal">
@@ -18,7 +19,7 @@ export default function UnauthorisedModal({
             X
           </button>
           <h4 className={styles.postTitle}>
-            {isLoggedIn ? "Unauthorised action!" : "You are not logged in!"}
+            {isLoggedIn ? title : "You are not logged in!"}
           </h4>
           <p>{errorMsg}</p>
           {!isLoggedIn && (

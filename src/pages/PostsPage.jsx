@@ -8,6 +8,8 @@ export default function PostsPage({
   ensambles,
   fetchPosts,
   fetchEnsambles,
+  isLoggedIn,
+  setIsLoggedIn,
 }) {
   return (
     <div className="page-wrapper">
@@ -17,6 +19,8 @@ export default function PostsPage({
         ensambles={ensambles}
         fetchPosts={fetchPosts}
         fetchEnsambles={fetchEnsambles}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
       />
       <TheFooter />
     </div>

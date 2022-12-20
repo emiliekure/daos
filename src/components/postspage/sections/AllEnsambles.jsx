@@ -1,7 +1,12 @@
 import EnsambleList from "../../shared/EnsambleList";
 import styles from "./AllPosts.module.css";
 
-export default function AllEnsambles({ ensambles, fetchEnsambles }) {
+export default function AllEnsambles({
+  ensambles,
+  fetchEnsambles,
+  isLoggedIn,
+  setIsLoggedIn,
+}) {
   return (
     <section className={styles.allPosts}>
       <div className={styles.header}>
@@ -11,6 +16,8 @@ export default function AllEnsambles({ ensambles, fetchEnsambles }) {
       <EnsambleList
         ensambles={ensambles}
         fetchEnsambles={fetchEnsambles}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
         slice={[]}
       />
     </section>
