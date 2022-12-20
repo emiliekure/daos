@@ -61,8 +61,8 @@ export class EnsembleService {
     });
 
     if (searchedEnsemble) {
-      throw new HttpException('This ensemble already exists!', 200);
+      throw new HttpException('Name unavailable', 200);
     }
-    throw new HttpException('This ensemble is available!', 200);
+    throw new HttpException('Name available', 200);
   }
 }
