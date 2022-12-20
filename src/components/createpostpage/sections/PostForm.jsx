@@ -24,7 +24,8 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const [valid, setValid] = useState(undefined);
   const [errorTitle, setErrorTitle] = useState("");
-  const [errorLocation, setErrorLocation] = useState("");
+  const [postLocationError, setPostLocationError] = useState("");
+  const [postCityError, setPostCityError] = useState("");
   const [errorDescription, setErrorDescription] = useState("");
   const [errorRadio, setErrorRadio] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -43,6 +44,7 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
     instrument: "",
     description: "",
     location: "",
+    city: "",
   });
 
   const updateFormValue = (event) => {
@@ -59,7 +61,8 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
       radioStatus === "" ||
       formValues.instrument === "" ||
       formValues.description === "" ||
-      formValues.location === ""
+      formValues.location === "" ||
+      formValues.city === ""
     ) {
       setValid(false);
       setErrorMsg(
@@ -75,12 +78,15 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
         createdPost.searchType = radioStatus;
         createdPost.dateOfCreation = new Date();
         createdPost.author = user._id;
+        createdPost.location = createdPost.location + " " + createdPost.city;
+        delete createdPost.city;
         createPost(createdPost, token);
         dispatch({
           ["title"]: "",
           ["instrument"]: "",
           ["description"]: "",
           ["location"]: "",
+          ["city"]: "",
         });
         setRadioStatus("");
       } else {
@@ -116,6 +122,7 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
   }
 
   function checkRadio() {
+    setErrorRadio("");
     if (radioStatus === undefined) {
       setErrorRadio(
         "You have to choose if you are seeking a musician or offering to play"
@@ -134,11 +141,28 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
     }
   }
 
-  function checkLocation() {
-    if (formValues.location.includes("1234567890")) {
-      setErrorLocation("");
+  function checkZipCode() {
+    console.log(Number(formValues.location));
+    if (formValues.location.length === 0) {
+      setPostLocationError("Zipcode cannot be empty");
     } else {
-      setErrorLocation("Please provide a zip code and the city");
+      if (formValues.location.length === 4 && Number(formValues.location)) {
+        setPostLocationError("");
+      } else {
+        setPostLocationError("Zipcode has to be expressed in 4 numbers");
+      }
+    }
+  }
+
+  function checkCity() {
+    if (formValues.city.length === 0) {
+      setPostCityError("City cannot be empty");
+    } else {
+      if (formValues.city.length >= 2 && formValues.city.length <= 21) {
+        setPostCityError("");
+      } else {
+        setPostCityError("Please provide a valid city name");
+      }
     }
   }
 
@@ -212,15 +236,15 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
             name="location"
             value={formValues.location}
             onChange={updateFormValue}
-            onBlur={checkLocation}
-            errorLocation={errorLocation}
+            onBlur={checkZipCode}
+            postLocationError={postLocationError}
           />
           <TextField
             name="city"
-            value={formValues.location}
+            value={formValues.city}
             onChange={updateFormValue}
-            onBlur={checkLocation}
-            errorLocation={errorLocation}
+            onBlur={checkCity}
+            postCityError={postCityError}
           />
         </div>
 

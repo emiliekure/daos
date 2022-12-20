@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import ConfirmPasswordField from "../../atoms/forms/ConfirmPasswordField";
 import EmailField from "../../atoms/forms/EmailField";
@@ -7,14 +7,14 @@ import PasswordField from "../../atoms/forms/PasswordField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
 
-export default function SignupForm() {
+export default function UpdateForm({ userProfile, getProfile, token }) {
   const [valid, setValid] = useState(undefined);
   const [errorName, setErrorName] = useState("");
   const [error, setError] = useState("");
   const [errorSurname, setErrorSurname] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
-  const [confpassword, setConfPassword] = useState("");
+  const [confpassword, setConfPassword] = useState(userProfile.password);
   const [emailAvailable, setEmailAvailable] = useState("");
   const [isMatching, setIsmatching] = useState(true);
 
@@ -23,11 +23,11 @@ export default function SignupForm() {
   };
 
   const [formValues, dispatch] = useReducer(reducer, {
-    name: "",
-    surname: "",
-    instrument: "",
-    email: "",
-    password: "",
+    name: userProfile.name,
+    surname: userProfile.surname,
+    instrument: userProfile.instrument,
+    email: userProfile.email,
+    password: userProfile.password,
   });
 
   const updateFormValue = (event) => {
@@ -51,7 +51,7 @@ export default function SignupForm() {
       setError("");
     } else {
       setValid(true);
-      createProfile();
+      updateProfile();
       dispatch({
         ["name"]: "",
         ["surname"]: "",
@@ -63,16 +63,20 @@ export default function SignupForm() {
     }
   };
 
-  function createProfile() {
-    fetch("http://localhost:3004/profiles/validate", {
-      method: "POST",
+  function updateProfile() {
+    fetch(`http://localhost:3004/profiles/${userProfile._id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formValues),
     })
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response);
+        getProfile();
+      })
       .catch((err) => console.error(err));
   }
 
@@ -150,7 +154,7 @@ export default function SignupForm() {
 
   return (
     <section className={styles.formWrapper}>
-      <h1>Sign Up</h1>
+      <h1>Update profile settings</h1>
       <form className={styles.form}>
         <TextField
           name="name"

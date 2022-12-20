@@ -26,6 +26,9 @@ export default function TheHeader() {
           <li>
             <Link to={"/createensamble"}>Create ensamble</Link>
           </li>
+          <li>
+            <Link to={"/settings"}>Settings</Link>
+          </li>
         </ul>
         <div className={styles.buttons}>
           <Link to={"/signup"}>

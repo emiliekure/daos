@@ -23,6 +23,8 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
   const [ensambleNameError, setEnsambleNameError] = useState("");
   const [ensambleEmailError, setEnsambleEmailError] = useState("");
   const [ensambleCapacityError, setEnsambleCapacityError] = useState("");
+  const [ensambleLocationError, setEnsambleLocationError] = useState("");
+  const [ensambleCityError, setEnsambleCityError] = useState("");
   const [ensambleDescriptionError, setEnsambleDescriptionError] = useState("");
   const [nameAvailable, setNameAvailable] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -37,6 +39,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
     capacity: "",
     description: "",
     location: "",
+    city: "",
     email: "",
   });
 
@@ -53,7 +56,8 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
       formValues.name === "" ||
       formValues.capacity === "" ||
       formValues.description === "" ||
-      formValues.location === ""
+      formValues.location === "" ||
+      formValues.city === ""
     ) {
       setValid(false);
       setErrorMsg(
@@ -67,6 +71,9 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
         const author = JSON.parse(localStorage.getItem("user"));
         const createdEnsamble = { ...formValues };
         createdEnsamble.creator = author._id;
+        createdEnsamble.location =
+          createdEnsamble.location + " " + createdEnsamble.city;
+        delete createdEnsamble.city;
         if (formValues.email.length === 0) {
           createdEnsamble.email = author.email;
         }
@@ -76,6 +83,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
           ["capacity"]: "",
           ["description"]: "",
           ["location"]: "",
+          ["city"]: "",
           ["email"]: "",
         });
       } else {
@@ -113,9 +121,12 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
   }
 
   function checkEnsambleName() {
+    setEnsambleNameError("");
+    setNameAvailable("");
     if (formValues.name.length === 0) {
       setEnsambleNameError("The ensamble name cannot be empty");
     } else {
+      setEnsambleNameError("");
       fetch("http://localhost:3004/ensambles/validate", {
         method: "POST",
         headers: {
@@ -134,6 +145,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
       setEnsambleEmailError("Email cannot be empty");
       console.log(ensambleEmailError);
     } else { */
+    setEnsambleEmailError("");
     if (formValues.email.length !== 0) {
       if (formValues.email.includes("@")) {
         setEnsambleEmailError("");
@@ -157,6 +169,31 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
         setEnsambleCapacityError(
           "Capacity has to be expressed in max of 2 numbers (max capacity is 100 members)"
         );
+      }
+    }
+  }
+
+  function checkZipCode() {
+    console.log(Number(formValues.location));
+    if (formValues.location.length === 0) {
+      setEnsambleLocationError("Zipcode cannot be empty");
+    } else {
+      if (formValues.location.length === 4 && Number(formValues.location)) {
+        setEnsambleLocationError("");
+      } else {
+        setEnsambleLocationError("Zipcode has to be expressed in 4 numbers");
+      }
+    }
+  }
+
+  function checkCity() {
+    if (formValues.city.length === 0) {
+      setEnsambleCityError("City cannot be empty");
+    } else {
+      if (formValues.city.length >= 2 && formValues.city.length <= 21) {
+        setEnsambleCityError("");
+      } else {
+        setEnsambleCityError("Please provide a valid city name");
       }
     }
   }
@@ -211,11 +248,22 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
           ensambleCapacityError={ensambleCapacityError}
         />
 
-        <TextField
-          name="location"
-          value={formValues.location}
-          onChange={updateFormValue}
-        />
+        <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+          <TextField
+            name="location"
+            value={formValues.location}
+            onChange={updateFormValue}
+            onBlur={checkZipCode}
+            ensambleLocationError={ensambleLocationError}
+          />
+          <TextField
+            name="city"
+            value={formValues.city}
+            onChange={updateFormValue}
+            onBlur={checkCity}
+            ensambleCityError={ensambleCityError}
+          />
+        </div>
 
         <TextareaField
           name="description"

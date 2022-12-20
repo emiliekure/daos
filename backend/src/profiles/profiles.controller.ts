@@ -12,7 +12,6 @@ import {
 
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { Profile } from './../profiles/profiles.schema';
 import { ProfileService } from './../profiles/profiles.service';
 

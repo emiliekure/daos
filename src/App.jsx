@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import CreatePostPage from "./pages/CreatePostPage.jsx";
 import { useEffect, useState } from "react";
 import CreateEnsamblePage from "./pages/CreateEnsamblePage";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -114,6 +115,10 @@ function App() {
         />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/settings"
+          element={<SettingsPage posts={posts} ensambles={ensambles} />}
+        />
         <Route
           path="/createpost"
           element={

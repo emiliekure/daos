@@ -14,6 +14,10 @@ export default function TextField({
   ensambleNameError,
   ensambleEmailError,
   ensambleCapacityError,
+  postCityError,
+  postLocationError,
+  ensambleCityError,
+  ensambleLocationError,
 }) {
   return (
     <div
@@ -55,6 +59,10 @@ export default function TextField({
       )}
       {ensambleEmailError && <p>{ensambleEmailError}</p>}
       {ensambleCapacityError && <p>{ensambleCapacityError}</p>}
+      {postCityError && <p>{postCityError}</p>}
+      {postLocationError && <p>{postLocationError}</p>}
+      {ensambleLocationError && <p>{ensambleLocationError}</p>}
+      {ensambleCityError && <p>{ensambleCityError}</p>}
     </div>
   );
 }
