@@ -1,4 +1,3 @@
-import PostList from "../../shared/PostList";
 import styles from "../../postspage/sections/AllPosts.module.css";
 import MyPostList from "./MyPostList";
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UpdateForm from "./sections/UpdateForm";
 import ProfileInfo from "./sections/ProfileInfo";
 import MyPosts from "./sections/MyPosts";
+import MyEnsembles from "./sections/MyEnsembles";
 
 export default function TheMain({
   posts,
@@ -90,10 +91,13 @@ export default function TheMain({
             fetchPosts={fetchPosts}
             userProfile={userProfile}
           />
+          <MyEnsembles
+            ensambles={ensambles}
+            fetchEnsambles={fetchEnsambles}
+            userProfile={userProfile}
+          />
         </>
       )}
-      {/*  
-      <MyEnsembles ensambles={ensambles} /> */}
     </main>
   );
 }
