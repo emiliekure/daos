@@ -6,7 +6,7 @@ export default function TheMain({ posts, ensambles }) {
   const token = localStorage.getItem("token");
   const loggedUser = JSON.parse(localStorage.getItem("user"));
 
-  async function getProfile() {
+  const getProfile = () => {
     fetch(`http://localhost:3004/profiles/${loggedUser._id}`, {
       method: "GET",
       headers: {
@@ -23,7 +23,7 @@ export default function TheMain({ posts, ensambles }) {
       .catch((err) => {
         console.error(err);
       });
-  }
+  };
 
   useEffect(() => {
     getProfile();

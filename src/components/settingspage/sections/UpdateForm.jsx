@@ -63,8 +63,8 @@ export default function UpdateForm({ userProfile, getProfile, token }) {
     }
   };
 
-  function updateProfile() {
-    fetch(`http://localhost:3004/profiles/${userProfile._id}`, {
+  const updateProfile = () => {
+    fetch(`http://localhost:3004/profiles/updateProfile/${userProfile._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -72,13 +72,29 @@ export default function UpdateForm({ userProfile, getProfile, token }) {
       },
       body: JSON.stringify(formValues),
     })
-      .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        response.json();
         getProfile();
       })
+      .then((response) => {
+        console.log(response);
+        setTimeout(() => {
+          console.log("Delayed for 1 sec.");
+          const updatedUser = JSON.parse(localStorage.getItem("user"));
+          if (updatedUser) {
+            dispatch({
+              ["name"]: updatedUser.name,
+              ["surname"]: updatedUser.surname,
+              ["instrument"]: updatedUser.instrument,
+              ["email"]: updatedUser.email,
+              ["password"]: updatedUser.password,
+            });
+            setConfPassword(updatedUser.password);
+          }
+        }, "500");
+      })
       .catch((err) => console.error(err));
-  }
+  };
 
   const updateConfPassword = (event) => {
     setConfPassword(event.target.value);
