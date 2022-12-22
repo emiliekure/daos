@@ -64,7 +64,7 @@ export default function UpdateForm({ userProfile, getProfile, token }) {
   };
 
   function updateProfile() {
-    fetch(`http://localhost:3004/profiles/${userProfile._id}`, {
+    fetch(`http://localhost:3004/profiles/updateProfile/${userProfile._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
