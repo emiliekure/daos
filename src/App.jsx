@@ -117,7 +117,14 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/settings"
-          element={<SettingsPage posts={posts} ensambles={ensambles} />}
+          element={
+            <SettingsPage
+              posts={posts}
+              fetchPosts={fetchPosts}
+              ensambles={ensambles}
+              fetchEnsambles={fetchEnsambles}
+            />
+          }
         />
         <Route
           path="/createpost"
