@@ -31,13 +31,15 @@ export default function TheMain({ posts, ensambles }) {
   }, []);
   return (
     <main>
-      {<ProfileInfo userProfile={userProfile} />}
       {userProfile && (
-        <UpdateForm
-          userProfile={userProfile}
-          getProfile={getProfile}
-          token={token}
-        />
+        <>
+          <ProfileInfo userProfile={userProfile} />
+          <UpdateForm
+            userProfile={userProfile}
+            getProfile={getProfile}
+            token={token}
+          />
+        </>
       )}
       {/*  <MyPosts posts={posts} />
       <MyEnsembles ensambles={ensambles} /> */}
