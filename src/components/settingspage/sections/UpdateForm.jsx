@@ -7,7 +7,12 @@ import PasswordField from "../../atoms/forms/PasswordField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
 
-export default function UpdateForm({ userProfile, getProfile, token }) {
+export default function UpdateForm({
+  userProfile,
+  getProfile,
+  token,
+  fetchPosts,
+}) {
   const [valid, setValid] = useState(undefined);
   const [errorName, setErrorName] = useState("");
   const [error, setError] = useState("");
@@ -51,7 +56,9 @@ export default function UpdateForm({ userProfile, getProfile, token }) {
       setError("");
     } else {
       setValid(true);
-      updateProfile();
+      const updatedProfile = { ...formValues };
+      updatedProfile.dateOfCreation = new Date();
+      updateProfile(updatedProfile);
       dispatch({
         ["name"]: "",
         ["surname"]: "",
@@ -63,18 +70,19 @@ export default function UpdateForm({ userProfile, getProfile, token }) {
     }
   };
 
-  const updateProfile = () => {
+  function updateProfile(newProfile) {
     fetch(`http://localhost:3004/profiles/updateProfile/${userProfile._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(formValues),
+      body: JSON.stringify(newProfile),
     })
       .then((response) => {
         response.json();
         getProfile();
+        fetchPosts();
       })
       .then((response) => {
         console.log(response);
@@ -94,7 +102,7 @@ export default function UpdateForm({ userProfile, getProfile, token }) {
         }, "500");
       })
       .catch((err) => console.error(err));
-  };
+  }
 
   const updateConfPassword = (event) => {
     setConfPassword(event.target.value);

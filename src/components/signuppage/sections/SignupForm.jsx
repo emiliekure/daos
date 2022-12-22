@@ -51,7 +51,9 @@ export default function SignupForm() {
       setError("");
     } else {
       setValid(true);
-      createProfile();
+      const signupProfile = { ...formValues };
+      signupProfile.dateOfCreation = new Date();
+      createProfile(signupProfile);
       dispatch({
         ["name"]: "",
         ["surname"]: "",
@@ -63,13 +65,13 @@ export default function SignupForm() {
     }
   };
 
-  function createProfile() {
+  function createProfile(signupProfile) {
     fetch("http://localhost:3004/profiles/validate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formValues),
+      body: JSON.stringify(signupProfile),
     })
       .then((response) => response.json())
       .then((response) => console.log(response))

@@ -1,13 +1,19 @@
+import styles from "../../shared/PostList.module.css";
+import ProfileCard from "./ProfileCard";
+
 export default function ProfileInfo({ userProfile }) {
   return (
     <section>
-      <div>
-        <h1>Your profile info</h1>
-        <p>{userProfile.name}</p>
-        <p>{userProfile.surname}</p>
-        <p>{userProfile.instrument}</p>
-        <p>{userProfile.email}</p>
-      </div>
+      <ProfileCard
+        style={styles.card}
+        id={userProfile._id}
+        title={"Your profile info"}
+        name={userProfile.name}
+        surname={userProfile.surname}
+        instrument={userProfile.instrument}
+        email={userProfile.email}
+        date={userProfile.dateOfCreation}
+      />
     </section>
   );
 }
