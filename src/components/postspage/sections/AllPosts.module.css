@@ -4,8 +4,45 @@
 	gap: 1.5rem;
 }
 
+.header {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
 .header h1 {
 	font-size: 3.75rem;
 	font-family: "Oswald", sans-serif;
 	color: #353a5d;
+}
+
+.filters,
+.filterFields {
+	display: flex;
+	gap: 24px;
+}
+
+.filters {
+	width: 80%;
+}
+
+.filterFields > * {
+	min-width: 320px;
+}
+
+.filterTabs {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.filterTabs h3 {
+	text-align: left;
+	text-transform: capitalize;
+}
+
+.filterButtons {
+	display: flex;
+	gap: 8px;
+	width: min-content;
 }
