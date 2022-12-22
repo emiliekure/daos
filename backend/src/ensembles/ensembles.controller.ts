@@ -53,4 +53,10 @@ export class EnsembleController {
     console.log('ensemble id', id);
     return this.enService.deleteEnsembleMember(id, memberId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('/:id')
+  deleteEnsemble(@Param('id') id: string) {
+    return this.enService.deleteEnsemble(id);
+  }
 }

@@ -83,6 +83,7 @@ export default function TheMain({
             userProfile={userProfile}
             getProfile={getProfile}
             fetchPosts={fetchPosts}
+            fetchEnsambles={fetchEnsambles}
             token={token}
           />
           <MyPosts

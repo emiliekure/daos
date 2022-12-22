@@ -12,6 +12,7 @@ export default function UpdateForm({
   getProfile,
   token,
   fetchPosts,
+  fetchEnsambles,
 }) {
   const [valid, setValid] = useState(undefined);
   const [errorName, setErrorName] = useState("");
@@ -83,6 +84,7 @@ export default function UpdateForm({
         response.json();
         getProfile();
         fetchPosts();
+        fetchEnsambles();
       })
       .then((response) => {
         console.log(response);
