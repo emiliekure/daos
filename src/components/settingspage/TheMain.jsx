@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import UpdateForm from "./sections/UpdateForm";
+import ProfileInfo from "./sections/ProfileInfo";
 
 export default function TheMain({ posts, ensambles }) {
   const [userProfile, setUserProfile] = useState(undefined);
@@ -30,7 +31,7 @@ export default function TheMain({ posts, ensambles }) {
   }, []);
   return (
     <main>
-      {/* <ProfileInfo userProfile={userProfile} /> */}
+      {<ProfileInfo userProfile={userProfile} />}
       {userProfile && (
         <UpdateForm
           userProfile={userProfile}
