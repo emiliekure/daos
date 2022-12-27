@@ -13,7 +13,7 @@ export default function MainPage({
 }) {
   return (
     <div className="page-wrapper">
-      <TheHeader />
+      <TheHeader isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <TheMain
         posts={posts}
         ensambles={ensambles}

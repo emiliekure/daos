@@ -8,10 +8,12 @@ export default function SettingsPage({
   ensambles,
   fetchPosts,
   fetchEnsambles,
+  isLoggedIn,
+  setIsLoggedIn,
 }) {
   return (
     <div className="page-wrapper">
-      <TheHeader />
+      <TheHeader isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <TheMain
         posts={posts}
         ensambles={ensambles}

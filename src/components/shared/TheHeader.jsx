@@ -3,7 +3,7 @@ import SecondaryButton from "../atoms/buttons/SecondaryButton";
 import styles from "./TheHeader.module.css";
 import { Link } from "react-router-dom";
 
-export default function TheHeader() {
+export default function TheHeader({ isLoggedIn, setIsLoggedIn }) {
   return (
     <header>
       <div className="company">
@@ -34,9 +34,21 @@ export default function TheHeader() {
           <Link to={"/signup"}>
             <PrimaryButton type="button" text="Sign up" />
           </Link>
-          <Link to={"/login"}>
-            <SecondaryButton type="button" text="Login" />
-          </Link>
+          {isLoggedIn ? (
+            <Link to={""}>
+              <SecondaryButton
+                type="button"
+                text="Log out"
+                onClick={() => {
+                  setIsLoggedIn(false), localStorage.clear();
+                }}
+              />
+            </Link>
+          ) : (
+            <Link to={"/login"}>
+              <SecondaryButton type="button" text="Login" />
+            </Link>
+          )}
         </div>
       </nav>
     </header>

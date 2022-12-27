@@ -1,11 +1,11 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { useState } from "react";
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import EmailField from "../../atoms/forms/EmailField";
 import PasswordField from "../../atoms/forms/PasswordField";
 import styles from "../../shared/Forms.module.css";
 
-export default function LoginForm() {
+export default function LoginForm({ isLoggedIn, setIsLoggedIn }) {
   const [valid, setValid] = useState(undefined);
   const [error, setError] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
@@ -98,6 +98,7 @@ export default function LoginForm() {
         localStorage.setItem("token", response.access_token);
         localStorage.setItem("user", JSON.stringify(response.user));
         setTimeout(() => localStorage.clear(), 3600000);
+        setIsLoggedIn(true);
         console.log(response);
       })
       .catch((err) => {
@@ -105,6 +106,7 @@ export default function LoginForm() {
         checkEmail();
         validatePassword();
       });
+    console.log(setIsLoggedIn());
   }
 
   return (

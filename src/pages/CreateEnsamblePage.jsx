@@ -6,7 +6,7 @@ import "./TheMain.css";
 export default function CreateEnsamblePage({ isLoggedIn, setIsLoggedIn }) {
   return (
     <div className="page-wrapper">
-      <TheHeader />
+      <TheHeader isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <TheMain isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <TheFooter />
     </div>

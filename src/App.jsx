@@ -68,7 +68,9 @@ function App() {
   };
   useEffect(() => {
     fetchPosts();
-  }, []);
+    fetchEnsambles();
+    if (localStorage.getItem("token")) setIsLoggedIn(true);
+  }, [isLoggedIn]);
 
   const fetchEnsambles = () => {
     fetch("http://localhost:3004/ensambles")
@@ -79,9 +81,6 @@ function App() {
       })
       .catch((err) => console.error(err));
   };
-  useEffect(() => {
-    fetchEnsambles();
-  }, []);
 
   return (
     <>
@@ -113,8 +112,18 @@ function App() {
             />
           }
         />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/signup"
+          element={
+            <SignupPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
         <Route
           path="/settings"
           element={
@@ -123,6 +132,8 @@ function App() {
               fetchPosts={fetchPosts}
               ensambles={ensambles}
               fetchEnsambles={fetchEnsambles}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
             />
           }
         />

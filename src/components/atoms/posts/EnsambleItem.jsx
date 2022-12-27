@@ -1,6 +1,6 @@
 import styles from "./PostItem.module.css";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UnauthorisedModal from "./UnauthorisedModal";
 
 const customStyles = {
@@ -28,11 +28,28 @@ export default function EnsambleItem({
   const [isOpen, setIsOpen] = useState(false);
   const token = localStorage.getItem("token");
   const [errorMsg, setErrorMsg] = useState("");
+  const loggedUser = JSON.parse(localStorage.getItem("user"));
+  const [isAMember, setIsAMember] = useState(undefined);
+
+  useEffect(() => {
+    if (loggedUser) {
+      if (members.length === 0) setIsAMember(false);
+      members.filter((member) => {
+        if (member._id.includes(loggedUser._id)) {
+          console.log(loggedUser._id);
+          return setIsAMember(true);
+        } else {
+          return setIsAMember(false);
+        }
+      });
+    } else {
+      setIsAMember(false);
+    }
+  }, [members, loggedUser]);
 
   function handleAddMember(ensambleId) {
     setErrorMsg("");
     setIsOpen(false);
-    const loggedUser = JSON.parse(localStorage.getItem("user"));
     if (token) {
       setIsLoggedIn(true);
       if (creator[0]._id === loggedUser._id) {
@@ -50,12 +67,14 @@ export default function EnsambleItem({
           .then((response) => response.json())
           .then((response) => {
             console.log(response);
+            if (response.statusCode === 403) {
+              setErrorMsg(response.message);
+              setIsOpen(true);
+            }
             fetchEnsambles();
           })
           .catch((err) => {
-            console.error(err);
-            setErrorMsg("You are already a member of this ensamble!");
-            setIsOpen(true);
+            console.log(err);
           });
       }
     } else {
@@ -65,6 +84,32 @@ export default function EnsambleItem({
       );
       setIsOpen(true);
     }
+  }
+
+  function handleRemoveMember(ensambleId) {
+    setErrorMsg("");
+    fetch(
+      `http://localhost:3004/ensambles/${ensambleId}/members/${loggedUser._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        fetchEnsambles();
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMsg(
+          "There has been a problem with removing you from the ensemble."
+        );
+        setIsOpen(true);
+      });
   }
   Modal.setAppElement("main");
   return (
@@ -110,14 +155,25 @@ export default function EnsambleItem({
         </div>
         <div className={styles.metaWrapper}>
           <p className={styles.postMeta}>
-            <button
-              type="button"
-              name="joinBtn"
-              id={id}
-              onClick={(evt) => handleAddMember(evt.target.id)}
-            >
-              JOIN
-            </button>
+            {isAMember ? (
+              <button
+                type="button"
+                name="leaveBtn"
+                id={id}
+                onClick={(evt) => handleRemoveMember(evt.target.id)}
+              >
+                LEAVE
+              </button>
+            ) : (
+              <button
+                type="button"
+                name="joinBtn"
+                id={id}
+                onClick={(evt) => handleAddMember(evt.target.id)}
+              >
+                JOIN
+              </button>
+            )}
           </p>
         </div>
       </div>
