@@ -25,6 +25,7 @@ export default function EnsambleList({
               name={ensamble.name}
               creator={ensamble.creator}
               members={ensamble.members.map((member) => member)}
+              email={ensamble.email}
               slice={slice}
               fetchEnsambles={fetchEnsambles}
               isLoggedIn={isLoggedIn}

@@ -2,6 +2,7 @@ import styles from "./PostItem.module.css";
 import Modal from "react-modal";
 import { useEffect, useState } from "react";
 import UnauthorisedModal from "./UnauthorisedModal";
+import PrimaryButton from "../buttons/PrimaryButton";
 
 const customStyles = {
   content: {
@@ -24,6 +25,8 @@ export default function EnsambleItem({
   fetchEnsambles,
   isLoggedIn,
   setIsLoggedIn,
+  slice,
+  email,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const token = localStorage.getItem("token");
@@ -154,27 +157,34 @@ export default function EnsambleItem({
           </div>
         </div>
         <div className={styles.metaWrapper}>
-          <p className={styles.postMeta}>
-            {isAMember ? (
-              <button
+          {slice !== 0 && (
+            <p className={styles.postMeta}>
+              <PrimaryButton
+                onClick={() => (window.location = `mailto:${email}`)}
                 type="button"
-                name="leaveBtn"
-                id={id}
-                onClick={(evt) => handleRemoveMember(evt.target.id)}
-              >
-                LEAVE
-              </button>
-            ) : (
-              <button
-                type="button"
-                name="joinBtn"
-                id={id}
-                onClick={(evt) => handleAddMember(evt.target.id)}
-              >
-                JOIN
-              </button>
-            )}
-          </p>
+                text="Contact"
+              />
+              {isAMember ? (
+                <button
+                  type="button"
+                  name="leaveBtn"
+                  id={id}
+                  onClick={(evt) => handleRemoveMember(evt.target.id)}
+                >
+                  LEAVE
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  name="joinBtn"
+                  id={id}
+                  onClick={(evt) => handleAddMember(evt.target.id)}
+                >
+                  JOIN
+                </button>
+              )}
+            </p>
+          )}
         </div>
       </div>
       <Modal

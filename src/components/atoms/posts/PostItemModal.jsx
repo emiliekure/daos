@@ -56,7 +56,11 @@ export default function PostItemModal({
           <p>{description}</p>
         </div>
         <div className={styles.buttons}>
-          <PrimaryButton type="button" text="Contact" />
+          <PrimaryButton
+            type="button"
+            text="Contact"
+            onClick={() => (window.location = `mailto:${author[0].email}`)}
+          />
           <SecondaryButton type="button" onClick={onClick} text="Close" />
         </div>
       </div>

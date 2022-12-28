@@ -50,24 +50,40 @@ export default function AllPosts({
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
-            <FilterButton
-              type={"button"}
-              text="All posts"
-              value="all"
-              onClick={(evt) => setSortTerm(evt.target.value)}
-            />
-            <FilterButton
-              type={"button"}
-              text="Looking for a musician"
-              value="wanted"
-              onClick={(evt) => setSortTerm(evt.target.value)}
-            />
-            <FilterButton
-              type={"button"}
-              text="Looking for an ensamble"
-              value="offered"
-              onClick={(evt) => setSortTerm(evt.target.value)}
-            />
+            <div className={styles.radiolabel}>
+              <input
+                name="sort-type"
+                id="all"
+                type={"radio"}
+                value={"all"}
+                required
+                defaultChecked
+                onClick={(evt) => setSortTerm(evt.target.value)}
+              />
+              <label htmlFor="all">All</label>
+            </div>
+            <div className={styles.radiolabel}>
+              <input
+                name="sort-type"
+                id="wanted"
+                type={"radio"}
+                value={"wanted"}
+                required
+                onClick={(evt) => setSortTerm(evt.target.value)}
+              />
+              <label htmlFor="wanted">Looking for an ensamble?</label>
+            </div>
+            <div className={styles.radiolabel}>
+              <input
+                name="sort-type"
+                id="offered"
+                type={"radio"}
+                value={"offered"}
+                required
+                onClick={(evt) => setSortTerm(evt.target.value)}
+              />
+              <label htmlFor="wanted">Looking for a musician?</label>
+            </div>
           </div>
         </div>
       </div>
