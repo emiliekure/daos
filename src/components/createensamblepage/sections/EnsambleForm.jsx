@@ -141,10 +141,6 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
   }
 
   function checkEnsambleEmail() {
-    /* if (formValues.email.length === 0) {
-      setEnsambleEmailError("Email cannot be empty");
-      console.log(ensambleEmailError);
-    } else { */
     setEnsambleEmailError("");
     if (formValues.email.length !== 0) {
       if (formValues.email.includes("@")) {
@@ -203,7 +199,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
       setEnsambleDescriptionError("Description cannot be empty");
     } else if (
       formValues.description.length < 5 ||
-      formValues.description.length > 20
+      formValues.description.length > 120
     ) {
       setEnsambleDescriptionError(
         "Description has to be min 5 characters and max 120 characters!"
@@ -274,7 +270,12 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
           ensambleDescriptionError={ensambleDescriptionError}
         />
 
-        <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
+        <PrimaryButton
+          id="submit"
+          type="button"
+          onClick={verifyInputs}
+          text="Submit"
+        />
         {!valid && <p>{errorMsg}</p>}
       </form>
       <Modal

@@ -256,7 +256,12 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
           errorDescription={errorDescription}
         />
 
-        <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
+        <PrimaryButton
+          id="submit"
+          type="button"
+          onClick={verifyInputs}
+          text="Submit"
+        />
         {!valid && <p>{errorMsg}</p>}
       </form>
       <Modal

@@ -6,6 +6,7 @@ export default function AllEnsambles({
   fetchEnsambles,
   isLoggedIn,
   setIsLoggedIn,
+  searchTerm,
 }) {
   return (
     <section className={styles.allPosts}>
@@ -18,6 +19,7 @@ export default function AllEnsambles({
         fetchEnsambles={fetchEnsambles}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
+        searchTerm={searchTerm}
         slice={[]}
       />
     </section>

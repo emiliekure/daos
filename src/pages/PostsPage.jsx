@@ -10,6 +10,12 @@ export default function PostsPage({
   fetchEnsambles,
   isLoggedIn,
   setIsLoggedIn,
+  searchTerm,
+  setSearchTerm,
+  sortTerm,
+  setSortTerm,
+  instrumentSelect,
+  setInstrumentSelect,
 }) {
   return (
     <div className="page-wrapper">
@@ -19,6 +25,12 @@ export default function PostsPage({
         ensambles={ensambles}
         fetchPosts={fetchPosts}
         fetchEnsambles={fetchEnsambles}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        sortTerm={sortTerm}
+        setSortTerm={setSortTerm}
+        instrumentSelect={instrumentSelect}
+        setInstrumentSelect={setInstrumentSelect}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
       />

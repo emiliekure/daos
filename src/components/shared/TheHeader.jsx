@@ -26,16 +26,24 @@ export default function TheHeader({ isLoggedIn, setIsLoggedIn }) {
           <li>
             <Link to={"/createensamble"}>Create ensamble</Link>
           </li>
-          <li>
-            <Link to={"/settings"}>Settings</Link>
-          </li>
+          {isLoggedIn && (
+            <li>
+              <Link to={"/settings"}>Settings</Link>
+            </li>
+          )}
         </ul>
         <div className={styles.buttons}>
           <Link to={"/signup"}>
-            <PrimaryButton type="button" text="Sign up" />
+            <PrimaryButton id="signup" type="button" text="Sign up" />
           </Link>
           {isLoggedIn ? (
-            <Link to={""}>
+            <Link
+              to={
+                window.location.href === "http://127.0.0.1:5173/settings"
+                  ? "/login"
+                  : "#"
+              }
+            >
               <SecondaryButton
                 type="button"
                 text="Log out"

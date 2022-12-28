@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useEffect, useState } from "react";
 import UnauthorisedModal from "./UnauthorisedModal";
 import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
 
 const customStyles = {
   content: {
@@ -22,6 +23,9 @@ export default function EnsambleItem({
   name,
   creator,
   members,
+  description,
+  location,
+  capacity,
   fetchEnsambles,
   isLoggedIn,
   setIsLoggedIn,
@@ -122,68 +126,89 @@ export default function EnsambleItem({
           <div className={styles.postContent}>
             <h4 className={styles.postTitle}>{name}</h4>
             <div className={styles.postInfo}>
-              <img src="../img/user-solid.svg" alt="user icon" />
-              <p className="post-creator">
-                {creator[0].name + " " + creator[0].surname}
-              </p>
-              <img src="../img/music-solid.svg" alt="music note" />
-              <p className="post-instrument">
-                Ensamble members:
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    marginTop: 10,
-                  }}
-                >
-                  {members.length === 0 ? (
-                    <p>This ensamble has no members as of yet</p>
-                  ) : (
-                    members.map((member) => {
-                      return (
-                        <p>
-                          {member.name + " " + member.surname} - plays{" "}
-                          {member.instrument}
-                        </p>
-                      );
-                    })
-                  )}
+              {isLoggedIn && (
+                <div style={{ marginTop: -10, marginBottom: 15 }}>
+                  <p>{description}</p>
                 </div>
-              </p>
+              )}
+              <div className={styles.info}>
+                <img src="../img/user-solid.svg" alt="user icon" />
+                <p className="post-creator">
+                  {creator[0].name + " " + creator[0].surname}
+                </p>
+              </div>
+              {isLoggedIn && (
+                <div className={styles.info}>
+                  <img src="../img/location.svg" alt="music note" />
+                  <p className="post-instrument">{location}</p>
+                </div>
+              )}
+              <div className={styles.info}>
+                <img src="../img/music-solid.svg" alt="music note" />
+                <p className="post-instrument">Ensamble members:</p>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: 25,
+                  marginTop: -8,
+                }}
+              >
+                {members.length === 0 ? (
+                  <p>This ensamble has no members as of yet</p>
+                ) : (
+                  members.map((member) => {
+                    return (
+                      <p>
+                        {member.name + " " + member.surname} -{" "}
+                        {member.instrument === "Conductor" ? "as " : "plays "}
+                        {member.instrument.toLowerCase()}
+                      </p>
+                    );
+                  })
+                )}
+              </div>
             </div>
           </div>
           <div className={styles.postIcon}>
             <img src="../img/instruments.svg" alt="instrument icon" />
           </div>
         </div>
-        <div className={styles.metaWrapper}>
-          {slice !== 0 && (
-            <p className={styles.postMeta}>
-              <PrimaryButton
-                onClick={() => (window.location = `mailto:${email}`)}
-                type="button"
-                text="Contact"
-              />
-              {isAMember ? (
-                <button
+        <div
+          className={
+            isLoggedIn ? styles.metaWrapper : styles.metaWrapperEnsamble
+          }
+        >
+          {slice.length == 0 && (
+            <>
+              {isLoggedIn && (
+                <SecondaryButton
+                  onClick={() => (window.location = `mailto:${email}`)}
                   type="button"
-                  name="leaveBtn"
-                  id={id}
-                  onClick={(evt) => handleRemoveMember(evt.target.id)}
-                >
-                  LEAVE
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  name="joinBtn"
-                  id={id}
-                  onClick={(evt) => handleAddMember(evt.target.id)}
-                >
-                  JOIN
-                </button>
+                  text="Contact"
+                />
               )}
-            </p>
+              <p className={styles.postMeta}>
+                {isAMember ? (
+                  <PrimaryButton
+                    type="button"
+                    name="leaveBtn"
+                    text="Leave"
+                    id={id}
+                    onClick={(evt) => handleRemoveMember(evt.target.id)}
+                  />
+                ) : (
+                  <PrimaryButton
+                    type="button"
+                    name="joinBtn"
+                    id={id}
+                    onClick={(evt) => handleAddMember(evt.target.id)}
+                    text="Join"
+                  />
+                )}
+              </p>
+            </>
           )}
         </div>
       </div>

@@ -13,6 +13,9 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [ensambles, setEnsambles] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [instrumentSelect, setInstrumentSelect] = useState("");
+  const [sortTerm, setSortTerm] = useState("");
 
   function formatDate(dbDate) {
     const nth = function (d) {
@@ -91,6 +94,8 @@ function App() {
             <MainPage
               posts={posts}
               ensambles={ensambles}
+              instrumentSelect={instrumentSelect}
+              setInstrumentSelect={setInstrumentSelect}
               fetchPosts={fetchPosts}
               fetchEnsambles={fetchEnsambles}
               isLoggedIn={isLoggedIn}
@@ -105,6 +110,12 @@ function App() {
             <PostsPage
               posts={posts}
               ensambles={ensambles}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              sortTerm={sortTerm}
+              setSortTerm={setSortTerm}
+              instrumentSelect={instrumentSelect}
+              setInstrumentSelect={setInstrumentSelect}
               fetchPosts={fetchPosts}
               fetchEnsambles={fetchEnsambles}
               isLoggedIn={isLoggedIn}

@@ -1,9 +1,5 @@
-import { useState } from "react";
-import SecondaryButton from "../../atoms/buttons/SecondaryButton";
-import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
 import PostList from "../../shared/PostList";
 import styles from "./AllPosts.module.css";
-import FilterButton from "./shared/FilterButton";
 import InstrumentFilterSelect from "./shared/InstrumentFilterSelect";
 import SearchField from "./shared/SearchField";
 
@@ -19,7 +15,6 @@ export default function AllPosts({
   sortTerm,
   setSortTerm,
 }) {
-  const [clicked, setClicked] = useState(false);
   return (
     <section className={styles.allPosts}>
       <div className={styles.header}>
@@ -49,7 +44,14 @@ export default function AllPosts({
             />
           </div>
 
-          <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 20,
+              marginTop: 25,
+            }}
+          >
             <div className={styles.radiolabel}>
               <input
                 name="sort-type"

@@ -133,6 +133,7 @@ export default function LoginForm({ isLoggedIn, setIsLoggedIn }) {
 
         <PrimaryButton
           type="button"
+          id="submit"
           onClick={verifyInputs}
           text="Submit"
           errorEmail={errorEmail}

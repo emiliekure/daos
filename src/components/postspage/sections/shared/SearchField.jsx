@@ -10,7 +10,7 @@ export default function SearchField({
 }) {
   console.log(placeholder);
   return (
-    <div style={styles}>
+    <div>
       <input
         name={name}
         id={id}
@@ -19,6 +19,7 @@ export default function SearchField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        className={styles.input}
       />
     </div>
   );

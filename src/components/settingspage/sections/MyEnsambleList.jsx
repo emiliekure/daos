@@ -21,6 +21,9 @@ export default function MyEnsambleList({
               id={ensamble._id}
               name={ensamble.name}
               creator={ensamble.creator}
+              location={ensamble.location}
+              description={ensamble.description}
+              capacity={ensamble.capacity}
               members={ensamble.members.map((member) => member)}
               fetchEnsambles={fetchEnsambles}
               userProfile={userProfile}

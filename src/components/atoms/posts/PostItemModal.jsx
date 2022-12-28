@@ -59,6 +59,7 @@ export default function PostItemModal({
           <PrimaryButton
             type="button"
             text="Contact"
+            id="contact"
             onClick={() => (window.location = `mailto:${author[0].email}`)}
           />
           <SecondaryButton type="button" onClick={onClick} text="Close" />

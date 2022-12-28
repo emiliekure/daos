@@ -25,7 +25,7 @@ export default function UnauthorisedModal({
           {!isLoggedIn && (
             <div className={btnstyles.buttons}>
               <Link to={"/signup"}>
-                <PrimaryButton type="button" text="Sign up" />
+                <PrimaryButton id="signup" type="button" text="Sign up" />
               </Link>
               <Link to={"/login"}>
                 <SecondaryButton type="button" text="Login" />

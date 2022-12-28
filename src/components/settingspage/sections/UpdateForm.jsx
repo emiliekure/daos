@@ -230,7 +230,12 @@ export default function UpdateForm({
           isMatching={isMatching}
         />
 
-        <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
+        <PrimaryButton
+          id="submit"
+          type="button"
+          onClick={verifyInputs}
+          text="Submit"
+        />
         {valid && <p>Sign up successful!</p>}
         {valid === false && <p>Sign up failed</p>}
       </form>
