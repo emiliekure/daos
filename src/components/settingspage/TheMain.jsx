@@ -9,6 +9,7 @@ export default function TheMain({
   ensambles,
   fetchPosts,
   fetchEnsambles,
+  isLoggedIn,
 }) {
   const [userProfile, setUserProfile] = useState(undefined);
   const token = localStorage.getItem("token");
@@ -86,6 +87,7 @@ export default function TheMain({
             fetchPosts={fetchPosts}
             fetchEnsambles={fetchEnsambles}
             token={token}
+            isLoggedIn={isLoggedIn}
           />
           <MyPosts
             posts={posts}

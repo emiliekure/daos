@@ -1,9 +1,27 @@
 import PrimaryButton from "../atoms/buttons/PrimaryButton";
 import SecondaryButton from "../atoms/buttons/SecondaryButton";
 import styles from "./TheHeader.module.css";
+import modalStyles from "../atoms/posts/PostItem.module.css";
+import Modal from "react-modal";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import UnauthorisedModal from "../atoms/posts/UnauthorisedModal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: 0,
+  },
+};
 
 export default function TheHeader({ isLoggedIn, setIsLoggedIn }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   return (
     <header>
       <div className="company">
@@ -48,7 +66,12 @@ export default function TheHeader({ isLoggedIn, setIsLoggedIn }) {
                 type="button"
                 text="Log out"
                 onClick={() => {
-                  setIsLoggedIn(false), localStorage.clear();
+                  setIsLoggedIn(false),
+                    setErrorMsg(
+                      "You are now successfully logged out of your DAOS account!"
+                    ),
+                    setIsOpen(true);
+                  localStorage.clear();
                 }}
               />
             </Link>
@@ -59,6 +82,20 @@ export default function TheHeader({ isLoggedIn, setIsLoggedIn }) {
           )}
         </div>
       </nav>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+        shouldCloseOnOverlayClick
+      >
+        <UnauthorisedModal
+          style={modalStyles}
+          onClick={() => setIsOpen(false)}
+          errorMsg={errorMsg}
+          isLoggedIn={isLoggedIn}
+        ></UnauthorisedModal>
+      </Modal>
     </header>
   );
 }

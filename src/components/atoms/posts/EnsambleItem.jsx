@@ -63,26 +63,34 @@ export default function EnsambleItem({
         setIsOpen(true);
         setErrorMsg("You cannot become a member of an ensamble you created!");
       } else {
-        fetch(`http://localhost:3004/ensambles/${ensambleId}/members`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: `{"_id": ${JSON.stringify(loggedUser._id)} }`,
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            console.log(response);
-            if (response.statusCode === 403) {
-              setErrorMsg(response.message);
-              setIsOpen(true);
-            }
-            fetchEnsambles();
+        console.log(members.length);
+        if (members.length === Number(capacity)) {
+          setErrorMsg(
+            `The maximum capacity of this ensemble is ${capacity} has been reached - all the places are filled. For possible vacancies, please contact the ensamble directly.`
+          );
+          setIsOpen(true);
+        } else {
+          fetch(`http://localhost:3004/ensambles/${ensambleId}/members`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: `{"_id": ${JSON.stringify(loggedUser._id)} }`,
           })
-          .catch((err) => {
-            console.log(err);
-          });
+            .then((response) => response.json())
+            .then((response) => {
+              console.log(response);
+              if (response.statusCode === 403) {
+                setErrorMsg(response.message);
+                setIsOpen(true);
+              }
+              fetchEnsambles();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       }
     } else {
       setIsLoggedIn(false);

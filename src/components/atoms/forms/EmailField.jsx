@@ -8,6 +8,7 @@ export default function EmailField({
   errorEmail,
   emailExists,
 }) {
+  console.log(emailExists);
   return (
     <div className={styles.fieldgroup}>
       <label for="email">

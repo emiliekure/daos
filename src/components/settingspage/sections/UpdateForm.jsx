@@ -6,6 +6,20 @@ import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
 import PasswordField from "../../atoms/forms/PasswordField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
+import UnauthorisedModal from "../../atoms/posts/UnauthorisedModal";
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: 0,
+  },
+};
 
 export default function UpdateForm({
   userProfile,
@@ -13,10 +27,12 @@ export default function UpdateForm({
   token,
   fetchPosts,
   fetchEnsambles,
+  isLoggedIn,
 }) {
   const [valid, setValid] = useState(undefined);
   const [errorName, setErrorName] = useState("");
-  const [error, setError] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [errorSurname, setErrorSurname] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
@@ -44,7 +60,8 @@ export default function UpdateForm({
   };
 
   //Function to verify the inputs
-  const verifyInputs = () => {
+  const verifyInputs = (event) => {
+    event.preventDefault();
     if (
       formValues.name === "" ||
       formValues.surname === "" ||
@@ -54,9 +71,12 @@ export default function UpdateForm({
       confpassword === ""
     ) {
       setValid(false);
-      setError("");
+      setErrorMsg(
+        `All fields marked with '*' have to be filled out before submitting!`
+      );
     } else {
       setValid(true);
+      setErrorMsg("");
       const updatedProfile = { ...formValues };
       updatedProfile.dateOfCreation = new Date();
       updateProfile(updatedProfile);
@@ -88,6 +108,8 @@ export default function UpdateForm({
       })
       .then((response) => {
         console.log(response);
+        setErrorMsg("Your profile has been successfully updated!");
+        setIsOpen(true);
         setTimeout(() => {
           console.log("Delayed for 1 sec.");
           const updatedUser = JSON.parse(localStorage.getItem("user"));
@@ -181,7 +203,7 @@ export default function UpdateForm({
   return (
     <section className={styles.formWrapper}>
       <h1>Update profile settings</h1>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={verifyInputs}>
         <TextField
           name="name"
           placeholder=""
@@ -230,15 +252,24 @@ export default function UpdateForm({
           isMatching={isMatching}
         />
 
-        <PrimaryButton
-          id="submit"
-          type="button"
-          onClick={verifyInputs}
-          text="Submit"
-        />
-        {valid && <p>Sign up successful!</p>}
-        {valid === false && <p>Sign up failed</p>}
+        <PrimaryButton id="submit" type="submit" text="Submit" />
+        {!valid && <p>{errorMsg}</p>}
       </form>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+        shouldCloseOnOverlayClick
+      >
+        <UnauthorisedModal
+          style={styles}
+          onClick={() => setIsOpen(false)}
+          errorMsg={errorMsg}
+          isLoggedIn={isLoggedIn}
+          title="Profile updated!"
+        ></UnauthorisedModal>
+      </Modal>
     </section>
   );
 }

@@ -19,6 +19,7 @@ export default function SettingsPage({
         ensambles={ensambles}
         fetchPosts={fetchPosts}
         fetchEnsambles={fetchEnsambles}
+        isLoggedIn={isLoggedIn}
       />
       <TheFooter />
     </div>

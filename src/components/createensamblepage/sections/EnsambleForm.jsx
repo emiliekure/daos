@@ -51,7 +51,8 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
   };
 
   // Function to verify the inputs
-  const verifyInputs = () => {
+  const verifyInputs = (event) => {
+    event.preventDefault();
     if (
       formValues.name === "" ||
       formValues.capacity === "" ||
@@ -212,7 +213,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
   return (
     <section className={styles.formWrapper}>
       <h1>Create an ensamble</h1>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={verifyInputs}>
         <TextField
           name="name"
           id="name"
@@ -270,12 +271,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
           ensambleDescriptionError={ensambleDescriptionError}
         />
 
-        <PrimaryButton
-          id="submit"
-          type="button"
-          onClick={verifyInputs}
-          text="Submit"
-        />
+        <PrimaryButton id="submit" type="submit" text="Submit" />
         {!valid && <p>{errorMsg}</p>}
       </form>
       <Modal

@@ -1,9 +1,9 @@
 import SignupForm from "./sections/SignupForm";
 
-export default function TheMain() {
+export default function TheMain({ isLoggedIn }) {
   return (
     <main>
-      <SignupForm />
+      <SignupForm isLoggedIn={isLoggedIn} />
     </main>
   );
 }

@@ -7,7 +7,7 @@ export default function SignupPage({ isLoggedIn, setIsLoggedIn }) {
   return (
     <div className="page-wrapper">
       <TheHeader isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <TheMain />
+      <TheMain isLoggedIn={isLoggedIn} />
       <TheFooter />
     </div>
   );
