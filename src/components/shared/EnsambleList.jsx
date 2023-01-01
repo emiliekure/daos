@@ -8,6 +8,7 @@ export default function EnsambleList({
   ensambles,
   fetchEnsambles,
   isLoggedIn,
+  searchTerm,
   setIsLoggedIn,
 }) {
   useEffect(() => {
@@ -16,23 +17,42 @@ export default function EnsambleList({
 
   return (
     <div className={styles.postlist}>
-      {ensambles.slice(slice[0], slice[1]).map((ensamble) => {
-        return (
-          <>
-            <EnsambleItem
-              style={styles.card}
-              id={ensamble._id}
-              name={ensamble.name}
-              creator={ensamble.creator}
-              members={ensamble.members.map((member) => member)}
-              slice={slice}
-              fetchEnsambles={fetchEnsambles}
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-            />
-          </>
-        );
-      })}
+      {ensambles
+        .slice(slice[0], slice[1])
+        .filter((item) => {
+          if (slice.length == 0) {
+            if (searchTerm === "") {
+              return item;
+            } else if (
+              item.location.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              return item;
+            }
+          } else {
+            return item;
+          }
+        })
+        .map((ensamble) => {
+          return (
+            <>
+              <EnsambleItem
+                style={styles.card}
+                id={ensamble._id}
+                name={ensamble.name}
+                creator={ensamble.creator}
+                members={ensamble.members.map((member) => member)}
+                email={ensamble.email}
+                description={ensamble.description}
+                location={ensamble.location}
+                capacity={ensamble.capacity}
+                slice={slice}
+                fetchEnsambles={fetchEnsambles}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            </>
+          );
+        })}
       {!slice.length == 0 && (
         <SeeAll
           postSection={false}

@@ -1,6 +1,3 @@
-import { useState } from "react";
-import SecondaryButton from "../../atoms/buttons/SecondaryButton";
-import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
 import PostList from "../../shared/PostList";
 import styles from "./AllPosts.module.css";
 import FilterButton from "./shared/FilterButton";
@@ -28,56 +25,70 @@ export default function AllPosts({
 				<div className={styles.filters}>
 					<div className={styles.filterFields}>
 						<SearchField
-							type="search"
-							max="120"
-							placeholder="Search by location"
-							value={searchTerm}
-							onChange={(evt) => setSearchTerm(evt.target.value)}
-						/>
-						<InstrumentFilterSelect
-							name="instrument"
-							value={instrumentSelect}
-							onChange={(evt) =>
-								setInstrumentSelect(evt.target.value)
-							}
-						/>
+              name="search"
+              max="120"
+              placeholder="Search for location"
+              value={searchTerm}
+              onChange={(evt) => setSearchTerm(evt.target.value)}
+            />
+            <InstrumentFilterSelect
+              name="instrument"
+              value={instrumentSelect}
+              onChange={(evt) => setInstrumentSelect(evt.target.value)}
+            />
 					</div>
 
 					<div className={styles.filterTabs}>
 						<h3>Posttype</h3>
 						<div className={styles.filterButtons}>
-							<FilterButton
-								type="button"
-								text="All posts"
-								value="all"
-								onClick={(evt) => setSortTerm(evt.target.value)}
-							/>
-							<FilterButton
-								type="button"
-								text="Find ensembles"
-								value="wanted"
-								onClick={(evt) => setSortTerm(evt.target.value)}
-							/>
-							<FilterButton
-								type="button"
-								text="Find musicians"
-								value="offered"
-								onClick={(evt) => setSortTerm(evt.target.value)}
-							/>
+							<div className={styles.radiolabel}>
+                <input
+                  name="sort-type"
+                  id="all"
+                  type={"radio"}
+                  value={"all"}
+                  required
+                  defaultChecked
+                  onClick={(evt) => setSortTerm(evt.target.value)}
+                />
+                <label htmlFor="all">All</label>
+              </div>
+              <div className={styles.radiolabel}>
+                <input
+                  name="sort-type"
+                  id="wanted"
+                  type={"radio"}
+                  value={"wanted"}
+                  required
+                  onClick={(evt) => setSortTerm(evt.target.value)}
+                />
+                <label htmlFor="wanted">Looking for an ensamble?</label>
+              </div>
+              <div className={styles.radiolabel}>
+                <input
+                  name="sort-type"
+                  id="offered"
+                  type={"radio"}
+                  value={"offered"}
+                  required
+                  onClick={(evt) => setSortTerm(evt.target.value)}
+                />
+                <label htmlFor="wanted">Looking for a musician?</label>
+              </div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<PostList
-				posts={posts}
-				fetchPosts={fetchPosts}
-				isLoggedIn={isLoggedIn}
-				setIsLoggedIn={setIsLoggedIn}
-				searchTerm={searchTerm}
-				instrumentFilter={instrumentSelect}
-				sortTerm={sortTerm}
-				slice={[]}
-			/>
+        posts={posts}
+        fetchPosts={fetchPosts}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        searchTerm={searchTerm}
+        instrumentFilter={instrumentSelect}
+        sortTerm={sortTerm}
+        slice={[]}
+      />
 		</section>
 	);
 }

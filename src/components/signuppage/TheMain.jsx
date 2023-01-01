@@ -1,9 +1,9 @@
-import SignupForm from "./sections/SignupForm"
+import SignupForm from "./sections/SignupForm";
 
-export default function TheMain() {
-	return(
-		<main>
-			<SignupForm />
-		</main>
-	)
+export default function TheMain({ isLoggedIn }) {
+  return (
+    <main>
+      <SignupForm isLoggedIn={isLoggedIn} />
+    </main>
+  );
 }

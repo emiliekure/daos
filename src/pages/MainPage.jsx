@@ -6,6 +6,8 @@ import "./TheMain.css";
 export default function MainPage({
   posts,
   ensambles,
+  instrumentSelect,
+  setInstrumentSelect,
   fetchPosts,
   fetchEnsambles,
   isLoggedIn,
@@ -13,10 +15,12 @@ export default function MainPage({
 }) {
   return (
     <div className="page-wrapper">
-      <TheHeader />
+      <TheHeader isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <TheMain
         posts={posts}
         ensambles={ensambles}
+        instrumentSelect={instrumentSelect}
+        setInstrumentSelect={setInstrumentSelect}
         fetchPosts={fetchPosts}
         fetchEnsambles={fetchEnsambles}
         isLoggedIn={isLoggedIn}

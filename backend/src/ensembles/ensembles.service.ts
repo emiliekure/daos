@@ -65,4 +65,7 @@ export class EnsembleService {
     }
     throw new HttpException('Name available', 200);
   }
+  deleteEnsemble(id: string) {
+    return this.enModel.deleteOne({ _id: id });
+  }
 }

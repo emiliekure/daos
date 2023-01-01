@@ -44,7 +44,8 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
   };
 
   // Function to verify the inputs
-  const verifyInputs = () => {
+  const verifyInputs = (event) => {
+    event.preventDefault();
     if (
       formValues.title === "" ||
       radioStatus === "" ||
@@ -174,7 +175,7 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
   return (
     <section className={styles.formWrapper}>
       <h1>Create post</h1>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={verifyInputs}>
         <TextField
           name="title"
           max="120"
@@ -247,7 +248,7 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
           errorDescription={errorDescription}
         />
 
-        <PrimaryButton type="button" onClick={verifyInputs} text="Submit" />
+        <PrimaryButton id="submit" type="submit" text="Submit" />
         {!valid && <p>{errorMsg}</p>}
       </form>
       <Modal

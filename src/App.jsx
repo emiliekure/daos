@@ -13,6 +13,9 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [ensambles, setEnsambles] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [instrumentSelect, setInstrumentSelect] = useState("");
+  const [sortTerm, setSortTerm] = useState("");
 
   function formatDate(dbDate) {
     const nth = function (d) {
@@ -68,7 +71,9 @@ function App() {
   };
   useEffect(() => {
     fetchPosts();
-  }, []);
+    fetchEnsambles();
+    if (localStorage.getItem("token")) setIsLoggedIn(true);
+  }, [isLoggedIn]);
 
   const fetchEnsambles = () => {
     fetch("http://localhost:3004/ensambles")
@@ -79,9 +84,6 @@ function App() {
       })
       .catch((err) => console.error(err));
   };
-  useEffect(() => {
-    fetchEnsambles();
-  }, []);
 
   return (
     <>
@@ -92,6 +94,8 @@ function App() {
             <MainPage
               posts={posts}
               ensambles={ensambles}
+              instrumentSelect={instrumentSelect}
+              setInstrumentSelect={setInstrumentSelect}
               fetchPosts={fetchPosts}
               fetchEnsambles={fetchEnsambles}
               isLoggedIn={isLoggedIn}
@@ -106,6 +110,12 @@ function App() {
             <PostsPage
               posts={posts}
               ensambles={ensambles}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              sortTerm={sortTerm}
+              setSortTerm={setSortTerm}
+              instrumentSelect={instrumentSelect}
+              setInstrumentSelect={setInstrumentSelect}
               fetchPosts={fetchPosts}
               fetchEnsambles={fetchEnsambles}
               isLoggedIn={isLoggedIn}
@@ -113,11 +123,30 @@ function App() {
             />
           }
         />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/signup"
+          element={
+            <SignupPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
         <Route
           path="/settings"
-          element={<SettingsPage posts={posts} ensambles={ensambles} />}
+          element={
+            <SettingsPage
+              posts={posts}
+              fetchPosts={fetchPosts}
+              ensambles={ensambles}
+              fetchEnsambles={fetchEnsambles}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
         />
         <Route
           path="/createpost"

@@ -6,8 +6,9 @@ export default function EmailField({
   onBlur,
   availableMsg,
   errorEmail,
+  emailExists,
 }) {
-  console.log(availableMsg);
+  console.log(emailExists);
   return (
     <div className={styles.fieldgroup}>
       <label for="email">
@@ -26,6 +27,9 @@ export default function EmailField({
         <p>The email is already in use!</p>
       )}
       {errorEmail && <p>{errorEmail}</p>}
+      {emailExists && emailExists === "Email available" && (
+        <p>The email does not exist!</p>
+      )}
     </div>
   );
 }

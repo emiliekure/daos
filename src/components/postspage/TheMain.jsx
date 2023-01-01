@@ -10,10 +10,13 @@ export default function TheMain({
   fetchEnsambles,
   isLoggedIn,
   setIsLoggedIn,
+  searchTerm,
+  setSearchTerm,
+  sortTerm,
+  setSortTerm,
+  instrumentSelect,
+  setInstrumentSelect,
 }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [instrumentSelect, setInstrumentSelect] = useState("");
-  const [sortTerm, setSortTerm] = useState("");
   return (
     <main>
       <AllPosts
@@ -33,6 +36,7 @@ export default function TheMain({
         fetchEnsambles={fetchEnsambles}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
+        searchTerm={searchTerm}
       />
       <Feedback />
     </main>

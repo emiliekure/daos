@@ -41,9 +41,9 @@
 }
 
 .info {
-	display: flex;
-	gap: 0.75rem;
-	align-items: flex-start;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .postInstrument,
@@ -54,9 +54,8 @@
 }
 
 .postInfo img {
-	height: 14px;
-	width: 14px;
-	margin-top: 3px;
+  height: 14px;
+  width: 14px;
 }
 
 .postInfo p {
@@ -99,14 +98,13 @@
 }
 
 .deleteBtn,
-.closeBtn,
-.joinBtn {
-	border-radius: 4px;
-	background-color: inherit;
-	width: max-content;
-	height: max-content;
-	padding: 4px;
-	display: inline-block;
+.closeBtn {
+  border-radius: 4px;
+  background-color: inherit;
+  width: max-content;
+  height: max-content;
+  padding: 4px;
+  display: inline-block;
 }
 
 .deleteBtn {
@@ -121,14 +119,6 @@
 
 .closeBtn {
   border: none;
-}
-
-.joinBtn {
-	padding: 12px;
-	border-radius: 8px;
-    background-color: white;
-    color: #353a5d;
-    border: 2px solid #E8E8E8;
 }
 
 .buttons {

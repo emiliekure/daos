@@ -1,9 +1,9 @@
-import LoginForm from "./sections/LoginForm"
+import LoginForm from "./sections/LoginForm";
 
-export default function TheMain() {
-	return(
-		<main>
-			<LoginForm />
-		</main>
-	)
+export default function TheMain({ isLoggedIn, setIsLoggedIn }) {
+  return (
+    <main>
+      <LoginForm isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+    </main>
+  );
 }

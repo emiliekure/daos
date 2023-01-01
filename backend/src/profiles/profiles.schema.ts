@@ -19,6 +19,9 @@ export class Profile {
 
   @Prop()
   password: string;
+
+  @Prop()
+  dateOfCreation: Date;
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

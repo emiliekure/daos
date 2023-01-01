@@ -6,6 +6,8 @@ import Ensambles from "./sections/Ensambles";
 export default function TheMain({
   posts,
   ensambles,
+  instrumentSelect,
+  setInstrumentSelect,
   fetchPosts,
   fetchEnsambles,
   isLoggedIn,
@@ -13,7 +15,10 @@ export default function TheMain({
 }) {
   return (
     <main>
-      <Hero />
+      <Hero
+        instrumentSelect={instrumentSelect}
+        setInstrumentSelect={setInstrumentSelect}
+      />
       <Posts
         posts={posts}
         fetchPosts={fetchPosts}

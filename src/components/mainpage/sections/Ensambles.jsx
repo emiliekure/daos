@@ -7,6 +7,7 @@ export default function Ensambles({
   fetchEnsambles,
   isLoggedIn,
   setIsLoggedIn,
+  searchTerm,
 }) {
   return (
     <section className={styles.posts}>
@@ -19,6 +20,7 @@ export default function Ensambles({
         fetchEnsambles={fetchEnsambles}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
+        searchTerm={searchTerm}
         slice={[0, 2]}
       />
     </section>
