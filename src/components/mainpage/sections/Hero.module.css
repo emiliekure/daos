@@ -6,10 +6,7 @@
 .title {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	gap: 40px;
-	min-width: min-content;
-	max-width: 640px;
 }
 
 .title h1 {
@@ -17,18 +14,12 @@
 }
 
 .heroimage {
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	padding: 3.5rem;
+	width: 100%;
 }
 
 .buttons {
 	display: flex;
 	gap: 20px;
 	align-items: flex-end;
-}
-
-div.buttons > div > label > h2::after {
-	display: none;
 }

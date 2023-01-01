@@ -1,4 +1,4 @@
-import styles from "./FilterButtons.module.css";
+import styles from "../../../atoms/buttons/Buttons.module.css";
 
 export default function FilterButton({ type, onClick, text, value, clicked }) {
   return (
@@ -6,7 +6,7 @@ export default function FilterButton({ type, onClick, text, value, clicked }) {
       type={type}
       onClick={onClick}
       value={value}
-      className={styles.filterBtn}
+      className={styles.secondary_button}
     >
       {text}
     </button>
