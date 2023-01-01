@@ -5,9 +5,20 @@ import TextareaField from "../../atoms/forms/TextareaField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
 import style from "../../atoms/forms/FormFields.module.css";
-import liststyles from "../../shared/PostList.module.css";
 import UnauthorisedModal from "../../atoms/posts/UnauthorisedModal";
 import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: 0,
+  },
+};
 
 export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -221,10 +232,9 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
           onChange={updateFormValue}
         />
 
-        <div className={style.locationFields}>
+        <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
           <TextField
             name="location"
-			placeholder="Zip code"
             value={formValues.location}
             onChange={updateFormValue}
             onBlur={checkZipCode}
@@ -232,7 +242,6 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
           />
           <TextField
             name="city"
-			placeholder="City"
             value={formValues.city}
             onChange={updateFormValue}
             onBlur={checkCity}
@@ -255,11 +264,12 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
         contentLabel="Example Modal"
+        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <UnauthorisedModal
-          style={liststyles.card}
-		  onClick={() => setIsOpen(false)}
+          style={styles}
+          onClick={() => setIsOpen(false)}
           errorMsg={errorMsg}
           isLoggedIn={isLoggedIn}
           title="Post created!"
