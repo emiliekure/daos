@@ -19,8 +19,11 @@ body,
 .ReactModal__Content {
 	background: none !important;
 	padding: 0 !important;
-	border-radius: none;
+	border-radius: 0 !important;
+	border: none !important;
 	max-width: 640px;
+	position: static !important;
+	margin: 120px auto;
 }
 
 h1 {

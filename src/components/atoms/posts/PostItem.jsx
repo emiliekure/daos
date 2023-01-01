@@ -4,18 +4,6 @@ import Modal from "react-modal";
 import { useState } from "react";
 import UnauthorisedModal from "./UnauthorisedModal";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    border: 0,
-  },
-};
-
 export default function PostItem({
   style,
   id,
@@ -136,12 +124,10 @@ export default function PostItem({
         </div>
       </div>
 
-      {slice.length === 0 && (
-        <Modal
+      <Modal
           isOpen={isOpen}
           onRequestClose={() => setIsOpen(false)}
           contentLabel="Example Modal"
-          style={customStyles}
           shouldCloseOnOverlayClick
         >
           {!errorMsg ? (
@@ -159,7 +145,7 @@ export default function PostItem({
             />
           ) : (
             <UnauthorisedModal
-              style={styles}
+              style={style}
               onClick={() => setIsOpen(false)}
               errorMsg={errorMsg}
               isLoggedIn={isLoggedIn}
@@ -167,7 +153,6 @@ export default function PostItem({
             ></UnauthorisedModal>
           )}
         </Modal>
-      )}
     </>
   );
 }

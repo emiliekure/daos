@@ -3,20 +3,10 @@ import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import TextareaField from "../../atoms/forms/TextareaField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
+import style from "../../atoms/forms/FormFields.module.css";
+import liststyles from "../../shared/PostList.module.css";
 import UnauthorisedModal from "../../atoms/posts/UnauthorisedModal";
 import Modal from "react-modal";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    border: 0,
-  },
-};
 
 export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
   const [valid, setValid] = useState(undefined);
@@ -245,9 +235,10 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
           ensambleCapacityError={ensambleCapacityError}
         />
 
-        <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+        <div className={style.locationFields}>
           <TextField
             name="location"
+            placeholder="Zip code"
             value={formValues.location}
             onChange={updateFormValue}
             onBlur={checkZipCode}
@@ -255,6 +246,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
           />
           <TextField
             name="city"
+            placeholder="City"
             value={formValues.city}
             onChange={updateFormValue}
             onBlur={checkCity}
@@ -278,11 +270,10 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
         contentLabel="Example Modal"
-        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <UnauthorisedModal
-          style={styles}
+          style={liststyles.card}
           onClick={() => setIsOpen(false)}
           errorMsg={errorMsg}
           isLoggedIn={isLoggedIn}
