@@ -6,6 +6,7 @@ export default function MyEnsambleList({
   ensambles,
   fetchEnsambles,
   userProfile,
+  token,
 }) {
   useEffect(() => {
     fetchEnsambles();
@@ -27,6 +28,7 @@ export default function MyEnsambleList({
               members={ensamble.members.map((member) => member)}
               fetchEnsambles={fetchEnsambles}
               userProfile={userProfile}
+              token={token}
             />
           </>
         );

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import UnauthorisedModal from "./UnauthorisedModal";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
+import ApproveLeaveModal from "./ApproveLeaveModal ";
 
 const customStyles = {
   content: {
@@ -37,22 +38,22 @@ export default function EnsambleItem({
   const [errorMsg, setErrorMsg] = useState("");
   const loggedUser = JSON.parse(localStorage.getItem("user"));
   const [isAMember, setIsAMember] = useState(undefined);
+  const [approveLeave, setApproveLeave] = useState(false);
 
   useEffect(() => {
     if (loggedUser) {
       if (members.length === 0) setIsAMember(false);
       members.filter((member) => {
         if (member._id.includes(loggedUser._id)) {
-          console.log(loggedUser._id);
-          return setIsAMember(true);
+          setIsAMember(true);
         } else {
-          return setIsAMember(false);
+          setIsAMember(false);
         }
       });
     } else {
       setIsAMember(false);
     }
-  }, [members, loggedUser]);
+  }, [members]);
 
   function handleAddMember(ensambleId) {
     setErrorMsg("");
@@ -66,7 +67,7 @@ export default function EnsambleItem({
         console.log(members.length);
         if (members.length === Number(capacity)) {
           setErrorMsg(
-            `The maximum capacity of this ensemble is ${capacity} has been reached - all the places are filled. For possible vacancies, please contact the ensamble directly.`
+            `The maximum capacity of this ensemble - ${capacity} - has been reached - all the places are filled. For possible vacancies, please contact the ensamble directly.`
           );
           setIsOpen(true);
         } else {
@@ -115,6 +116,7 @@ export default function EnsambleItem({
     )
       .then((response) => response.json())
       .then((response) => {
+        setApproveLeave(false);
         console.log(response);
         fetchEnsambles();
       })
@@ -203,8 +205,8 @@ export default function EnsambleItem({
                     type="button"
                     name="leaveBtn"
                     text="Leave"
-                    id={id}
-                    onClick={(evt) => handleRemoveMember(evt.target.id)}
+                    id="removeMember"
+                    onClick={() => setApproveLeave(true)}
                   />
                 ) : (
                   <PrimaryButton
@@ -233,6 +235,20 @@ export default function EnsambleItem({
           errorMsg={errorMsg}
           isLoggedIn={isLoggedIn}
         ></UnauthorisedModal>
+      </Modal>
+      <Modal
+        isOpen={approveLeave}
+        onRequestClose={() => setApproveLeave(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+        shouldCloseOnOverlayClick
+      >
+        <ApproveLeaveModal
+          style={styles}
+          setApproveLeave={() => setApproveLeave(false)}
+          handleRemoveMember={handleRemoveMember}
+          id={id}
+        />
       </Modal>
     </>
   );

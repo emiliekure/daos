@@ -2,6 +2,7 @@ import styles from "./ProfileCard.module.css";
 import PostItemModal from "../../atoms/posts/PostItemModal";
 import Modal from "react-modal";
 import { useState } from "react";
+import ApproveDeleteModal from "../../atoms/posts/ApproveDeleteModal";
 
 const customStyles = {
   content: {
@@ -28,6 +29,7 @@ export default function MyPost({
   fetchPosts,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [approveDelete, setApproveDelete] = useState(false);
 
   function handleDelete(postId) {
     const token = localStorage.getItem("token");
@@ -40,6 +42,7 @@ export default function MyPost({
     })
       .then((response) => response.json())
       .then((response) => {
+        setApproveDelete(false);
         console.log(response);
         fetchPosts();
       })
@@ -83,10 +86,10 @@ export default function MyPost({
           </p>
           <button type="button" name="deleteBtn" className={styles.deleteBtn}>
             <img
-              id={id}
+              id="deleteTrashCan"
               src="../img/trash-can.svg"
               alt="trash can"
-              onClick={(evt) => handleDelete(evt.target.id)}
+              onClick={() => setApproveDelete(true)}
             />
           </button>
         </div>
@@ -109,6 +112,21 @@ export default function MyPost({
           location={location}
           description={description}
           onClick={() => setIsOpen(false)}
+        />
+      </Modal>
+      <Modal
+        isOpen={approveDelete}
+        onRequestClose={() => setApproveDelete(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+        shouldCloseOnOverlayClick
+      >
+        <ApproveDeleteModal
+          style={styles}
+          setApproveDelete={() => setApproveDelete(false)}
+          handleDelete={handleDelete}
+          id={id}
+          post
         />
       </Modal>
     </>
