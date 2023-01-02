@@ -49,6 +49,7 @@ export default function AllPosts({
 					id="all"
 					type={"radio"}
 					value={"all"}
+					required
 					defaultChecked
 					onClick={(evt) => setSortTerm(evt.target.value)}
 				/>
@@ -60,6 +61,7 @@ export default function AllPosts({
 					id="wanted"
 					type={"radio"}
 					value={"wanted"}
+					required
 					onClick={(evt) => setSortTerm(evt.target.value)}
 				/>
 				<label htmlFor="wanted">Find ensembles</label>
@@ -70,9 +72,10 @@ export default function AllPosts({
 					id="offered"
 					type={"radio"}
 					value={"offered"}
+					required
 					onClick={(evt) => setSortTerm(evt.target.value)}
 				/>
-				<label htmlFor="wanted">Find musicians</label>
+				<label htmlFor="offered">Find musicians</label>
 			  </div>
 			</div>
             
