@@ -41,19 +41,18 @@ export default function EnsambleItem({
   const [approveLeave, setApproveLeave] = useState(false);
 
   useEffect(() => {
+    setIsAMember(false);
     if (loggedUser) {
       if (members.length === 0) setIsAMember(false);
       members.filter((member) => {
         if (member._id.includes(loggedUser._id)) {
           setIsAMember(true);
-        } else {
-          setIsAMember(false);
         }
       });
     } else {
       setIsAMember(false);
     }
-  }, [members]);
+  }, [members, loggedUser]);
 
   function handleAddMember(ensambleId) {
     setErrorMsg("");
