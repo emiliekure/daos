@@ -98,6 +98,7 @@ export default function TheMain({
             ensambles={ensambles}
             fetchEnsambles={fetchEnsambles}
             userProfile={userProfile}
+            token={token}
           />
         </>
       )}

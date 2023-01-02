@@ -84,7 +84,7 @@ export default function AllPosts({
                 required
                 onClick={(evt) => setSortTerm(evt.target.value)}
               />
-              <label htmlFor="wanted">Looking for a musician?</label>
+              <label htmlFor="offered">Looking for a musician?</label>
             </div>
           </div>
         </div>

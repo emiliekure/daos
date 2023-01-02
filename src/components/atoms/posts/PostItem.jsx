@@ -3,6 +3,7 @@ import PostItemModal from "./PostItemModal";
 import Modal from "react-modal";
 import { useState } from "react";
 import UnauthorisedModal from "./UnauthorisedModal";
+import ApproveDeleteModal from "./ApproveDeleteModal";
 
 const customStyles = {
   content: {
@@ -34,6 +35,7 @@ export default function PostItem({
   const [isOpen, setIsOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const token = localStorage.getItem("token");
+  const [approveDelete, setApproveDelete] = useState(false);
 
   function handleOpenModal(bool) {
     setIsOpen(bool);
@@ -49,25 +51,15 @@ export default function PostItem({
     }
   }
 
-  function handleDelete(postId) {
+  function handleApproveDelete() {
     const loggedUser = JSON.parse(localStorage.getItem("user"));
     if (token) {
       setIsLoggedIn(true);
       if (author[0]._id === loggedUser._id) {
         setErrorMsg("");
-        fetch(`http://localhost:3004/posts/${postId}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            console.log(response);
-            fetchPosts();
-          })
-          .catch((err) => console.error(err));
+        setApproveDelete(true);
+        setIsOpen(false);
+        console.log(approveDelete);
       } else {
         setIsOpen(true);
         setErrorMsg(
@@ -82,6 +74,25 @@ export default function PostItem({
       );
     }
   }
+
+  function handleDelete(postId) {
+    setErrorMsg("");
+    fetch(`http://localhost:3004/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        setApproveDelete(false);
+        console.log(response);
+        fetchPosts();
+      })
+      .catch((err) => console.error(err));
+  }
+
   Modal.setAppElement("main");
   return (
     <>
@@ -126,10 +137,10 @@ export default function PostItem({
           {slice.length === 0 && (
             <button type="button" name="deleteBtn" className={styles.deleteBtn}>
               <img
-                id={id}
+                id="deleteTrashCan"
                 src="../img/trash-can.svg"
                 alt="trash can"
-                onClick={(evt) => handleDelete(evt.target.id)}
+                onClick={() => handleApproveDelete()}
               />
             </button>
           )}
@@ -137,36 +148,53 @@ export default function PostItem({
       </div>
 
       {slice.length === 0 && (
-        <Modal
-          isOpen={isOpen}
-          onRequestClose={() => setIsOpen(false)}
-          contentLabel="Example Modal"
-          style={customStyles}
-          shouldCloseOnOverlayClick
-        >
-          {!errorMsg ? (
-            <PostItemModal
-              style={style}
-              id={id}
-              title={title}
-              author={author}
-              instrument={instrument}
-              searchType={searchType}
-              date={date}
-              location={location}
-              description={description}
-              onClick={() => setIsOpen(false)}
-            />
-          ) : (
-            <UnauthorisedModal
+        <>
+          <Modal
+            isOpen={isOpen}
+            onRequestClose={() => setIsOpen(false)}
+            contentLabel="Example Modal"
+            style={customStyles}
+            shouldCloseOnOverlayClick
+          >
+            {!errorMsg ? (
+              <PostItemModal
+                style={style}
+                id={id}
+                title={title}
+                author={author}
+                instrument={instrument}
+                searchType={searchType}
+                date={date}
+                location={location}
+                description={description}
+                onClick={() => setIsOpen(false)}
+              />
+            ) : (
+              <UnauthorisedModal
+                style={styles}
+                onClick={() => setIsOpen(false)}
+                errorMsg={errorMsg}
+                isLoggedIn={isLoggedIn}
+                title="Unauthorised action"
+              ></UnauthorisedModal>
+            )}
+          </Modal>
+          <Modal
+            isOpen={approveDelete}
+            onRequestClose={() => setApproveDelete(false)}
+            contentLabel="Example Modal"
+            style={customStyles}
+            shouldCloseOnOverlayClick
+          >
+            <ApproveDeleteModal
               style={styles}
-              onClick={() => setIsOpen(false)}
-              errorMsg={errorMsg}
-              isLoggedIn={isLoggedIn}
-              title="Unauthorised action"
-            ></UnauthorisedModal>
-          )}
-        </Modal>
+              setApproveDelete={() => setApproveDelete(false)}
+              handleDelete={handleDelete}
+              id={id}
+              post
+            />
+          </Modal>
+        </>
       )}
     </>
   );
