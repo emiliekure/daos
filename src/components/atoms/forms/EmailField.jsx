@@ -11,7 +11,7 @@ export default function EmailField({
   console.log(emailExists);
   return (
     <div className={styles.fieldgroup}>
-      <label for="email">
+      <label htmlFor="email">
         <h2>E-mail</h2>
       </label>
       <input

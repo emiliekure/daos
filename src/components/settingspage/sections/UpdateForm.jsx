@@ -6,20 +6,9 @@ import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
 import PasswordField from "../../atoms/forms/PasswordField";
 import TextField from "../../atoms/forms/TextField";
 import styles from "../../shared/Forms.module.css";
+import style from "../../shared/PostList.module.css";
 import UnauthorisedModal from "../../atoms/posts/UnauthorisedModal";
 import Modal from "react-modal";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    border: 0,
-  },
-};
 
 export default function UpdateForm({
   userProfile,
@@ -201,7 +190,7 @@ export default function UpdateForm({
   }
 
   return (
-    <section className={styles.formWrapper}>
+    <div className={styles.formWrapper}>
       <h1>Update profile settings</h1>
       <form className={styles.form} onSubmit={verifyInputs}>
         <TextField
@@ -259,17 +248,16 @@ export default function UpdateForm({
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
         contentLabel="Example Modal"
-        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <UnauthorisedModal
-          style={styles}
+          style={style}
           onClick={() => setIsOpen(false)}
           errorMsg={errorMsg}
           isLoggedIn={isLoggedIn}
           title="Profile updated!"
         ></UnauthorisedModal>
       </Modal>
-    </section>
+    </div>
   );
 }

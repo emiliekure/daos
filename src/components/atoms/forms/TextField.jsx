@@ -21,18 +21,11 @@ export default function TextField({
 }) {
   return (
     <div
-      className={name === "city" ? styles.cityfieldgroup : styles.fieldgroup}
+      className={styles.fieldgroup}
     >
-      {name === "city" && (
-        <label for={name}>
-          <h2></h2>
-        </label>
-      )}
-      {name !== "city" && (
-        <label for={name}>
-          <h2>{name.replace("-", " ")}</h2>
-        </label>
-      )}
+		<label htmlFor={name}>
+			<h2>{name !== "city" && name.replace("-", " ")}</h2>
+		</label>
       {id === "ensamble-email" && (
         <p>
           Type in the email address of your ensamble OR leave the field empty if

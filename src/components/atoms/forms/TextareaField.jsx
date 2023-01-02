@@ -10,7 +10,7 @@ export default function TextareaField({
 }) {
   return (
     <div className={styles.fieldgroup}>
-      <label for={name}>
+      <label htmlFor={name}>
         <h2>{name.replace("-", " ")}</h2>
       </label>
       <textarea

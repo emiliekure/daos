@@ -4,20 +4,9 @@ import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import EmailField from "../../atoms/forms/EmailField";
 import PasswordField from "../../atoms/forms/PasswordField";
 import styles from "../../shared/Forms.module.css";
+import style from "../../shared/PostList.module.css";
 import UnauthorisedModal from "../../atoms/posts/UnauthorisedModal";
 import Modal from "react-modal";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    border: 0,
-  },
-};
 
 export default function LoginForm({ isLoggedIn, setIsLoggedIn }) {
   const [valid, setValid] = useState(undefined);
@@ -164,11 +153,10 @@ export default function LoginForm({ isLoggedIn, setIsLoggedIn }) {
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
         contentLabel="Example Modal"
-        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <UnauthorisedModal
-          style={styles}
+          style={style.card}
           onClick={() => setIsOpen(false)}
           errorMsg={errorMsg}
           isLoggedIn={isLoggedIn}

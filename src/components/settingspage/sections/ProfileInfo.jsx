@@ -3,8 +3,7 @@ import ProfileCard from "./ProfileCard";
 
 export default function ProfileInfo({ userProfile }) {
   return (
-    <section>
-      <ProfileCard
+    <ProfileCard
         style={styles.card}
         id={userProfile._id}
         title={"Your profile info"}
@@ -13,7 +12,6 @@ export default function ProfileInfo({ userProfile }) {
         instrument={userProfile.instrument}
         email={userProfile.email}
         date={userProfile.dateOfCreation}
-      />
-    </section>
+    />
   );
 }

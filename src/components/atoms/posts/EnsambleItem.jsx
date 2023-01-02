@@ -5,18 +5,6 @@ import UnauthorisedModal from "./UnauthorisedModal";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    border: 0,
-  },
-};
-
 export default function EnsambleItem({
   style,
   id,
@@ -135,7 +123,7 @@ export default function EnsambleItem({
             <h4 className={styles.postTitle}>{name}</h4>
             <div className={styles.postInfo}>
               {isLoggedIn && (
-                <div style={{ marginTop: -10, marginBottom: 15 }}>
+                <div className={styles.ensembleDescription}>
                   <p>{description}</p>
                 </div>
               )}
@@ -153,29 +141,22 @@ export default function EnsambleItem({
               )}
               <div className={styles.info}>
                 <img src="../img/music-solid.svg" alt="music note" />
-                <p className="post-instrument">Ensamble members:</p>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: 25,
-                  marginTop: -8,
-                }}
-              >
-                {members.length === 0 ? (
-                  <p>This ensamble has no members as of yet</p>
-                ) : (
-                  members.map((member) => {
-                    return (
-                      <p>
-                        {member.name + " " + member.surname} -{" "}
-                        {member.instrument === "Conductor" ? "as " : "plays "}
-                        {member.instrument.toLowerCase()}
-                      </p>
-                    );
-                  })
-                )}
+				<div className={styles.memberList}>
+                  <p className="post-instrument">Ensamble members:</p>
+				  {members.length === 0 ? (
+					<p>This ensamble has no members as of yet</p>
+					) : (
+					members.map((member) => {
+						return (
+						<p>
+							{member.name + " " + member.surname} -{" "}
+							{member.instrument === "Conductor" ? "as " : "plays "}
+							{member.instrument.toLowerCase()}
+						</p>
+						);
+					})
+				  )}
+				</div>
               </div>
             </div>
           </div>
@@ -184,14 +165,10 @@ export default function EnsambleItem({
           </div>
         </div>
         <div
-          className={
-            isLoggedIn ? styles.metaWrapper : styles.metaWrapperEnsamble
-          }
+          className={styles.metaWrapper}
         >
-          {slice.length == 0 && (
-            <>
-              {isLoggedIn && (
-                <SecondaryButton
+          {isLoggedIn && (
+              <SecondaryButton
                   onClick={() => (window.location = `mailto:${email}`)}
                   type="button"
                   text="Contact"
@@ -216,19 +193,16 @@ export default function EnsambleItem({
                   />
                 )}
               </p>
-            </>
-          )}
         </div>
       </div>
       <Modal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
         contentLabel="Example Modal"
-        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <UnauthorisedModal
-          style={styles}
+          style={style}
           onClick={() => setIsOpen(false)}
           errorMsg={errorMsg}
           isLoggedIn={isLoggedIn}

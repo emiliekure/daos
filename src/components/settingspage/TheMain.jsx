@@ -3,6 +3,7 @@ import UpdateForm from "./sections/UpdateForm";
 import ProfileInfo from "./sections/ProfileInfo";
 import MyPosts from "./sections/MyPosts";
 import MyEnsembles from "./sections/MyEnsembles";
+import styles from "./ProfileInfo.module.css";
 
 export default function TheMain({
   posts,
@@ -80,15 +81,17 @@ export default function TheMain({
     <main>
       {userProfile && (
         <>
-          <ProfileInfo userProfile={userProfile} />
-          <UpdateForm
-            userProfile={userProfile}
-            getProfile={getProfile}
-            fetchPosts={fetchPosts}
-            fetchEnsambles={fetchEnsambles}
-            token={token}
-            isLoggedIn={isLoggedIn}
-          />
+		  <section className={styles.profileData}>
+          	<ProfileInfo userProfile={userProfile} />
+          	<UpdateForm
+				userProfile={userProfile}
+				getProfile={getProfile}
+				fetchPosts={fetchPosts}
+				fetchEnsambles={fetchEnsambles}
+				token={token}
+				isLoggedIn={isLoggedIn}
+          	/>
+		  </section>
           <MyPosts
             posts={posts}
             fetchPosts={fetchPosts}
