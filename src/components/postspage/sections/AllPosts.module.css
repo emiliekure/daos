@@ -16,18 +16,13 @@
   color: #353a5d;
 }
 
-.filters,
-.filterFields {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 20px;
-}
-
 .filters {
-  width: 80%;
+  display: flex;
+  gap: 32px;
+  margin-bottom: 24px;
 }
 
-.filterFields > * {
+.filters > * {
   min-width: 320px;
 }
 
@@ -47,7 +42,7 @@
   gap: 8px;
   width: min-content;
   height: 100%;
-  margin-top: 10px;
+  align-items: center;
 }
 
 .filterTab {

@@ -216,7 +216,7 @@ export default function EnsambleItem({
         shouldCloseOnOverlayClick
       >
         <ApproveLeaveModal
-          style={styles}
+          style={style}
           setApproveLeave={() => setApproveLeave(false)}
           handleRemoveMember={handleRemoveMember}
           id={id}

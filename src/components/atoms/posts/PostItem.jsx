@@ -158,7 +158,7 @@ export default function PostItem({
               />
             ) : (
               <UnauthorisedModal
-                style={styles}
+                style={style}
                 onClick={() => setIsOpen(false)}
                 errorMsg={errorMsg}
                 isLoggedIn={isLoggedIn}
@@ -173,7 +173,7 @@ export default function PostItem({
             shouldCloseOnOverlayClick
           >
             <ApproveDeleteModal
-              style={styles}
+              style={style}
               setApproveDelete={() => setApproveDelete(false)}
               handleDelete={handleDelete}
               id={id}
