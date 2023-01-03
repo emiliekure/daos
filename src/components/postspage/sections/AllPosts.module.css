@@ -5,9 +5,9 @@
 }
 
 .header {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .header h1 {
@@ -18,58 +18,59 @@
 
 .filters,
 .filterFields {
-	display: flex;
-	gap: 24px;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
 }
 
 .filters {
-	width: 80%;
+  width: 80%;
 }
 
 .filterFields > * {
-	min-width: 320px;
+  min-width: 320px;
 }
 
 .filterTabs {
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .filterTabs h3 {
-	text-align: left;
-	text-transform: capitalize;
+  text-align: left;
+  text-transform: capitalize;
 }
 
 .filterButtons {
-	display: flex;
-	gap: 8px;
-	width: min-content;
-	height: 100%;
-	align-items: center;
+  display: flex;
+  gap: 8px;
+  width: min-content;
+  height: 100%;
+  margin-top: 10px;
 }
 
 .filterTab {
-	height: min-content;
+  height: min-content;
 }
 
 .filterTab input {
-	display: none;
+  display: none;
 }
 
 .filterTab label {
-	color: #353a5d;
-	font-weight: 700;
-	border: none;
-	background-color: #E8E8E8;
-	border-radius: 64px;
-	padding: 8px 16px;
-	white-space: nowrap;
-	display: block;
-	cursor: pointer;
+  color: #353a5d;
+  font-weight: 700;
+  border: none;
+  background-color: #e8e8e8;
+  border-radius: 64px;
+  padding: 8px 16px;
+  white-space: nowrap;
+  display: block;
+  cursor: pointer;
 }
 
 .filterTab input:checked + label {
-	color: #FFFFFF;
-	background-color: #353a5d;
+  color: #ffffff;
+  background-color: #353a5d;
 }
