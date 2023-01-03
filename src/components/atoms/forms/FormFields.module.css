@@ -1,59 +1,69 @@
+.locationFields {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 16px;
+	width: 100%;
+}
+
+.locationFields > div:first-child {
+	max-width: 35%;
+}
+
+.locationFields > div:last-child {
+	width: 100%;
+}
+
 .fieldgroup {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
 .fieldgroup label {
-  display: inline-block;
+	display: inline-block;
 }
 
 .fieldgroup h2::after {
-  content: " *";
-  color: #bf1e2e;
+	content: " *";
+	color: #bf1e2e;
+}
+
+.fieldgroup label[for="city"] h2::after {
+	color: #faf9f9;
 }
 
 .fieldgroup h2::first-letter {
-  text-transform: capitalize;
+	text-transform: capitalize;
+}
+
+.fieldgroup h3 {
+	text-align: left;
+	text-transform: capitalize;
 }
 
 .fieldgroup div.radiolabel {
-  display: flex;
-  align-self: flex-start;
-  gap: 12px;
+	display: flex;
+	align-self: flex-start;
+	gap: 12px;
 }
 
-input,
-select,
-textarea {
-  font-size: 16px;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid #cccccc;
+.fieldgroup input,
+.fieldgroup select,
+.fieldgroup textarea {
+	font-size: 16px;
+	padding: 16px;
+	border-radius: 8px;
+	border: 1px solid #cccccc;
 }
 
-textarea {
-  resize: none;
-  height: 160px;
+.fieldgroup textarea {
+	resize: none;
+	height: 160px;
 }
 
-.cityfieldgroup {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.cityfieldgroup label {
-  display: inline-block;
-  margin-top: 33.5px;
-}
-
-.cityfieldgroup h2::first-letter {
-  text-transform: capitalize;
-}
-
-.cityfieldgroup div.radiolabel {
-  display: flex;
-  align-self: flex-start;
-  gap: 12px;
+.fieldgroup input[type="search"] {
+	background-image: url("../img/search.png");
+	background-repeat: no-repeat;
+	background-position: right 16px bottom 50%;
+	background-size: 24px;
 }

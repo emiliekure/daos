@@ -1,8 +1,7 @@
 import PrimaryButton from "../../atoms/buttons/PrimaryButton";
-import InstrumentSelect from "../../atoms/forms/InstrumentSelect";
 import styles from "./Hero.module.css";
 import { Link } from "react-router-dom";
-import InstrumentFilterSelect from "../../postspage/sections/shared/InstrumentFilterSelect";
+import InstrumentFilterSelect from "../../atoms/forms/InstrumentFilterSelect";
 
 export default function Hero({ instrumentSelect, setInstrumentSelect }) {
   return (

@@ -7,6 +7,7 @@
 .card {
 	background-color: white;
 	min-height: 192px;
+	height: max-content;
 	cursor: pointer;
 	border-radius: 12px;
 	border: 1px solid #cccccc;

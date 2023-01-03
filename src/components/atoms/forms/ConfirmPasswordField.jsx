@@ -10,7 +10,7 @@ export default function ConfirmPasswordField({
 }) {
   return (
     <div className={styles.fieldgroup}>
-      <label for={type}>
+      <label htmlFor={type}>
         <h2>{type.replace("-", " ")}</h2>
       </label>
       <input
@@ -21,7 +21,7 @@ export default function ConfirmPasswordField({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        style={{ borderColor: !isMatching ? "red" : "grey" }}
+        style={{ borderColor: !isMatching ? "red" : "" }}
       />
       {!isMatching && <p>Sorry the passwords dont match</p>}
     </div>

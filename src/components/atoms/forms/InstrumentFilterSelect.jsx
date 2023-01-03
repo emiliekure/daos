@@ -1,6 +1,6 @@
 import styles from "./FormFields.module.css";
 
-export default function InstrumentSelect({ name, value, onChange }) {
+export default function InstrumentFilterSelect({ name, value, onChange }) {
 	const instruments = [
 		"Violin",
 		"Viola",
@@ -29,7 +29,7 @@ export default function InstrumentSelect({ name, value, onChange }) {
 	return (
 		<div className={styles.fieldgroup}>
 			<label htmlFor={name}>
-				<h2>{name.replace("-", " ")}</h2>
+				<h3>{name.replace("-", " ")}</h3>
 			</label>
 			<select
 				name={name}

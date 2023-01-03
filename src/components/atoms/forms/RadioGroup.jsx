@@ -6,7 +6,7 @@ export default function RadioGroup({options, group, onClick }) {
 			<h2>{group.replace("-", " ")}</h2>
 			{options.map((option) => {
 				return (
-					<label for={option} className={styles.radiolabel}>
+					<label htmlFor={option} className={styles.radiolabel}>
 						{option.charAt(0).toUpperCase() + option.slice(1)}
 						<input
 							name={group}

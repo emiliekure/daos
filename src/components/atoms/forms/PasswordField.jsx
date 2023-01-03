@@ -9,7 +9,7 @@ export default function PasswordField({
 }) {
   return (
     <div className={styles.fieldgroup}>
-      <label for={type}>
+      <label htmlFor={type}>
         <h2>{type.replace("-", " ")}</h2>
       </label>
       <input

@@ -12,7 +12,7 @@ export default function ProfileCard({
 }) {
   return (
     <>
-      <div className={style} id={id + "div"}>
+      <div className={style} style={{ marginTop: 45 }} id={id + "div"}>
         <div className={styles.contentWrapper}>
           <div className={styles.postContent}>
             <h4 className={styles.postTitle}>{title}</h4>
