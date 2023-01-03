@@ -105,7 +105,6 @@ export default function MyPost({
         isOpen={approveDelete}
         onRequestClose={() => setApproveDelete(false)}
         contentLabel="Example Modal"
-        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <ApproveDeleteModal

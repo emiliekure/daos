@@ -4,18 +4,6 @@ import Modal from "react-modal";
 import ApproveDeleteModal from "../../atoms/posts/ApproveDeleteModal";
 import { useState } from "react";
 import ApproveLeaveModal from "../../atoms/posts/ApproveLeaveModal ";
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    border: 0,
-  },
-};
-
 export default function MyEnsamble({
   style,
   id,
@@ -152,7 +140,6 @@ export default function MyEnsamble({
         isOpen={approveDelete}
         onRequestClose={() => setApproveDelete(false)}
         contentLabel="Example Modal"
-        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <ApproveDeleteModal
@@ -167,7 +154,6 @@ export default function MyEnsamble({
         isOpen={approveLeave}
         onRequestClose={() => setApproveLeave(false)}
         contentLabel="Example Modal"
-        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <ApproveLeaveModal

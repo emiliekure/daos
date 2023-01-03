@@ -142,22 +142,22 @@ export default function EnsambleItem({
               )}
               <div className={styles.info}>
                 <img src="../img/music-solid.svg" alt="music note" />
-				<div className={styles.memberList}>
+                <div className={styles.memberList}>
                   <p className="post-instrument">Ensamble members:</p>
-				  {members.length === 0 ? (
-					<p>This ensamble has no members as of yet</p>
-					) : (
-					members.map((member) => {
-						return (
-						<p>
-							{member.name + " " + member.surname} -{" "}
-							{member.instrument === "Conductor" ? "as " : "plays "}
-							{member.instrument.toLowerCase()}
-						</p>
-						);
-					})
-				  )}
-				</div>
+                  {members.length === 0 ? (
+                    <p>This ensamble has no members as of yet</p>
+                  ) : (
+                    members.map((member) => {
+                      return (
+                        <p>
+                          {member.name + " " + member.surname} -{" "}
+                          {member.instrument === "Conductor" ? "as " : "plays "}
+                          {member.instrument.toLowerCase()}
+                        </p>
+                      );
+                    })
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -165,35 +165,35 @@ export default function EnsambleItem({
             <img src="../img/instruments.svg" alt="instrument icon" />
           </div>
         </div>
-        <div
-          className={styles.metaWrapper}
-        >
+        <div className={styles.metaWrapper}>
           {isLoggedIn && (
-              <SecondaryButton
-                  onClick={() => (window.location = `mailto:${email}`)}
+            <SecondaryButton
+              onClick={() => (window.location = `mailto:${email}`)}
+              type="button"
+              text="Contact"
+            />
+          )}
+          {slice.length == 0 && (
+            <p className={styles.postMeta}>
+              {isAMember ? (
+                <PrimaryButton
                   type="button"
-                  text="Contact"
+                  name="leaveBtn"
+                  text="Leave"
+                  id="removeMember"
+                  onClick={() => setApproveLeave(true)}
+                />
+              ) : (
+                <PrimaryButton
+                  type="button"
+                  name="joinBtn"
+                  id={id}
+                  onClick={(evt) => handleAddMember(evt.target.id)}
+                  text="Join"
                 />
               )}
-              <p className={styles.postMeta}>
-                {isAMember ? (
-                  <PrimaryButton
-                    type="button"
-                    name="leaveBtn"
-                    text="Leave"
-                    id="removeMember"
-                    onClick={() => setApproveLeave(true)}
-                  />
-                ) : (
-                  <PrimaryButton
-                    type="button"
-                    name="joinBtn"
-                    id={id}
-                    onClick={(evt) => handleAddMember(evt.target.id)}
-                    text="Join"
-                  />
-                )}
-              </p>
+            </p>
+          )}
         </div>
       </div>
       <Modal
@@ -213,7 +213,6 @@ export default function EnsambleItem({
         isOpen={approveLeave}
         onRequestClose={() => setApproveLeave(false)}
         contentLabel="Example Modal"
-        style={customStyles}
         shouldCloseOnOverlayClick
       >
         <ApproveLeaveModal
