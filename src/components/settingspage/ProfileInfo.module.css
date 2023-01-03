@@ -1,4 +1,6 @@
 .profileData {
-	display: flex;
-	gap: 40px;
+  display: grid;
+  grid-template-columns: 45% 65%;
+  margin-left: 50px;
+  margin-right: 50px;
 }
