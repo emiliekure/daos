@@ -21,23 +21,21 @@ export default function AllPosts({
         <h1>Posts</h1>
         <p id="resultCounter"></p>
         <div className={styles.filters}>
-          <div className={styles.filterFields}>
-            <SearchField
-              type="search"
-              max="120"
-              placeholder="Search for location"
-              value={searchTerm}
-              onChange={(evt) => setSearchTerm(evt.target.value)}
-            />
-            <InstrumentFilterSelect
-              name="instrument"
-              value={instrumentSelect}
-              onChange={(evt) => setInstrumentSelect(evt.target.value)}
-            />
-          </div>
+		  <SearchField
+			type="search"
+			max="120"
+			placeholder="Search for location"
+			value={searchTerm}
+			onChange={(evt) => setSearchTerm(evt.target.value)}
+          />
+          <InstrumentFilterSelect
+			name="instrument"
+			value={instrumentSelect}
+			onChange={(evt) => setInstrumentSelect(evt.target.value)}
+    	  />
 
           <div className={styles.filterTabs}>
-            <h3>Post-type</h3>
+            <h3>Post type</h3>
             <div className={styles.filterButtons}>
               <div className={styles.filterTab}>
                 <input
