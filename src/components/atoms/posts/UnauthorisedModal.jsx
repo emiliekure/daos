@@ -30,23 +30,29 @@ export default function UnauthorisedModal({
           >
             <img src="../img/xmark-solid.svg" alt="close icon" />
           </button>
-        </div>
-        {!isLoggedIn &&
-          !window.location.href === "http://127.0.0.1:5173/login" && (
+          <h4 className={styles.postTitle}>
+            {isLoggedIn ? title : "You are not logged in!"}
+          </h4>
+          <p>{errorMsg}</p>
+          {!isLoggedIn && (
             <div className={btnstyles.buttons}>
-              <Link to={"/signup"}>
-                <PrimaryButton id="signup" type="button" text="Sign up" />
-              </Link>
-              <Link to={"/login"}>
-                <SecondaryButton type="button" text="Login" />
-              </Link>
+              {window.location.href === "http://127.0.0.1:5173/signup" ? (
+                <Link to={"/login"}>
+                  <PrimaryButton id="login" type="button" text="Login" />
+                </Link>
+              ) : (
+                <>
+                  <Link to={"/signup"}>
+                    <PrimaryButton id="signup" type="button" text="Sign up" />
+                  </Link>
+                  <Link to={"/login"}>
+                    <SecondaryButton type="button" text="Login" />
+                  </Link>
+                </>
+              )}
             </div>
           )}
-        {window.location.href === "http://127.0.0.1:5173/signup" && (
-          <Link to={"/login"}>
-            <PrimaryButton type="button" text="Login" />
-          </Link>
-        )}
+        </div>
       </div>
     </div>
   );

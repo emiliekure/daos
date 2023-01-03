@@ -1,4 +1,20 @@
+import PrimaryButton from "../../atoms/buttons/PrimaryButton";
 import styles from "./ProfileCard.module.css";
+import Modal from "react-modal";
+import ApproveDeleteModal from "../../atoms/posts/ApproveDeleteModal";
+import { useState } from "react";
+import ApproveLeaveModal from "../../atoms/posts/ApproveLeaveModal ";
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: 0,
+  },
+};
 
 export default function MyEnsamble({
   style,
@@ -10,9 +26,13 @@ export default function MyEnsamble({
   capacity,
   location,
   fetchEnsambles,
+  userProfile,
+  token,
 }) {
+  const [approveDelete, setApproveDelete] = useState(false);
+  const [approveLeave, setApproveLeave] = useState(false);
+
   function handleDelete(ensambleId) {
-    const token = localStorage.getItem("token");
     fetch(`http://localhost:3004/ensambles/${ensambleId}`, {
       method: "DELETE",
       headers: {
@@ -22,6 +42,27 @@ export default function MyEnsamble({
     })
       .then((response) => response.json())
       .then((response) => {
+        setApproveDelete(false);
+        console.log(response);
+        fetchEnsambles();
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function handleRemoveMember(ensambleId) {
+    fetch(
+      `http://localhost:3004/ensambles/${ensambleId}/members/${userProfile._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setApproveLeave(false);
         console.log(response);
         fetchEnsambles();
       })
@@ -82,17 +123,60 @@ export default function MyEnsamble({
         </div>
         <div className={styles.metaWrapperEnsamble}>
           <p className={styles.postMeta}>
-            <button type="button" name="deleteBtn" className={styles.deleteBtn}>
-              <img
-                id={id}
-                src="../img/trash-can.svg"
-                alt="trash can"
-                onClick={(evt) => handleDelete(evt.target.id)}
+            {creator[0]._id === userProfile._id ? (
+              <button
+                type="button"
+                name="deleteBtn"
+                className={styles.deleteBtn}
+              >
+                <img
+                  id="deleteTrashCan"
+                  src="../img/trash-can.svg"
+                  alt="trash can"
+                  onClick={() => setApproveDelete(true)}
+                />
+              </button>
+            ) : (
+              <PrimaryButton
+                type="button"
+                name="leaveBtn"
+                text="Leave"
+                id="leaveEnsembleBtn"
+                onClick={() => setApproveLeave(true)}
               />
-            </button>
+            )}
           </p>
         </div>
       </div>
+      <Modal
+        isOpen={approveDelete}
+        onRequestClose={() => setApproveDelete(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+        shouldCloseOnOverlayClick
+      >
+        <ApproveDeleteModal
+          style={styles}
+          setApproveDelete={() => setApproveDelete(false)}
+          handleDelete={handleDelete}
+          id={id}
+          post={false}
+        />
+      </Modal>
+      <Modal
+        isOpen={approveLeave}
+        onRequestClose={() => setApproveLeave(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+        shouldCloseOnOverlayClick
+      >
+        <ApproveLeaveModal
+          style={styles}
+          setApproveLeave={() => setApproveLeave(false)}
+          handleRemoveMember={handleRemoveMember}
+          id={id}
+        />
+      </Modal>
     </>
   );
 }

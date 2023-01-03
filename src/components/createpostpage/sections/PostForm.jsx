@@ -124,8 +124,8 @@ export default function PostForm({ isLoggedIn, setIsLoggedIn }) {
     if (formValues.title.length === 0) {
       setErrorTitle("Title cannot be empty");
       console.log(errorTitle);
-    } else if (formValues.title.length < 5 || formValues.title.length > 21) {
-      setErrorTitle("Title has to be min 5 characters and max 20 characters!");
+    } else if (formValues.title.length < 5 || formValues.title.length > 36) {
+      setErrorTitle("Title has to be min 5 characters and max 35 characters!");
     } else {
       setErrorTitle("");
     }
