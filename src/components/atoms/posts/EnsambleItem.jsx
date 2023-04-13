@@ -143,7 +143,9 @@ export default function EnsambleItem({
               <div className={styles.info}>
                 <img src="../img/music-solid.svg" alt="music note" />
                 <div className={styles.memberList}>
-                  <p className="post-instrument">Ensamble members:</p>
+                  <p className="post-instrument">
+                    Ensamble members (max. {capacity}):
+                  </p>
                   {members.length === 0 ? (
                     <p>This ensamble has no members as of yet</p>
                   ) : (

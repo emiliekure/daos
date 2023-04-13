@@ -1,0 +1,84 @@
+/* Set up a modern color scheme with bold and bright colors */
+:root {
+  --primary-color: #fca311;
+  --secondary-color: #14213d;
+  --text-color: #ffffff;
+}
+
+/* Style the PostForm container */
+.post-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Style the PostForm heading */
+.post-form label {
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Style the input fields */
+.post-form input[type="text"],
+.post-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--secondary-color);
+  background-color: var(--text-color);
+}
+
+/* Style the submit button */
+.post-form button[type="submit"] {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-form button[type="submit"]:hover {
+  background-color: #e37222;
+}
+
+/* Add custom icons for input fields */
+.post-form input[type="text"]::before {
+  content: "\f007";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-right: 10px;
+}
+
+.post-form textarea::before {
+  content: "\f040";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-right: 10px;
+}
+
+/* Add custom animations to the PostForm */
+.post-form input[type="text"]:hover,
+.post-form textarea:hover {
+  transform: scale(1.05);
+}
+
+.post-form button[type="submit"]:hover {
+  background-color: #e37222;
+  transform: scale(1.05);
+}

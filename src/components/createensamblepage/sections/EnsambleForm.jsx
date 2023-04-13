@@ -42,7 +42,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
 
   // Function to verify the inputs
   const verifyInputs = (event) => {
-    event.preventDefault();
+    /* event.preventDefault(); */
     if (
       formValues.name === "" ||
       formValues.capacity === "" ||
@@ -203,7 +203,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
   return (
     <section className={styles.formWrapper}>
       <h1>Create an ensamble</h1>
-      <form className={styles.form} onSubmit={verifyInputs}>
+      <form className={styles.form} /* onSubmit={verifyInputs} */>
         <TextField
           name="name"
           id="name"
@@ -229,7 +229,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
         <TextField
           name="capacity"
           max=""
-		  placeholder="Maximum number of allowed members"
+          placeholder="Maximum number of allowed members"
           value={formValues.capacity}
           onChange={updateFormValue}
           onBlur={checkEnsambleCapacity}
@@ -239,7 +239,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
         <div className={style.locationFields}>
           <TextField
             name="location"
-			placeholder="Zip code"
+            placeholder="Zip code"
             value={formValues.location}
             onChange={updateFormValue}
             onBlur={checkZipCode}
@@ -247,7 +247,7 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
           />
           <TextField
             name="city"
-			placeholder="City"
+            placeholder="City"
             value={formValues.city}
             onChange={updateFormValue}
             onBlur={checkCity}
@@ -264,7 +264,12 @@ export default function EnsambleForm({ isLoggedIn, setIsLoggedIn }) {
           ensambleDescriptionError={ensambleDescriptionError}
         />
 
-        <PrimaryButton id="submit" type="submit" text="Submit" />
+        <PrimaryButton
+          id="submit"
+          type="button"
+          onClick={verifyInputs}
+          text="Submit"
+        />
         {!valid && <p>{errorMsg}</p>}
       </form>
       <Modal

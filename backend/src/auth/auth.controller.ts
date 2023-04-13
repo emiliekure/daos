@@ -18,12 +18,4 @@ export class AuthController {
 
     return this.auService.loginUser(req.user);
   }
-  /*  @Post('auth/login')
-  async loginUser(@Req() request: Request, @Body() body): Promise<Profile> {
-    console.log(request);
-    const result: Profile = await this.auService.loginUser(body.email);
-    console.log(result);
-
-    return result;
-  } */
 }

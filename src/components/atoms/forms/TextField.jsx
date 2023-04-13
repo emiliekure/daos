@@ -20,12 +20,10 @@ export default function TextField({
   ensambleLocationError,
 }) {
   return (
-    <div
-      className={styles.fieldgroup}
-    >
-		<label htmlFor={name}>
-			<h2>{name !== "city" && name.replace("-", " ")}</h2>
-		</label>
+    <div className={styles.fieldgroup}>
+      <label htmlFor={name}>
+        <h2>{name !== "city" && name.replace("-", " ")}</h2>
+      </label>
       {id === "ensamble-email" && (
         <p>
           Type in the email address of your ensamble OR leave the field empty if
