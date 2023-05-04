@@ -26,16 +26,18 @@ export default function TheHeader({ isLoggedIn, setIsLoggedIn }) {
           <li>
             <Link to={"/posts"}>Posts</Link>
           </li>
-          <li>
-            <Link to={"/createpost"}>Create post</Link>
-          </li>
-          <li>
-            <Link to={"/createensamble"}>Create ensamble</Link>
-          </li>
           {isLoggedIn && (
-            <li>
-              <Link to={"/settings"}>Settings</Link>
-            </li>
+            <>
+              <li>
+                <Link to={"/createpost"}>Create post</Link>
+              </li>
+              <li>
+                <Link to={"/createensamble"}>Create ensamble</Link>
+              </li>
+              <li>
+                <Link to={"/settings"}>Settings</Link>
+              </li>
+            </>
           )}
         </ul>
         <div className={styles.buttons}>
